@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trustnet Factsheet — Real Heatmap (Clarity Data) | Apr 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dark:#253746;--teal:#00A499;--red:#E81A3F;--gold:#C9A227;--bg:#F0F2F5;--white:#fff;--border:#e0e0e0;--muted:#666}
+body{font-family:'Source Sans 3',sans-serif;color:#1a1a1a;background:var(--bg)}
+
+/* HEADER */
+.header{background:var(--dark);padding:12px 0}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-box{width:32px;height:32px;background:var(--teal);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.logo-box svg{width:20px;height:20px;fill:#fff}
+.logo-text{font-size:20px;font-weight:700;color:#fff}
+.logo-text span{color:var(--teal)}
+.header-right{display:flex;gap:16px}
+.header-right a{color:rgba(255,255,255,0.65);font-size:13px;font-weight:600;text-decoration:none}
+
+/* NAV STRIP */
+.nav-strip{background:var(--teal);padding:0 24px}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex}
+.nav-link{color:rgba(255,255,255,0.85);font-size:13px;font-weight:600;padding:10px 18px;text-decoration:none}
+
+/* SEARCH BAR */
+.search-bar-wrapper{background:var(--dark);padding:12px 0;position:relative}
+.search-bar-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:12px}
+.search-input{flex:1;padding:10px 16px;border:none;border-radius:6px;font-size:14px;font-family:'Source Sans 3',sans-serif;outline:none}
+.search-btn{background:var(--teal);color:#fff;border:none;border-radius:6px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Source Sans 3',sans-serif}
+
+/* FUND HERO */
+.fund-hero{background:var(--dark);padding:28px 0 0}
+.fund-hero-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.fund-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,164,153,0.15);border:1px solid rgba(0,164,153,0.3);color:var(--teal);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px}
+.fund-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:6px}
+.fund-sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px}
+.fund-meta-row{display:flex;align-items:center;gap:16px;padding-bottom:20px;flex-wrap:wrap}
+.fund-price{font-size:28px;font-weight:700;color:#fff}
+.fund-chg{font-size:13px;font-weight:600;color:#4ade80;background:rgba(74,222,128,0.1);padding:3px 8px;border-radius:4px}
+.fund-pill{font-size:11px;color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.07);padding:3px 10px;border-radius:4px}
+
+/* TAB BAR */
+.tab-bar{background:var(--dark);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100}
+.tab-bar-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex}
+.tab{padding:13px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.2s;user-select:none}
+.tab:hover{color:#fff}
+.tab.active{color:#fff;border-bottom-color:var(--teal)}
+
+/* CONTENT */
+.section{display:none}.section.active{display:block}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.two-col{display:grid;grid-template-columns:1fr 320px;gap:20px}
+.card{background:#fff;border-radius:10px;border:1px solid var(--border);padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.card-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--teal)}
+
+/* FUND TABLE */
+.fund-table{width:100%;border-collapse:collapse;font-size:13px}
+.fund-table th{background:var(--dark);color:#fff;padding:9px 12px;text-align:left;font-size:11px;font-weight:600}
+.fund-table td{padding:9px 12px;border-bottom:1px solid #f5f5f5}
+.fund-table tr:hover td{background:#f0faf9;cursor:pointer}
+.fund-link{color:var(--teal);font-weight:600;text-decoration:none}
+
+/* HEATMAP OVERLAY */
+.heatmap-btn{position:fixed;bottom:24px;right:24px;background:var(--dark);color:#fff;border:2px solid var(--teal);border-radius:30px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;z-index:9999;font-family:'Source Sans 3',sans-serif;transition:all 0.2s;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+.heatmap-btn:hover{background:var(--teal)}
+
+/* HEATMAP ZONES — positioned over real click areas */
+.hz{position:absolute;border-radius:50%;pointer-events:none;transition:opacity 0.4s;opacity:0}
+.hz.hot{background:radial-gradient(ellipse,rgba(232,26,63,0.7) 0%,rgba(255,100,0,0.3) 40%,transparent 70%)}
+.hz.warm{background:radial-gradient(ellipse,rgba(255,165,0,0.6) 0%,rgba(255,200,0,0.2) 40%,transparent 70%)}
+.hz.cool{background:radial-gradient(ellipse,rgba(74,222,128,0.5) 0%,rgba(0,164,153,0.15) 40%,transparent 70%)}
+
+/* LEGEND */
+.heatmap-legend{position:fixed;bottom:70px;right:24px;background:var(--dark);border-radius:10px;padding:14px 18px;font-size:11px;color:#fff;z-index:9999;display:none;border:1px solid rgba(255,255,255,0.1);box-shadow:0 4px 16px rgba(0,0,0,0.3)}
+.legend-title{font-weight:700;margin-bottom:10px;color:var(--teal);font-size:12px}
+.legend-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+/* DATA SOURCE BANNER */
+.data-banner{background:#253746;border-bottom:3px solid var(--teal);padding:10px 0}
+.data-banner-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.data-pill{font-size:11px;font-weight:700;color:rgba(255,255,255,0.9);background:rgba(0,164,153,0.2);padding:3px 10px;border-radius:20px;border:1px solid rgba(0,164,153,0.3)}
+.data-text{font-size:12px;color:rgba(255,255,255,0.6)}
+
+/* CLICK STATS PANEL */
+.click-stats{background:var(--dark);border-radius:10px;padding:18px;margin-bottom:16px}
+.click-stats-title{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.click-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.click-label{font-size:11px;color:rgba(255,255,255,0.7);width:160px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.click-track{flex:1;background:rgba(255,255,255,0.08);border-radius:3px;height:8px;overflow:hidden}
+.click-fill{height:100%;border-radius:3px}
+.click-fill.hot{background:var(--red)}
+.click-fill.warm{background:orange}
+.click-fill.cool{background:var(--teal)}
+.click-pct{font-size:11px;color:rgba(255,255,255,0.8);font-weight:700;width:40px;text-align:right;flex-shrink:0}
+
+/* PERF TABLE */
+.perf-table{width:100%;border-collapse:collapse;font-size:13px}
+.perf-table th{background:var(--dark);color:#fff;padding:8px 12px;text-align:left;font-size:11px;font-weight:600}
+.perf-table td{padding:8px 12px;border-bottom:1px solid #f5f5f5}
+.pos{color:#0A7A3A;font-weight:600}.neg{color:#C00000;font-weight:600}
+
+/* INSIGHT BOX */
+.insight{background:var(--teal);border-radius:8px;padding:18px;margin-top:16px}
+.insight-title{font-size:11px;font-weight:700;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.insight-text{font-size:13px;color:#fff;line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-box"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
+      <span class="logo-text">Trust<span>net</span></span>
+    </a>
+    <div class="header-right">
+      <a href="#">Sign in</a>
+      <a href="#">Register free</a>
+    </div>
+  </div>
+</div>
+<div class="nav-strip">
+  <div class="nav-inner">
+    <a class="nav-link" href="#">News & Research</a>
+    <a class="nav-link" href="#">Funds</a>
+    <a class="nav-link" href="#">Find a Fund</a>
+    <a class="nav-link" href="#">Investment Trusts</a>
+    <a class="nav-link" href="#">My Portfolio</a>
+  </div>
+</div>
+
+<!-- SEARCH BAR — #1 clicked element (19% of all clicks) -->
+<div class="search-bar-wrapper" id="search-area">
+  <div class="search-bar-inner">
+    <input class="search-input" id="fund-search-text" type="text" placeholder="Fund name, SEDOL, ISIN or Citicode">
+    <button class="search-btn" id="search_button">Search</button>
+  </div>
+</div>
+
+<!-- DATA SOURCE BANNER -->
+<div class="data-banner">
+  <div class="data-banner-inner">
+    <span class="data-pill">🔥 Real Heatmap Data</span>
+    <span class="data-pill">Microsoft Clarity · trustnet.com</span>
+    <span class="data-text">5,145 page views · 1,742 clicks · Last 3 days · Apr 2026 · 66 elements tracked</span>
+  </div>
+</div>
+
+<!-- FUND HERO -->
+<div class="fund-hero">
+  <div class="fund-hero-inner">
+    <div class="fund-badge">⭐ 5 Crown Rated</div>
+    <div class="fund-title">Artemis Global Income I Inc Fund</div>
+    <div class="fund-sub">Artemis · IA Global Equity Income · Unit Trust · Most Researched Apr 2026</div>
+    <div class="fund-meta-row">
+      <div class="fund-price">245.60p</div>
+      <div class="fund-chg">▲ +1.2% today</div>
+      <div style="color:#C9A227;font-size:16px">★★★★☆</div>
+      <div class="fund-pill">OCF: 0.80%</div>
+      <div class="fund-pill">AUM: £3.2bn</div>
+      <div class="fund-pill">SRRI: 5/7</div>
+      <div class="fund-pill">ISIN: GB00B5N99561</div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-bar-inner">
+      <div class="tab active" id="tab-overview">Overview</div>
+      <div class="tab" id="tab-performance">Performance</div>
+      <div class="tab" id="tab-portfolio">Portfolio</div>
+      <div class="tab" id="tab-similar">Similar Funds</div>
+      <div class="tab" id="tab-heatmap">Heatmap Analysis</div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="section active" id="section-overview">
+<div class="container">
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-title">Performance Summary</div>
+        <table class="perf-table">
+          <thead><tr><th>Period</th><th>Fund</th><th>Sector</th><th>Quartile</th></tr></thead>
+          <tbody>
+            <tr><td>1 Year</td><td class="pos">+6.2%</td><td class="pos">+4.8%</td><td><strong>Q1</strong></td></tr>
+            <tr><td>3 Years</td><td class="pos">+14.1%</td><td class="pos">+10.2%</td><td><strong>Q1</strong></td></tr>
+            <tr><td>5 Years</td><td class="pos">+28.4%</td><td class="pos">+22.8%</td><td><strong>Q2</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">About this Fund</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">Artemis Global Income invests in global equities with a focus on dividend income and capital growth. Manager Jacob de Tusch-Lec targets companies with sustainable and growing dividends across 45+ countries.</p>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <span style="background:#e6f7f6;color:var(--teal);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">Income</span>
+          <span style="background:#e6f7f6;color:var(--teal);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">Global Equity</span>
+          <span style="background:#e6f7f6;color:var(--teal);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">4 Crown Rated</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <!-- REAL CLICK STATS -->
+      <div class="click-stats">
+        <div class="click-stats-title">🔥 Real Click Data — Clarity · Apr 2026</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px">5,145 views · 1,742 clicks · 66 elements</div>
+        <div class="click-bar-row"><div class="click-label">#fund-search-text</div><div class="click-track"><div class="click-fill hot" style="width:100%"></div></div><div class="click-pct">19.0%</div></div>
+        <div class="click-bar-row"><div class="click-label">Aviva Global Income link</div><div class="click-track"><div class="click-fill hot" style="width:73%"></div></div><div class="click-pct">13.8%</div></div>
+        <div class="click-bar-row"><div class="click-label">Fund table row 1</div><div class="click-track"><div class="click-fill warm" style="width:47%"></div></div><div class="click-pct">8.96%</div></div>
+        <div class="click-bar-row"><div class="click-label">Aviva link (alt)</div><div class="click-track"><div class="click-fill warm" style="width:39%"></div></div><div class="click-pct">7.35%</div></div>
+        <div class="click-bar-row"><div class="click-label">Aviva link (variant)</div><div class="click-track"><div class="click-fill warm" style="width:37%"></div></div><div class="click-pct">7.12%</div></div>
+        <div class="click-bar-row"><div class="click-label">#search_button</div><div class="click-track"><div class="click-fill cool" style="width:17%"></div></div><div class="click-pct">3.16%</div></div>
+        <div class="click-bar-row"><div class="click-label">Search icon</div><div class="click-track"><div class="click-fill cool" style="width:11%"></div></div><div class="click-pct">2.12%</div></div>
+        <div class="click-bar-row"><div class="click-label">Portfolio basket</div><div class="click-track"><div class="click-fill cool" style="width:6%"></div></div><div class="click-pct">1.15%</div></div>
+      </div>
+      <div class="insight">
+        <div class="insight-title">UX Insight from Clarity Data</div>
+        <div class="insight-text"><strong>19% of all clicks go to the search box</strong> — users immediately search for another fund after landing. This means users want to compare but there's no visible Compare CTA. Adding a prominent "Compare Funds" button next to search could increase pages/session from 1.72 → 2.4 target.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PERFORMANCE -->
+<div class="section" id="section-performance">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Discrete Annual Performance</div>
+    <table class="perf-table">
+      <thead><tr><th>Period</th><th>Fund</th><th>Sector Avg</th><th>Quartile</th><th>vs Sector</th></tr></thead>
+      <tbody>
+        <tr><td>Apr 2025 – Apr 2026</td><td class="pos">+6.2%</td><td class="pos">+4.8%</td><td><strong>Q1</strong></td><td class="pos">+1.4%</td></tr>
+        <tr><td>Apr 2024 – Apr 2025</td><td class="pos">+8.4%</td><td class="pos">+6.2%</td><td><strong>Q1</strong></td><td class="pos">+2.2%</td></tr>
+        <tr><td>Apr 2023 – Apr 2024</td><td class="pos">+4.8%</td><td class="pos">+3.1%</td><td><strong>Q2</strong></td><td class="pos">+1.7%</td></tr>
+        <tr><td>Apr 2022 – Apr 2023</td><td class="neg">-2.1%</td><td class="neg">-4.8%</td><td><strong>Q1</strong></td><td class="pos">+2.7%</td></tr>
+        <tr><td>Apr 2021 – Apr 2022</td><td class="pos">+14.2%</td><td class="pos">+9.8%</td><td><strong>Q1</strong></td><td class="pos">+4.4%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="section" id="section-portfolio">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Top Holdings</div>
+    <table class="perf-table">
+      <thead><tr><th>#</th><th>Company</th><th>Country</th><th>Sector</th><th>Weight</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Taiwan Semiconductor</td><td>Taiwan</td><td>Technology</td><td>4.8%</td></tr>
+        <tr><td>2</td><td>Microsoft Corp</td><td>USA</td><td>Technology</td><td>4.2%</td></tr>
+        <tr><td>3</td><td>Roche Holdings</td><td>Switzerland</td><td>Healthcare</td><td>3.8%</td></tr>
+        <tr><td>4</td><td>TotalEnergies SE</td><td>France</td><td>Energy</td><td>3.4%</td></tr>
+        <tr><td>5</td><td>Samsung Electronics</td><td>South Korea</td><td>Technology</td><td>3.1%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- SIMILAR FUNDS -->
+<div class="section" id="section-similar">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Similar Funds — IA Global Equity Income</div>
+    <table class="fund-table" id="fund_table">
+      <thead><tr><th>#</th><th>Fund Name</th><th>Crown</th><th>1yr</th><th>3yr</th><th>OCF</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><a class="fund-link" href="#">Aviva Inv Global Equity Income Acc</a></td><td>★★★★★</td><td class="pos">+7.8%</td><td class="pos">+16.2%</td><td>0.82%</td></tr>
+        <tr><td>2</td><td><a class="fund-link" href="#">M&G Global Dividend W Acc</a></td><td>★★★★☆</td><td class="pos">+5.4%</td><td class="pos">+12.8%</td><td>0.91%</td></tr>
+        <tr><td>3</td><td><a class="fund-link" href="#">Fidelity Global Dividend W Acc</a></td><td>★★★★★</td><td class="pos">+6.8%</td><td class="pos">+15.4%</td><td>0.75%</td></tr>
+        <tr><td>4</td><td><a class="fund-link" href="#">Newton Global Income Inst Acc</a></td><td>★★★☆☆</td><td class="pos">+4.2%</td><td class="pos">+9.8%</td><td>0.88%</td></tr>
+        <tr><td>5</td><td><a class="fund-link" href="#">Guinness Global Equity Income Y</a></td><td>★★★★☆</td><td class="pos">+7.1%</td><td class="pos">+14.2%</td><td>0.68%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- HEATMAP ANALYSIS TAB -->
+<div class="section" id="section-heatmap">
+<div class="container">
+  <div class="card">
+    <div class="card-title">Real Heatmap Analysis — Microsoft Clarity · Trustnet Factsheet Pages · Apr 2026</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+      <div style="background:#f7f9fa;border-radius:8px;padding:16px;border-left:4px solid var(--red)">
+        <div style="font-size:22px;font-weight:700;color:var(--red)">19.0%</div>
+        <div style="font-size:12px;font-weight:700;color:var(--dark);margin-top:2px">Fund Search Box</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">#fund-search-text · 331 clicks · HOT ZONE — users immediately search for another fund</div>
+      </div>
+      <div style="background:#f7f9fa;border-radius:8px;padding:16px;border-left:4px solid orange">
+        <div style="font-size:22px;font-weight:700;color:orange">13.8%</div>
+        <div style="font-size:12px;font-weight:700;color:var(--dark);margin-top:2px">Top Fund Link Clicks</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">241 clicks on Aviva Global Income · users comparing specific funds</div>
+      </div>
+      <div style="background:#f7f9fa;border-radius:8px;padding:16px;border-left:4px solid orange">
+        <div style="font-size:22px;font-weight:700;color:orange">8.96%</div>
+        <div style="font-size:12px;font-weight:700;color:var(--dark);margin-top:2px">Fund Table Row 1</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">156 clicks · first fund in table is most clicked — position matters</div>
+      </div>
+      <div style="background:#f7f9fa;border-radius:8px;padding:16px;border-left:4px solid var(--teal)">
+        <div style="font-size:22px;font-weight:700;color:var(--teal)">3.16%</div>
+        <div style="font-size:12px;font-weight:700;color:var(--dark);margin-top:2px">Search Button</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">55 clicks · users use Enter key more than button — UX insight</div>
+      </div>
+    </div>
+    <div style="background:var(--dark);border-radius:10px;padding:20px">
+      <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:12px">🎯 UX Recommendations — Based on Real Click Data</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:12px">
+          <div style="background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0;height:fit-content;margin-top:2px">HIGH</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6"><strong style="color:#fff">Add Compare CTA next to search</strong> — 19% of users immediately search for another fund. A "Compare with current fund" button next to search would capture this intent and increase fund_compare events.</p>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="background:orange;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0;height:fit-content;margin-top:2px">MED</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6"><strong style="color:#fff">Promote top similar funds above fold</strong> — Fund table row 1 gets 3x more clicks than row 2. Showing the top 3 similar funds in the hero section would increase pages/session.</p>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="background:var(--teal);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0;height:fit-content;margin-top:2px">LOW</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6"><strong style="color:#fff">Remove separate search button</strong> — 3.16% clicks on button vs 19% on search box. Users use Enter key. Button is dead space — remove and replace with "Add to Portfolio" CTA to capture track_fund events.</p>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;color:rgba(255,255,255,0.4)">
+        Data source: Microsoft Clarity · Project: umdolmiqsq · trustnet.com Factsheet-PDF page · Last 3 days · 5,145 page views · 1,742 real clicks · Pages/session current: 1.72 · Target: 2.4
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- HEATMAP OVERLAY BUTTON -->
+<button class="heatmap-btn" id="heatmap-btn" onclick="toggleHeatmap()">🔥 Show Heatmap</button>
+
+<!-- HEATMAP LEGEND -->
+<div class="heatmap-legend" id="heatmap-legend">
+  <div class="legend-title">Click Density — Real Clarity Data</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#E81A3F"></div><span>Hot — 10%+ clicks</span></div>
+  <div class="legend-row"><div class="legend-dot" style="background:orange"></div><span>Warm — 5–10% clicks</span></div>
+  <div class="legend-row"><div class="legend-dot" style="background:#00A499"></div><span>Cool — &lt;5% clicks</span></div>
+  <div style="margin-top:10px;font-size:10px;color:rgba(255,255,255,0.4)">Source: Microsoft Clarity<br>5,145 views · 1,742 clicks</div>
+</div>
+
+<!-- HEATMAP ZONES (positioned over real click areas) -->
+<!-- Search bar zone — 19% HOT -->
+<div class="hz hot" id="hz-search" style="width:400px;height:80px;top:168px;left:50%;transform:translateX(-50%)"></div>
+<!-- Fund table area — warm -->
+<div class="hz warm" id="hz-table" style="width:500px;height:200px;top:620px;left:200px"></div>
+<!-- Search button — cool -->
+<div class="hz cool" id="hz-btn" style="width:120px;height:60px;top:168px;right:180px"></div>
+
+<script>
+var heatmapOn = false;
+
+function toggleHeatmap(){
+  heatmapOn = !heatmapOn;
+  var btn = document.getElementById('heatmap-btn');
+  var legend = document.getElementById('heatmap-legend');
+  var zones = document.querySelectorAll('.hz');
+  zones.forEach(function(z){ z.style.opacity = heatmapOn ? '1' : '0'; });
+  legend.style.display = heatmapOn ? 'block' : 'none';
+  btn.textContent = heatmapOn ? '❌ Hide Heatmap' : '🔥 Show Heatmap';
+}
+
+function switchTab(id){
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  var sec = document.getElementById('section-'+id);
+  if(sec) sec.classList.add('active');
+  var tab = document.getElementById('tab-'+id);
+  if(tab) tab.classList.add('active');
+}
+
+window.onload = function(){
+  document.querySelectorAll('.tab').forEach(function(el){
+    el.addEventListener('click', function(){
+      var id = this.id.replace('tab-','');
+      switchTab(id);
+    });
+  });
+};
+</script>
+</body>
+</html>
