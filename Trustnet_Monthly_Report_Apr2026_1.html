@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trustnet Performance Report — April 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--teal:#00A499;--dark:#253746;--red:#C00000;--gold:#C9A227;--bg:#F4F5F7;--white:#fff;--border:#DDE1E7;--muted:#5E6B7A;--green:#0A6B35;--amber:#B05C00;--light-teal:#E6F5F4}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:#1a1a1a;font-size:14px}
+
+/* HEADER */
+.report-header{background:var(--dark);padding:40px 0 0}
+.header-inner{max-width:1080px;margin:0 auto;padding:0 40px}
+.report-label{font-size:11px;font-weight:700;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.report-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px}
+.report-subtitle{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:28px}
+.report-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:20px 0;border-top:1px solid rgba(255,255,255,0.1)}
+.meta-item{padding:0 20px;border-right:1px solid rgba(255,255,255,0.08)}
+.meta-item:first-child{padding-left:0}
+.meta-item:last-child{border-right:none}
+.meta-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.meta-value{font-size:13px;color:#fff;font-weight:600}
+
+/* TABS */
+.tab-bar{background:var(--dark);border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100}
+.tab-bar-inner{max-width:1080px;margin:0 auto;padding:0 40px;display:flex}
+.tab{padding:14px 22px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.4);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;letter-spacing:0.3px;text-transform:uppercase}
+.tab:hover{color:rgba(255,255,255,0.8)}
+.tab.active{color:#fff;border-bottom-color:var(--teal)}
+
+/* CONTENT */
+.section{display:none}.section.active{display:block}
+.container{max-width:1080px;margin:0 auto;padding:28px 40px}
+
+/* SECTION HEADING */
+.section-heading{margin-bottom:20px}
+.section-heading h2{font-size:18px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.section-heading p{font-size:13px;color:var(--muted)}
+
+/* SCORECARD GRID */
+.scorecard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.scorecard{background:#fff;border-radius:6px;padding:20px 18px;border:1px solid var(--border);position:relative;overflow:hidden}
+.scorecard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--teal)}
+.scorecard.green::after{background:var(--green)}
+.scorecard.amber::after{background:var(--gold)}
+.scorecard.alert::after{background:var(--red)}
+.sc-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px}
+.sc-value{font-size:26px;font-weight:700;color:var(--dark);margin-bottom:4px;line-height:1}
+.sc-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.sc-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px;letter-spacing:0.3px}
+.sc-tag.up{background:#E6F4EC;color:var(--green)}
+.sc-tag.down{background:#FCE8E8;color:var(--red)}
+.sc-tag.neutral{background:#F0F2F5;color:var(--muted)}
+.sc-tag.new{background:var(--light-teal);color:var(--teal)}
+
+/* CARD */
+.card{background:#fff;border-radius:6px;border:1px solid var(--border);margin-bottom:16px;overflow:hidden}
+.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-header h3{font-size:13px;font-weight:700;color:var(--dark)}
+.card-header span{font-size:11px;color:var(--muted)}
+.card-body{padding:20px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table thead th{background:#F8F9FA;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:9px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.data-table tbody td{padding:10px 12px;border-bottom:1px solid #F0F2F5;color:#333;vertical-align:middle}
+.data-table tbody tr:last-child td{border-bottom:none}
+.data-table tbody tr:hover td{background:#FAFBFC}
+.val-pos{color:var(--green);font-weight:600}
+.val-neg{color:var(--red);font-weight:600}
+.val-amber{color:var(--amber);font-weight:600}
+.val-muted{color:var(--muted)}
+code{font-family:monospace;font-size:11px;background:#F0F2F5;padding:1px 5px;border-radius:2px;color:var(--dark)}
+
+/* CHANNEL BARS */
+.channel-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;padding:6px 0;border-bottom:1px solid #F5F6F8}
+.channel-row:last-child{border-bottom:none;margin-bottom:0}
+.channel-name{font-size:12px;color:var(--dark);width:140px;flex-shrink:0}
+.channel-bar-wrap{flex:1;background:#EEF0F3;border-radius:2px;height:6px;overflow:hidden}
+.channel-bar{height:100%;border-radius:2px;background:var(--teal)}
+.channel-sessions{font-size:12px;color:var(--muted);width:75px;text-align:right;flex-shrink:0}
+.channel-pct{font-size:12px;font-weight:700;color:var(--dark);width:42px;text-align:right;flex-shrink:0}
+
+/* EVENT BARS */
+.event-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.event-name{font-size:11px;font-family:monospace;color:var(--dark);width:170px;flex-shrink:0}
+.event-bar-wrap{flex:1;background:#EEF0F3;border-radius:2px;height:5px;overflow:hidden}
+.event-bar{height:100%;border-radius:2px;background:var(--teal)}
+.event-count{font-size:12px;color:var(--muted);width:80px;text-align:right;flex-shrink:0;font-weight:600}
+
+/* AUDIENCE CARDS */
+.aud-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.aud-card{background:var(--dark);border-radius:6px;padding:18px}
+.aud-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
+.aud-value{font-size:24px;font-weight:700;color:#fff;margin-bottom:4px}
+.aud-sub{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5;margin-bottom:10px}
+.aud-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px}
+.aud-tag.live{background:rgba(10,107,53,0.3);color:#4ade80}
+.aud-tag.new{background:rgba(0,164,153,0.2);color:var(--teal)}
+
+/* NOTICE */
+.notice{padding:14px 16px;border-radius:4px;margin-bottom:16px;font-size:12px;line-height:1.7;border-left:3px solid}
+.notice.info{background:#EAF4FF;border-color:#2B6CB0;color:#1A3A5C}
+.notice.warning{background:#FFF8E6;border-color:var(--gold);color:#5C3D00}
+.notice.action{background:#E6F4EC;border-color:var(--green);color:#0A3D1E}
+.notice strong{font-weight:700}
+
+/* CITATION SCORE */
+.citation-bar{display:flex;height:12px;border-radius:3px;overflow:hidden;margin:12px 0}
+.citation-bar-cited{background:var(--teal);flex:12}
+.citation-bar-partial{background:var(--gold);flex:6}
+.citation-bar-none{background:#DDE1E7;flex:6}
+.citation-legend{display:flex;gap:16px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.legend-dot{width:8px;height:8px;border-radius:2px}
+
+/* AGM PROGRESS */
+.progress-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F0F2F5}
+.progress-item:last-child{border-bottom:none}
+.progress-label{font-size:12px;color:var(--dark);flex:2}
+.progress-target{font-size:11px;color:var(--muted);flex:1}
+.progress-current{font-size:12px;font-weight:600;flex:1}
+.progress-status{flex:1;font-size:11px}
+
+/* FOOTER */
+.report-footer{background:var(--dark);padding:18px 0;margin-top:32px}
+.footer-inner{max-width:1080px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center}
+.footer-text{font-size:11px;color:rgba(255,255,255,0.3);line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <div class="header-inner">
+    <div class="report-label">Trustnet · Monthly Performance Report</div>
+    <div class="report-title">Audience & Analytics Report<br>April 2026</div>
+    <div class="report-subtitle">Audience Growth Manager Deliverable · GA4 Property G-PEH5FHMSZQ · Period: 1 April – 21 April 2026</div>
+    <div class="report-meta">
+      <div class="meta-item">
+        <div class="meta-label">Reporting Period</div>
+        <div class="meta-value">1 Apr – 21 Apr 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">GA4 Property</div>
+        <div class="meta-value">G-PEH5FHMSZQ</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Prepared By</div>
+        <div class="meta-value">Ram Dhamodharan</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Next Report</div>
+        <div class="meta-value">5 May 2026</div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-bar-inner">
+      <div class="tab active" id="tab-overview">Overview</div>
+      <div class="tab" id="tab-acquisition">Acquisition</div>
+      <div class="tab" id="tab-events">Events</div>
+      <div class="tab" id="tab-audiences">Audiences</div>
+      <div class="tab" id="tab-ai">AI Citations</div>
+      <div class="tab" id="tab-actions">Actions</div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="section active" id="section-overview">
+<div class="container">
+  <div class="section-heading">
+    <h2>Performance Summary</h2>
+    <p>Key metrics for the period 1 April – 21 April 2026 (21 days). Full-month figures available 1 May 2026.</p>
+  </div>
+
+  <div class="scorecard-grid">
+    <div class="scorecard">
+      <div class="sc-label">Active Users</div>
+      <div class="sc-value">170,000</div>
+      <div class="sc-sub">Apr 1–21, 2026</div>
+      <div class="sc-tag neutral">21 days — partial month</div>
+    </div>
+    <div class="scorecard">
+      <div class="sc-label">Total Sessions</div>
+      <div class="sc-value">465,204</div>
+      <div class="sc-sub">73.15% engaged sessions</div>
+      <div class="sc-tag up">Strong engagement rate</div>
+    </div>
+    <div class="scorecard green">
+      <div class="sc-label">Avg Engagement Time</div>
+      <div class="sc-value">1m 29s</div>
+      <div class="sc-sub">Per session</div>
+      <div class="sc-tag up">Above benchmark</div>
+    </div>
+    <div class="scorecard">
+      <div class="sc-label">Total Events</div>
+      <div class="sc-value">35.2M</div>
+      <div class="sc-sub">63 event types tracked</div>
+      <div class="sc-tag neutral">8 custom events live</div>
+    </div>
+  </div>
+
+  <div class="scorecard-grid">
+    <div class="scorecard">
+      <div class="sc-label">New Users</div>
+      <div class="sc-value">85,000</div>
+      <div class="sc-sub">50% of active users</div>
+      <div class="sc-tag neutral">—</div>
+    </div>
+    <div class="scorecard">
+      <div class="sc-label">Organic Search Sessions</div>
+      <div class="sc-value">222,313</div>
+      <div class="sc-sub">47.8% of all sessions</div>
+      <div class="sc-tag up">Largest channel</div>
+    </div>
+    <div class="scorecard amber">
+      <div class="sc-label">factsheet_view Events</div>
+      <div class="sc-value">308,482</div>
+      <div class="sc-sub">65,158 unique users</div>
+      <div class="sc-tag up">Primary conversion signal</div>
+    </div>
+    <div class="scorecard green">
+      <div class="sc-label">AI Referral Sessions</div>
+      <div class="sc-value">510</div>
+      <div class="sc-sub">ChatGPT / Perplexity / Claude</div>
+      <div class="sc-tag new">Growing channel</div>
+    </div>
+  </div>
+
+  <div class="notice info">
+    <strong>April 6 Traffic Anomaly.</strong> On 6 April 2026, Organic Search sessions fell to approximately 5,300 against an expected 14,000. Google as a session source declined from 9,900 to 4,600 sessions on that day, and Chrome browser sessions dropped by approximately 53%. This appears to be an indexing or crawl fluctuation and is being monitored. No structural change to tracking was identified.
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>Summary of Key Findings — April 2026</h3></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>Area</th><th>Finding</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Traffic</td><td>465,204 sessions — Organic Search (47.8%) and Direct (35.8%) remain the primary channels</td><td class="val-pos">On track</td></tr>
+          <tr><td>Engagement</td><td>73.15% engaged session rate; average engagement time 1m 29s per session</td><td class="val-pos">Strong</td></tr>
+          <tr><td>Fund Research</td><td>308,482 factsheet_view events from 65,158 unique users — core research behaviour is healthy</td><td class="val-pos">On track</td></tr>
+          <tr><td>AI Referral</td><td>510 sessions from AI platforms in 21 days. AI citation score improved to 12/24 (from 10/24 in March)</td><td class="val-pos">Improving</td></tr>
+          <tr><td>Audience Segmentation</td><td>4 GA4 audiences live and collecting. High Intent Retail D2 created 16 April using track_fund signal</td><td class="val-pos">Complete</td></tr>
+          <tr><td>Tracking Integrity</td><td>All 8 custom GA4 events confirmed live in GTM. go_to_portfolio_test event requires GTM tag removal</td><td class="val-amber">Action required</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ACQUISITION -->
+<div class="section" id="section-acquisition">
+<div class="container">
+  <div class="section-heading">
+    <h2>Traffic Acquisition</h2>
+    <p>Session volume by channel — 1 April to 21 April 2026. Total: 465,204 sessions.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>Sessions by Channel</h3><span>465,204 total sessions · Apr 1–21, 2026</span></div>
+    <div class="card-body">
+      <div class="channel-row">
+        <div class="channel-name">Organic Search</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:100%"></div></div>
+        <div class="channel-sessions">222,313</div>
+        <div class="channel-pct">47.8%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">Direct</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:74.8%;background:var(--dark)"></div></div>
+        <div class="channel-sessions">166,405</div>
+        <div class="channel-pct">35.8%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">Referral</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:17.8%;background:var(--gold)"></div></div>
+        <div class="channel-sessions">39,509</div>
+        <div class="channel-pct">8.5%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">Unassigned</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:16.8%;background:#CBD0D8"></div></div>
+        <div class="channel-sessions">37,449</div>
+        <div class="channel-pct">8.1%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">Email</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:1.2%;background:#2E7D32"></div></div>
+        <div class="channel-sessions">2,761</div>
+        <div class="channel-pct">0.59%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">Organic Social</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:0.4%;background:#6A1B9A"></div></div>
+        <div class="channel-sessions">877</div>
+        <div class="channel-pct">0.19%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">AI Referral</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:0.23%"></div></div>
+        <div class="channel-sessions">510</div>
+        <div class="channel-pct">0.11%</div>
+      </div>
+      <div class="channel-row">
+        <div class="channel-name">Paid Search</div>
+        <div class="channel-bar-wrap"><div class="channel-bar" style="width:0.1%;background:#CBD0D8"></div></div>
+        <div class="channel-sessions">221</div>
+        <div class="channel-pct">0.05%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><h3>Engagement by Channel</h3></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Channel</th><th>Eng. Rate</th><th>Avg Time</th></tr></thead>
+          <tbody>
+            <tr><td>Email</td><td class="val-pos">80.55%</td><td>2m 15s</td></tr>
+            <tr><td>Referral</td><td class="val-pos">79.93%</td><td>1m 55s</td></tr>
+            <tr><td>Organic Search</td><td class="val-pos">79.31%</td><td>1m 37s</td></tr>
+            <tr><td>Organic Social</td><td>78.79%</td><td>1m 12s</td></tr>
+            <tr><td>Paid Search</td><td>76.47%</td><td>5m 38s</td></tr>
+            <tr><td>AI Referral</td><td>70.39%</td><td>39s</td></tr>
+            <tr><td>Direct</td><td>73.10%</td><td>1m 19s</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Top Pages by Views</h3></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Page</th><th>Views</th></tr></thead>
+          <tbody>
+            <tr><td>IA Unit Trusts and OEICs</td><td>138,000</td></tr>
+            <tr><td>Trustnet Homepage</td><td>136,000</td></tr>
+            <tr><td>Portfolio Valuation</td><td>104,000</td></tr>
+            <tr><td>Portfolio Home</td><td>88,000</td></tr>
+            <tr><td>PDFAd</td><td>53,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice info">
+    <strong>AI Referral Channel.</strong> The AI Referral custom channel group captured 510 sessions in 21 days from ChatGPT, Perplexity, Claude and similar AI platforms. On an annualised basis this represents approximately 8,900 sessions per year attributable to AI-driven discovery. This figure is expected to grow as AI citation score improves from the current 12/24 to the September 2026 target of 18/24.
+  </div>
+</div>
+</div>
+
+<!-- EVENTS -->
+<div class="section" id="section-events">
+<div class="container">
+  <div class="section-heading">
+    <h2>Event Tracking</h2>
+    <p>Custom GA4 event performance — 1 April to 21 April 2026. All 8 custom events confirmed live in GTM-P2VJLH.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>Custom Event Volume</h3><span>Apr 1–21, 2026</span></div>
+    <div class="card-body">
+      <div class="event-row"><div class="event-name">factsheet_view</div><div class="event-bar-wrap"><div class="event-bar" style="width:100%"></div></div><div class="event-count">308,482</div></div>
+      <div class="event-row"><div class="event-name">fund_search</div><div class="event-bar-wrap"><div class="event-bar" style="width:23.8%"></div></div><div class="event-count">73,286</div></div>
+      <div class="event-row"><div class="event-name">cta_click</div><div class="event-bar-wrap"><div class="event-bar" style="width:23.2%;background:var(--gold)"></div></div><div class="event-count">71,484</div></div>
+      <div class="event-row"><div class="event-name">track_fund</div><div class="event-bar-wrap"><div class="event-bar" style="width:5.1%;background:var(--green)"></div></div><div class="event-count">15,608</div></div>
+      <div class="event-row"><div class="event-name">fund_compare</div><div class="event-bar-wrap"><div class="event-bar" style="width:1.5%;background:var(--dark)"></div></div><div class="event-count">4,695</div></div>
+      <div class="event-row"><div class="event-name">ai_referral_session</div><div class="event-bar-wrap"><div class="event-bar" style="width:0.4%"></div></div><div class="event-count">1,118</div></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><h3>Event Health Register</h3></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Event</th><th>Count</th><th>Unique Users</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><code>factsheet_view</code></td><td>308,482</td><td>65,158</td><td class="val-pos">Live</td></tr>
+            <tr><td><code>fund_search</code></td><td>73,286</td><td>15,348</td><td class="val-pos">Live</td></tr>
+            <tr><td><code>cta_click</code></td><td>71,484</td><td>14,755</td><td class="val-pos">Live</td></tr>
+            <tr><td><code>track_fund</code></td><td>15,608</td><td>2,414</td><td class="val-pos">Live</td></tr>
+            <tr><td><code>fund_compare</code></td><td>4,695</td><td>1,222</td><td class="val-pos">Live</td></tr>
+            <tr><td><code>ai_referral_session</code></td><td>1,118</td><td>656</td><td class="val-pos">Live</td></tr>
+            <tr><td><code>go_to_portfolio_test</code></td><td>85,614</td><td>7,301</td><td class="val-neg">Remove — GTM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>GTM Verification — 21 April 2026</h3></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Check</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>GA4 tag hardcoded in HTML</td><td class="val-pos">Not present — loaded via GTM only</td></tr>
+            <tr><td>GTM loading twice</td><td class="val-pos">Confirmed correct — script + noscript fallback</td></tr>
+            <tr><td>cta_click trigger</td><td class="val-pos">Live — RegEx across 6 CTAs</td></tr>
+            <tr><td>track_fund trigger</td><td class="val-pos">Live — Basket Checkbox + Track Fund</td></tr>
+            <tr><td>factsheet_view trigger</td><td class="val-pos">Live — Page View: Factsheet</td></tr>
+            <tr><td>fund_search trigger</td><td class="val-pos">Live — Click: Fund Search</td></tr>
+            <tr><td>go_to_portfolio_test GTM tag</td><td class="val-neg">Present in GTM — removal required</td></tr>
+            <tr><td>Microsoft Clarity tag</td><td class="val-pos">Live — Project umdolmiqsq via GTM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice warning">
+    <strong>Action Required — go_to_portfolio_test.</strong> This event fired 85,614 times in April 2026 via a GTM tag. The event is not present in the page HTML but is triggered by a GTM rule. The tag should be removed from GTM-P2VJLH to prevent further inflation of event data. This is a low-risk change — a PBI has been raised for the development team.
+  </div>
+</div>
+</div>
+
+<!-- AUDIENCES -->
+<div class="section" id="section-audiences">
+<div class="container">
+  <div class="section-heading">
+    <h2>Audience Segmentation</h2>
+    <p>GA4 audience performance as of 21 April 2026. All audiences collecting from 1 April 2026.</p>
+  </div>
+
+  <div class="aud-grid">
+    <div class="aud-card">
+      <div class="aud-label">Engaged Retail D2</div>
+      <div class="aud-value">17,441</div>
+      <div class="aud-sub">factsheet_view 3 or more, or Register CTA click</div>
+      <div class="aud-tag live">Live since 1 April 2026</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-label">IFA Signal D9</div>
+      <div class="aud-value">10,899</div>
+      <div class="aud-sub">IFA filter usage, Crown Rating and manager page engagement</div>
+      <div class="aud-tag live">Live since 1 April 2026</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-label">High Value Commercial</div>
+      <div class="aud-value">295</div>
+      <div class="aud-sub">High session frequency combined with factsheet and compare events</div>
+      <div class="aud-tag live">Live since 1 April 2026</div>
+    </div>
+    <div class="aud-card">
+      <div class="aud-label">High Intent Retail D2</div>
+      <div class="aud-value">1,400</div>
+      <div class="aud-sub">track_fund event AND factsheet_view — highest purchase intent signal</div>
+      <div class="aud-tag new">Created 16 April 2026</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>D13 Precision/Recall Model — April 2026</h3><span>Assesses audience model accuracy</span></div>
+    <div class="card-body">
+      <div class="notice info" style="margin-bottom:16px">
+        <strong>Methodology.</strong> Precision measures what proportion of users in each audience genuinely exhibit the target behaviour. Recall measures what proportion of all qualifying users on the site the audience successfully captures. F1 is the harmonic mean of both. A score above 70% indicates a commercially viable audience for targeting and activation.
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Audience</th><th>Users</th><th>Precision</th><th>Recall</th><th>F1 Score</th><th>Assessment</th></tr></thead>
+        <tbody>
+          <tr><td>IFA Signal D9</td><td>10,899</td><td class="val-pos">73%</td><td class="val-pos">87%</td><td class="val-pos"><strong>79%</strong></td><td class="val-pos">Commercially viable</td></tr>
+          <tr><td>Engaged Retail D2</td><td>17,441</td><td class="val-pos">82%</td><td class="val-pos">71%</td><td class="val-pos"><strong>76%</strong></td><td class="val-pos">Commercially viable</td></tr>
+          <tr><td>High Value Commercial</td><td>295</td><td class="val-pos">88%</td><td class="val-muted">59%</td><td class="val-pos"><strong>71%</strong></td><td class="val-pos">Commercially viable</td></tr>
+          <tr><td>High Intent Retail D2</td><td>1,400</td><td class="val-pos">91%</td><td class="val-amber">11%</td><td class="val-amber"><strong>20%</strong></td><td class="val-muted">Growing — 8 days data only</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="notice action">
+    <strong>IFA Signal audience (F1 79%) is ready for commercial activation.</strong> The 10,899-user IFA Signal audience has sufficient precision and recall to support Fundswire targeting campaigns and commercial audience product conversations with fund managers. The model will be re-run on 1 May 2026 once High Intent Retail D2 has accumulated 30 days of track_fund data.
+  </div>
+</div>
+</div>
+
+<!-- AI CITATIONS -->
+<div class="section" id="section-ai">
+<div class="container">
+  <div class="section-heading">
+    <h2>AI Citation Performance</h2>
+    <p>Measures the proportion of standard fund research queries for which Trustnet.com is cited by AI platforms including ChatGPT, Perplexity and Claude.</p>
+  </div>
+
+  <div class="scorecard-grid">
+    <div class="scorecard green">
+      <div class="sc-label">April 2026 Score</div>
+      <div class="sc-value">12 / 24</div>
+      <div class="sc-sub">Queries cited by AI</div>
+      <div class="sc-tag up">Up from 10/24 in March</div>
+    </div>
+    <div class="scorecard">
+      <div class="sc-label">March 2026 Baseline</div>
+      <div class="sc-value">10 / 24</div>
+      <div class="sc-sub">Starting measurement</div>
+      <div class="sc-tag neutral">Baseline</div>
+    </div>
+    <div class="scorecard amber">
+      <div class="sc-label">September 2026 Target</div>
+      <div class="sc-value">18 / 24</div>
+      <div class="sc-sub">AGM promotion target</div>
+      <div class="sc-tag neutral">6 queries to gain</div>
+    </div>
+    <div class="scorecard">
+      <div class="sc-label">AI Referral Sessions</div>
+      <div class="sc-value">510</div>
+      <div class="sc-sub">Apr 1–21 (21 days)</div>
+      <div class="sc-tag new">Growing month-on-month</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>Citation Score Composition</h3></div>
+    <div class="card-body">
+      <div style="margin-bottom:8px;font-size:12px;color:var(--muted)">April 2026: 12 Cited · 6 Partial · 6 Not Cited (out of 24 tracked queries)</div>
+      <div class="citation-bar">
+        <div class="citation-bar-cited"></div>
+        <div class="citation-bar-partial"></div>
+        <div class="citation-bar-none"></div>
+      </div>
+      <div class="citation-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Cited — 12 queries (50%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Partial — 6 queries (25%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#DDE1E7"></div>Not cited — 6 queries (25%)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><h3>Strongest Areas</h3></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>Example Query</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Crown Rating</td><td>What is an FE Crown Rating?</td><td class="val-pos">Cited — Ranking 1st</td></tr>
+            <tr><td>Author / E-E-A-T</td><td>Gary Jackson Trustnet editorial</td><td class="val-pos">Cited — Multiple articles</td></tr>
+            <tr><td>Fund Data</td><td>Best performing funds UK 2025</td><td class="val-pos">Cited</td></tr>
+            <tr><td>Alpha Manager</td><td>What is FE Alpha Manager?</td><td class="val-pos">Cited</td></tr>
+            <tr><td>Brand / Direct</td><td>Trustnet fund screener</td><td class="val-pos">Cited — All 4 queries</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><h3>Gap Areas — 6 Queries to Gain</h3></div>
+      <div class="card-body">
+        <table class="data-table">
+          <thead><tr><th>Category</th><th>Barrier</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>ISA how-to</td><td>HL/MSE/AJ Bell dominate</td><td>AEO page — Crown Rating ISA context</td></tr>
+            <tr><td>SRRI explained</td><td>Technical reference sites rank</td><td>DefinedTerm schema + SRRI content</td></tr>
+            <tr><td>Sector / thematic</td><td>Trustnet articles on page 2</td><td>Internal linking + FAQ schema</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ACTIONS -->
+<div class="section" id="section-actions">
+<div class="container">
+  <div class="section-heading">
+    <h2>Actions and AGM Progress</h2>
+    <p>Priority actions for April / May 2026 and current status against AGM promotion deliverables.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>Priority Actions — April / May 2026</h3></div>
+    <div class="card-body">
+      <table class="data-table">
+        <thead><tr><th>#</th><th>Action</th><th>Priority</th><th>Owner</th><th>Deadline</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Remove go_to_portfolio_test from GTM — event inflating April data by 85,614 events</td><td class="val-neg">High</td><td>Development</td><td>As soon as possible</td><td>PBI raised</td></tr>
+          <tr><td>2</td><td>Send AEO brief to Gary Jackson — 5 content gap pages require editorial sign-off</td><td class="val-neg">High</td><td>Ram Dhamodharan</td><td>22 April</td><td>Brief prepared</td></tr>
+          <tr><td>3</td><td>Submit 17 technical PBIs to development team — schema, UX and tracking specifications</td><td class="val-amber">Medium</td><td>Ram Dhamodharan</td><td>25 April</td><td>All specifications written</td></tr>
+          <tr><td>4</td><td>Commence LinkedIn Crown Rating content programme — three posts per week</td><td class="val-amber">Medium</td><td>Ram Dhamodharan</td><td>28 April</td><td>Not commenced</td></tr>
+          <tr><td>5</td><td>Build AEO pages — Crown Rating and Alpha Manager in FAQ structured format</td><td class="val-amber">Medium</td><td>Ram + Gary Jackson</td><td>May 2026</td><td>In progress</td></tr>
+          <tr><td>6</td><td>Re-run D13 Precision/Recall model with 30 days of High Intent Retail D2 data</td><td class="val-muted">Low</td><td>Ram Dhamodharan</td><td>1 May 2026</td><td>Scheduled</td></tr>
+          <tr><td>7</td><td>May AI citation check — monthly measurement against 18/24 September target</td><td class="val-muted">Low</td><td>Ram Dhamodharan</td><td>5 May 2026</td><td>Scheduled</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><h3>AGM Deliverable Progress — September 2026</h3></div>
+    <div class="card-body">
+      <div class="progress-item">
+        <div class="progress-label">D2 — Audience Segmentation</div>
+        <div class="progress-target">Target: 4 audiences live</div>
+        <div class="progress-current val-pos">4 audiences live</div>
+        <div class="progress-status val-pos">Complete</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">D9 — IFA Signal Audience</div>
+        <div class="progress-target">Target: IFA audience live</div>
+        <div class="progress-current val-pos">10,899 users collecting</div>
+        <div class="progress-status val-pos">Complete</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">D13 — Precision / Recall Model</div>
+        <div class="progress-target">Target: F1 score above 70%</div>
+        <div class="progress-current val-pos">IFA 79% · Retail 76%</div>
+        <div class="progress-status val-pos">Complete</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">D14 — Monthly Reports</div>
+        <div class="progress-target">Target: 5 reports by September</div>
+        <div class="progress-current val-amber">1 of 5 (April)</div>
+        <div class="progress-status val-amber">In progress</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">AI Citation Score</div>
+        <div class="progress-target">Target: 18/24 by September</div>
+        <div class="progress-current val-amber">12/24 (April 2026)</div>
+        <div class="progress-status val-amber">On track</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">Pages per Session</div>
+        <div class="progress-target">Target: 2.4 (from 1.72)</div>
+        <div class="progress-current val-amber">1.72 — Clarity data</div>
+        <div class="progress-status val-amber">In progress</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">5 Content Gap Pages</div>
+        <div class="progress-target">Target: All live by August</div>
+        <div class="progress-current val-amber">Briefs complete — awaiting editorial</div>
+        <div class="progress-status val-amber">Waiting on Gary Jackson</div>
+      </div>
+      <div class="progress-item">
+        <div class="progress-label">17 Technical PBIs to Development</div>
+        <div class="progress-target">Target: All submitted</div>
+        <div class="progress-current val-neg">0 of 17 submitted</div>
+        <div class="progress-status val-neg">Action required</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="report-footer">
+  <div class="footer-inner">
+    <div class="footer-text">
+      Trustnet Monthly Analytics Report · April 2026<br>
+      GA4 Property: G-PEH5FHMSZQ · GTM Container: GTM-P2VJLH · Period: 1 April – 21 April 2026
+    </div>
+    <div class="footer-text" style="text-align:right">
+      Prepared by Ram Dhamodharan, SEO Executive<br>
+      FE Trustnet · ramya.dhamodharan@fefundinfo.com
+    </div>
+  </div>
+</div>
+
+<script>
+window.onload = function() {
+  document.querySelectorAll('.tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var id = this.id.replace('tab-', '');
+      document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+      this.classList.add('active');
+      var sec = document.getElementById('section-' + id);
+      if (sec) sec.classList.add('active');
+    });
+  });
+};
+</script>
+</body>
+</html>
