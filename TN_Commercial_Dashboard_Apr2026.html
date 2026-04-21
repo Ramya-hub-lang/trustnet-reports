@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trustnet Commercial Dashboard — Apr 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f1117;font-family:'Google Sans',sans-serif;color:#e8eaf0;padding:20px;min-height:100vh}
+.page{max-width:1200px;margin:0 auto}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:#1a1d27;border-radius:10px;margin-bottom:20px;border-left:4px solid #00A499}
+.header-left h1{font-size:20px;font-weight:700;color:#fff}
+.header-left p{font-size:12px;color:#8892a4;margin-top:3px}
+.header-right{display:flex;gap:10px;align-items:center}
+.badge{font-size:10px;font-weight:500;padding:4px 10px;border-radius:12px;background:rgba(0,164,153,0.15);color:#00A499;border:1px solid rgba(0,164,153,0.3)}
+.badge.live{background:rgba(0,214,143,0.12);color:#00d68f;border-color:rgba(0,214,143,0.3)}
+
+/* SECTION LABEL */
+.section-label{font-size:10px;font-weight:500;color:#8892a4;text-transform:uppercase;letter-spacing:0.1em;margin:20px 0 10px;display:flex;align-items:center;gap:10px}
+.section-label .line{flex:1;height:1px;background:#252836}
+
+/* SCORECARDS */
+.scorecards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px}
+.sc{background:#1a1d27;border-radius:8px;padding:16px;border:1px solid #252836;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ac)}
+.sc-label{font-size:11px;color:#8892a4;margin-bottom:6px}
+.sc-val{font-size:26px;font-weight:700;color:#fff;font-family:'Google Sans Mono',monospace}
+.sc-change{font-size:11px;margin-top:4px}
+.sc-change.up{color:#00d68f}
+.sc-change.down{color:#f44336}
+.sc-change.neutral{color:#8892a4}
+
+/* GRID 2 COL */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:4px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:4px}
+.g32{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-bottom:4px}
+
+/* CARDS */
+.card{background:#1a1d27;border-radius:10px;border:1px solid #252836;overflow:hidden}
+.card.navy-top{border-top:3px solid #0F3460}
+.card.teal-top{border-top:3px solid #00A499}
+.card.amber-top{border-top:3px solid #f59e0b}
+.card.green-top{border-top:3px solid #00d68f}
+.card-hdr{padding:14px 16px 10px;border-bottom:1px solid #252836}
+.card-title{font-size:13px;font-weight:500;color:#fff}
+.card-sub{font-size:10px;color:#8892a4;margin-top:2px}
+.card-body{padding:14px 16px}
+
+/* BAR CHART */
+.bar-chart{display:flex;flex-direction:column;gap:8px}
+.bc-row{display:flex;align-items:center;gap:8px}
+.bc-lbl{font-size:11px;color:#8892a4;min-width:140px;flex-shrink:0}
+.bc-track{flex:1;height:20px;background:#252836;border-radius:3px;overflow:hidden}
+.bc-fill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:10px;color:rgba(255,255,255,0.7);font-weight:500}
+.bc-val{font-size:11px;color:#e8eaf0;min-width:40px;text-align:right;font-family:'Google Sans Mono',monospace}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{text-align:left;padding:6px 8px;color:#8892a4;font-weight:500;border-bottom:1px solid #252836;font-size:10px;text-transform:uppercase;letter-spacing:0.05em}
+.tbl td{padding:8px 8px;border-bottom:1px solid #1e2130;color:#e8eaf0}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td.pos{color:#00d68f;font-weight:500}
+.tbl td.mono{font-family:'Google Sans Mono',monospace}
+
+/* AUDIENCE CARDS */
+.aud-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aud-card{background:#252836;border-radius:8px;padding:12px 14px;border-left:3px solid var(--ac)}
+.aud-name{font-size:11px;color:#8892a4;margin-bottom:4px}
+.aud-val{font-size:22px;font-weight:700;font-family:'Google Sans Mono',monospace;color:#fff}
+.aud-sub{font-size:10px;color:#8892a4;margin-top:3px}
+
+/* CITATION */
+.cit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cit-card{background:#252836;border-radius:8px;padding:12px}
+.cit-platform{font-size:11px;color:#8892a4;margin-bottom:6px;font-weight:500}
+.cit-bar-wrap{height:5px;background:#1a1d27;border-radius:3px;margin:6px 0}
+.cit-bar{height:5px;border-radius:3px}
+.cit-nums{display:flex;justify-content:space-between;font-size:10px}
+
+/* NEW BADGE */
+.new-badge{display:inline-block;font-size:9px;font-weight:500;padding:2px 6px;border-radius:8px;background:rgba(0,214,143,0.15);color:#00d68f;border:1px solid rgba(0,214,143,0.3);margin-left:6px;vertical-align:middle}
+
+/* TRACK FUND CALLOUT */
+.callout{background:rgba(0,164,153,0.08);border:1px solid rgba(0,164,153,0.25);border-radius:8px;padding:12px 16px;margin-bottom:4px;display:flex;align-items:flex-start;gap:12px}
+.callout-icon{width:32px;height:32px;border-radius:50%;background:rgba(0,164,153,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.callout-text h4{font-size:12px;font-weight:500;color:#00A499;margin-bottom:3px}
+.callout-text p{font-size:11px;color:#8892a4;line-height:1.5}
+
+/* FOOTER */
+.footer{margin-top:20px;padding:12px 16px;background:#1a1d27;border-radius:8px;font-size:10px;color:#8892a4;text-align:center;border-top:2px solid #00A499}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Trustnet Commercial Dashboard</h1>
+      <p>AGM Evidence Pack · Audience Growth Manager · Apr 2026</p>
+    </div>
+    <div class="header-right">
+      <span class="badge live">Live GA4</span>
+      <span class="badge">Mar 24 – Apr 20, 2026</span>
+      <span class="badge">Updated 21 Apr 2026</span>
+    </div>
+  </div>
+
+  <!-- track_fund CALLOUT -->
+  <div class="callout">
+    <div class="callout-icon">✓</div>
+    <div class="callout-text">
+      <h4>track_fund event confirmed live on production — 21 Apr 2026</h4>
+      <p>Verified firing on www.trustnet.com basket. High Intent Retail D2 audience now populating. D2 Engaged Retail and IFA Signal growing month on month. All three audiences feeding commercial pipeline.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1 — KEY METRICS -->
+  <div class="section-label">1. Key performance metrics <span class="line"></span></div>
+  <div class="scorecards">
+    <div class="sc" style="--ac:#00A499">
+      <div class="sc-label">Sessions (last 28 days)</div>
+      <div class="sc-val">733K</div>
+      <div class="sc-change down">↓ 13.5% — cookie consent gap, not real drop</div>
+    </div>
+    <div class="sc" style="--ac:#00d68f">
+      <div class="sc-label">Key Event Rate</div>
+      <div class="sc-val">44.4%</div>
+      <div class="sc-change up">↑ 25.4% — quality of traffic improving</div>
+    </div>
+    <div class="sc" style="--ac:#3b82f6">
+      <div class="sc-label">Engagement Rate</div>
+      <div class="sc-val">69.9%</div>
+      <div class="sc-change neutral">Stable — industry benchmark ~55%</div>
+    </div>
+    <div class="sc" style="--ac:#f59e0b">
+      <div class="sc-label">AI Referral Sessions</div>
+      <div class="sc-val">2.4K</div>
+      <div class="sc-change up">↑ New channel — growing</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 — GSC -->
+  <div class="section-label">2. Google Search Console <span class="line"></span></div>
+  <div class="scorecards">
+    <div class="sc" style="--ac:#00A499">
+      <div class="sc-label">GSC Clicks (last 28d)</div>
+      <div class="sc-val">935K</div>
+      <div class="sc-change up">↑ 2% vs prior period</div>
+    </div>
+    <div class="sc" style="--ac:#3b82f6">
+      <div class="sc-label">Impressions</div>
+      <div class="sc-val">29.3M</div>
+      <div class="sc-change up">↑ 15% — visibility growing</div>
+    </div>
+    <div class="sc" style="--ac:#00d68f">
+      <div class="sc-label">Avg Position</div>
+      <div class="sc-val">9.6</div>
+      <div class="sc-change up">↑ from 11.7 in Jan — improving</div>
+    </div>
+    <div class="sc" style="--ac:#f59e0b">
+      <div class="sc-label">Click-Through Rate</div>
+      <div class="sc-val">3.2%</div>
+      <div class="sc-change neutral">Stable — position improvement driving</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 — AUDIENCES -->
+  <div class="section-label">3. Audience segments — live in GA4 <span class="line"></span></div>
+  <div class="g2">
+    <div class="card teal-top">
+      <div class="card-hdr">
+        <div class="card-title">Audience segment sizes <span style="font-size:10px;color:#00d68f;margin-left:6px">● Live</span></div>
+        <div class="card-sub">GA4 Admin · as of 21 Apr 2026</div>
+      </div>
+      <div class="card-body">
+        <div class="aud-grid">
+          <div class="aud-card" style="--ac:#00A499">
+            <div class="aud-name">Engaged Retail (D2)</div>
+            <div class="aud-val">21,420</div>
+            <div class="aud-sub">factsheet_view ≥3 · 30-day window</div>
+          </div>
+          <div class="aud-card" style="--ac:#3b82f6">
+            <div class="aud-name">IFA Signal (D9)</div>
+            <div class="aud-val">13,150</div>
+            <div class="aud-sub">ifa_signal event · behavioural signal</div>
+          </div>
+          <div class="aud-card" style="--ac:#f59e0b">
+            <div class="aud-name">High Value Commercial</div>
+            <div class="aud-val">395</div>
+            <div class="aud-sub">High session freq + deep engagement</div>
+          </div>
+          <div class="aud-card" style="--ac:#00d68f">
+            <div class="aud-name">High Intent Retail D2 <span class="new-badge">NEW</span></div>
+            <div class="aud-val">600</div>
+            <div class="aud-sub">track_fund + factsheet_view ≥3 · live 16 Apr</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card navy-top">
+      <div class="card-hdr">
+        <div class="card-title">Audience quality — IFA Signal vs Trade</div>
+        <div class="card-sub">GA4 Explore · D13 Validation · Mar 12 – Apr 8, 2026</div>
+      </div>
+      <div class="card-body">
+        <div style="margin-bottom:14px">
+          <div style="font-size:11px;color:#8892a4;margin-bottom:8px">Engaged sessions per active user</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="font-size:11px;color:#e8eaf0;min-width:120px">IFA Signal (D9)</div>
+            <div style="flex:1;height:10px;background:#252836;border-radius:5px"><div style="width:100%;height:10px;background:#00A499;border-radius:5px"></div></div>
+            <div style="font-size:13px;font-weight:700;color:#00A499;min-width:30px">4.0</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="font-size:11px;color:#e8eaf0;min-width:120px">UserType:Trade</div>
+            <div style="flex:1;height:10px;background:#252836;border-radius:5px"><div style="width:66.75%;height:10px;background:#5b6780;border-radius:5px"></div></div>
+            <div style="font-size:13px;font-weight:700;color:#8892a4;min-width:30px">2.67</div>
+          </div>
+        </div>
+        <table class="tbl">
+          <thead><tr><th>Metric</th><th>IFA Signal</th></tr></thead>
+          <tbody>
+            <tr><td>Sessions</td><td class="pos mono">25</td></tr>
+            <tr><td>Engaged sessions</td><td class="pos mono">20</td></tr>
+            <tr><td>Engagement rate</td><td class="pos mono">80%</td></tr>
+            <tr><td>Avg session duration</td><td class="pos mono">45m 22s</td></tr>
+            <tr><td>Events per session</td><td class="pos mono">513</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px;padding:8px 10px;background:rgba(0,214,143,0.08);border-radius:6px;border-left:2px solid #00d68f">
+          <div style="font-size:10px;color:#00d68f;font-weight:500">D13 Validation — confirmed</div>
+          <div style="font-size:10px;color:#8892a4;margin-top:2px">IFA Signal users 50% more engaged per active user than Trade. Behavioural proof complete.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 — FUND UNIVERSE + CTA -->
+  <div class="section-label">4. Traffic by fund universe &amp; CTA performance <span class="line"></span></div>
+  <div class="g2">
+    <div class="card navy-top">
+      <div class="card-hdr">
+        <div class="card-title">Sessions by fund universe</div>
+        <div class="card-sub">GA4 · Mar 12 – Apr 8, 2026</div>
+      </div>
+      <div class="card-body">
+        <div class="bar-chart">
+          <div class="bc-row"><div class="bc-lbl">Other / Homepage</div><div class="bc-track"><div class="bc-fill" style="width:100%;background:#0F3460">83.5K</div></div><div class="bc-val">83.5K</div></div>
+          <div class="bc-row"><div class="bc-lbl">Unit Trusts &amp; OEICs</div><div class="bc-track"><div class="bc-fill" style="width:45.3%;background:#0F3460">37.8K</div></div><div class="bc-val">37.8K</div></div>
+          <div class="bc-row"><div class="bc-lbl">Investment Trusts</div><div class="bc-track"><div class="bc-fill" style="width:8.5%;background:#0F3460">7.1K</div></div><div class="bc-val">7.1K</div></div>
+          <div class="bc-row"><div class="bc-lbl">Pension Funds</div><div class="bc-track"><div class="bc-fill" style="width:6.8%;background:#0F3460">5.7K</div></div><div class="bc-val">5.7K</div></div>
+          <div class="bc-row"><div class="bc-lbl">Offshore Funds</div><div class="bc-track"><div class="bc-fill" style="width:3.7%;background:#0F3460">3.1K</div></div><div class="bc-val">3.1K</div></div>
+          <div class="bc-row"><div class="bc-lbl">ETFs</div><div class="bc-track"><div class="bc-fill" style="width:2.8%;background:#0F3460">2.3K</div></div><div class="bc-val">2.3K</div></div>
+          <div class="bc-row"><div class="bc-lbl">Life Funds</div><div class="bc-track"><div class="bc-fill" style="width:2.5%;background:#0F3460">2.1K</div></div><div class="bc-val">2.1K</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card navy-top">
+      <div class="card-hdr">
+        <div class="card-title">CTA &amp; event performance</div>
+        <div class="card-sub">GA4 · Mar 12 – Apr 8, 2026</div>
+      </div>
+      <div class="card-body">
+        <table class="tbl">
+          <thead><tr><th>Event</th><th>Count</th><th>Users</th></tr></thead>
+          <tbody>
+            <tr><td>factsheet_view</td><td class="pos mono">295,055</td><td class="mono">63,438</td></tr>
+            <tr><td>fund_search</td><td class="mono">70,836</td><td class="mono">15,333</td></tr>
+            <tr><td>cta_click</td><td class="mono">63,816</td><td class="mono">14,321</td></tr>
+            <tr><td>fund_compare</td><td class="mono">4,386</td><td class="mono">1,199</td></tr>
+            <tr><td style="color:#00A499">ai_referral_session</td><td style="color:#00A499" class="mono">1,259</td><td style="color:#00A499" class="mono">749</td></tr>
+            <tr><td style="color:#00d68f">track_fund <span class="new-badge">LIVE</span></td><td style="color:#00d68f" class="mono">Live 21 Apr</td><td class="mono">—</td></tr>
+            <tr style="font-weight:600;border-top:1px solid #252836"><td>Grand total</td><td class="mono">435,352</td><td class="mono">74,833</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 — CHANNELS -->
+  <div class="section-label">5. Channel performance <span class="line"></span></div>
+  <div class="card navy-top" style="margin-bottom:4px">
+    <div class="card-hdr">
+      <div class="card-title">Sessions by channel</div>
+      <div class="card-sub">GA4 · Mar 12 – Apr 8, 2026</div>
+    </div>
+    <div class="card-body">
+      <div class="bar-chart">
+        <div class="bc-row"><div class="bc-lbl">Organic Search</div><div class="bc-track"><div class="bc-fill" style="width:100%;background:#00A499">101,717</div></div><div class="bc-val">101,717</div></div>
+        <div class="bc-row"><div class="bc-lbl">Direct</div><div class="bc-track"><div class="bc-fill" style="width:54.4%;background:#0F3460">55,284</div></div><div class="bc-val">55,284</div></div>
+        <div class="bc-row"><div class="bc-lbl">Referral</div><div class="bc-track"><div class="bc-fill" style="width:11.8%;background:#0F3460">12,026</div></div><div class="bc-val">12,026</div></div>
+        <div class="bc-row"><div class="bc-lbl">Unassigned</div><div class="bc-track"><div class="bc-fill" style="width:8.6%;background:#5b6780">8,751</div></div><div class="bc-val">8,751</div></div>
+        <div class="bc-row"><div class="bc-lbl">AI Referral</div><div class="bc-track"><div class="bc-fill" style="width:2.4%;background:#00A499">2,400</div></div><div class="bc-val">2,400</div></div>
+        <div class="bc-row"><div class="bc-lbl">Email</div><div class="bc-track"><div class="bc-fill" style="width:0.8%;background:#f59e0b">812</div></div><div class="bc-val">812</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6 — AI CITATIONS -->
+  <div class="section-label">6. AI citation tracker <span class="line"></span></div>
+  <div class="card amber-top" style="margin-bottom:16px">
+    <div class="card-hdr">
+      <div class="card-title">Citation progress by platform</div>
+      <div class="card-sub">24 queries tracked · Monthly reviews Apr–Sep 2026 · Baseline Mar 2026</div>
+    </div>
+    <div class="card-body">
+      <div class="cit-grid">
+        <div class="cit-card">
+          <div class="cit-platform">ChatGPT</div>
+          <div style="font-size:18px;font-family:'Google Sans Mono',monospace;color:#f59e0b">4/8</div>
+          <div class="cit-bar-wrap"><div class="cit-bar" style="width:50%;background:#f59e0b"></div></div>
+          <div class="cit-nums"><span style="color:#00d68f">4 cited</span><span style="color:#8892a4">4 gap</span></div>
+        </div>
+        <div class="cit-card">
+          <div class="cit-platform">Perplexity</div>
+          <div style="font-size:18px;font-family:'Google Sans Mono',monospace;color:#3b82f6">3/8</div>
+          <div class="cit-bar-wrap"><div class="cit-bar" style="width:37.5%;background:#3b82f6"></div></div>
+          <div class="cit-nums"><span style="color:#00d68f">3 cited</span><span style="color:#8892a4">5 gap</span></div>
+        </div>
+        <div class="cit-card">
+          <div class="cit-platform">Claude</div>
+          <div style="font-size:18px;font-family:'Google Sans Mono',monospace;color:#00A499">3/8</div>
+          <div class="cit-bar-wrap"><div class="cit-bar" style="width:37.5%;background:#00A499"></div></div>
+          <div class="cit-nums"><span style="color:#00d68f">3 cited</span><span style="color:#8892a4">5 gap</span></div>
+        </div>
+        <div class="cit-card" style="background:rgba(0,164,153,0.06);border:1px solid rgba(0,164,153,0.2)">
+          <div class="cit-platform" style="color:#00A499">Total</div>
+          <div style="font-size:18px;font-family:'Google Sans Mono',monospace;color:#00A499">10/24</div>
+          <div class="cit-bar-wrap"><div class="cit-bar" style="width:41.7%;background:#00A499"></div></div>
+          <div class="cit-nums"><span style="color:#00A499">41.7% now</span><span style="color:#f59e0b">75% target</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    FE Trustnet · Data: GA4 G-PEH5FHMSZQ · GTM: GTM-P2VJLH · GSC: trustnet.com · Updated: 21 Apr 2026
+  </div>
+
+</div>
+</body>
+</html>
