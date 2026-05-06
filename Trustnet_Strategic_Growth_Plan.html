@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trustnet — Strategic Growth Plan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --teal:#00A499;--dark:#253746;--white:#fff;--bg:#F2F4F7;
+  --border:#DDE2E8;--muted:#677384;--light-teal:#E4F4F3;
+  --green:#0A6B35;--red:#B91C1C;--amber:#92400E;--gold:#B45309;
+  --purple:#5B21B6;--blue:#1D4ED8;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:#1a1a1a;line-height:1.6}
+
+/* ── COVER ── */
+.cover{background:var(--dark);min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,164,153,0.12) 0%,transparent 70%)}
+.cover::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,164,153,0.06) 0%,transparent 70%)}
+.cover-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:24px}
+.cover-title{font-family:'DM Serif Display',serif;font-size:64px;line-height:1.05;color:#fff;margin-bottom:20px;max-width:800px}
+.cover-title em{font-style:italic;color:var(--teal)}
+.cover-sub{font-size:18px;color:rgba(255,255,255,0.5);max-width:600px;margin-bottom:48px;font-weight:300}
+.cover-meta{display:flex;gap:48px}
+.cover-meta-item{border-top:1px solid rgba(255,255,255,0.1);padding-top:16px}
+.cover-meta-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:4px}
+.cover-meta-value{font-size:14px;color:#fff;font-weight:500}
+.cover-stats{position:absolute;right:80px;bottom:80px;display:flex;gap:32px}
+.cover-stat{text-align:right}
+.cover-stat-num{font-family:'DM Serif Display',serif;font-size:40px;color:var(--teal);line-height:1}
+.cover-stat-label{font-size:11px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+/* ── NAV ── */
+.sticky-nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 48px;display:flex;align-items:center;gap:2px}
+.nav-link{padding:14px 16px;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap}
+.nav-link:hover{color:#fff}
+.nav-link.active{color:#fff;border-bottom-color:var(--teal)}
+
+/* ── SECTIONS ── */
+.section{display:none;animation:fadeIn 0.3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── LAYOUT ── */
+.page{max-width:1200px;margin:0 auto;padding:52px 48px}
+.section-intro{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.section-intro h2{font-family:'DM Serif Display',serif;font-size:40px;color:var(--dark);margin-bottom:10px}
+.section-intro p{font-size:15px;color:var(--muted);max-width:700px;line-height:1.7}
+.section-intro .intro-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
+
+/* ── GRID ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* ── GAP CARD ── */
+.gap-card{background:#fff;border-radius:8px;border:1px solid var(--border);overflow:hidden;transition:box-shadow 0.2s}
+.gap-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.gap-card-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.gap-card-title{font-size:14px;font-weight:700;color:var(--dark)}
+.gap-card-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.gap-card-body{padding:18px 20px}
+.gap-card-body p{font-size:13px;color:#444;line-height:1.7;margin-bottom:12px}
+.gap-card-body p:last-child{margin-bottom:0}
+.priority-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 10px;border-radius:2px;letter-spacing:0.5px;flex-shrink:0}
+.p-high{background:#FEE2E2;color:var(--red)}
+.p-med{background:#FEF3C7;color:var(--gold)}
+.p-low{background:#DCFCE7;color:var(--green)}
+.p-future{background:#EDE9FE;color:var(--purple)}
+
+/* ── OPPORTUNITY CARD ── */
+.opp-card{background:#fff;border-radius:8px;border:1px solid var(--border);padding:24px;position:relative;overflow:hidden}
+.opp-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px}
+.opp-card.editorial::before{background:#2563EB}
+.opp-card.product::before{background:var(--teal)}
+.opp-card.commercial::before{background:#D97706}
+.opp-card.technical::before{background:#7C3AED}
+.opp-card.ux::before{background:#DB2777}
+.opp-icon{font-size:24px;margin-bottom:12px;display:block}
+.opp-type{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.opp-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:8px;line-height:1.3}
+.opp-desc{font-size:13px;color:#555;line-height:1.7;margin-bottom:14px}
+.opp-impact{display:flex;gap:8px;flex-wrap:wrap}
+.impact-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:2px;background:var(--light-teal);color:var(--teal)}
+
+/* ── PAGE AUDIT TABLE ── */
+.audit-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px}
+.audit-table thead th{background:var(--dark);color:#fff;padding:10px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
+.audit-table tbody td{padding:11px 14px;border-bottom:1px solid #F0F2F5;vertical-align:top}
+.audit-table tbody tr:hover td{background:#FAFBFC}
+.audit-table tbody tr:last-child td{border-bottom:none}
+.page-name{font-weight:700;color:var(--dark)}
+.page-url{font-size:11px;color:var(--muted);font-family:monospace;margin-top:2px}
+.gap-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;background:#FEE2E2;color:var(--red);margin:2px 2px 2px 0}
+.fix-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;background:#DCFCE7;color:var(--green);margin:2px 2px 2px 0}
+.opp-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;background:#EDE9FE;color:var(--purple);margin:2px 2px 2px 0}
+
+/* ── SCORE CARD ── */
+.score-card{background:#fff;border-radius:8px;border:1px solid var(--border);padding:20px;text-align:center}
+.score-num{font-family:'DM Serif Display',serif;font-size:42px;color:var(--dark);line-height:1;margin-bottom:4px}
+.score-num.good{color:var(--green)}
+.score-num.warn{color:var(--gold)}
+.score-num.bad{color:var(--red)}
+.score-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted)}
+
+/* ── ROADMAP ── */
+.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:32px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.roadmap-phase{padding:24px;border-right:1px solid var(--border);background:#fff}
+.roadmap-phase:last-child{border-right:none}
+.phase-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.phase-period{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.phase-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:10px}
+.phase-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:5px}
+.phase-text{font-size:12px;color:#444;line-height:1.5}
+
+/* ── METRIC ROW ── */
+.metric-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid #F0F2F5}
+.metric-row:last-child{border-bottom:none}
+.metric-label{font-size:13px;color:var(--dark);flex:2;font-weight:500}
+.metric-current{font-size:13px;color:var(--muted);flex:1}
+.metric-target{font-size:13px;font-weight:700;color:var(--teal);flex:1}
+.metric-action{font-size:12px;color:#555;flex:3}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--border);margin:32px 0}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.stat-strip-item{background:#fff;padding:18px 16px;text-align:center}
+.stat-strip-num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--dark);line-height:1;margin-bottom:4px}
+.stat-strip-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted)}
+
+/* ── CALLOUT ── */
+.callout{padding:20px 24px;border-radius:6px;margin-bottom:20px;border-left:4px solid}
+.callout.insight{background:#EFF6FF;border-color:var(--blue);color:#1E3A5F}
+.callout.warning{background:#FFFBEB;border-color:var(--gold);color:#5C3D00}
+.callout.success{background:#F0FDF4;border-color:var(--green);color:#14532D}
+.callout.strategy{background:#F5F3FF;border-color:var(--purple);color:#2E1065}
+.callout strong{font-weight:700;display:block;margin-bottom:4px;font-size:13px}
+.callout p{font-size:13px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-label">Trustnet.com — Strategic Growth Plan</div>
+  <div class="cover-title">Mapping Every Gap.<br><em>Unlocking Every</em><br>Opportunity.</div>
+  <div class="cover-sub">A comprehensive audit of Trustnet.com across product, UX, editorial, commercial and technical dimensions — with a clear plan to improve visibility, engagement and revenue.</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Organisation</div>
+      <div class="cover-meta-value">FE Trustnet</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Date</div>
+      <div class="cover-meta-value">April 2026</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Scope</div>
+      <div class="cover-meta-value">trustnet.com — All page types</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="cover-meta-label">Data Sources</div>
+      <div class="cover-meta-value">GA4 · GSC · Clarity · GTM</div>
+    </div>
+  </div>
+  <div class="cover-stats">
+    <div class="cover-stat">
+      <div class="cover-stat-num">32</div>
+      <div class="cover-stat-label">Gaps identified</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-num">55</div>
+      <div class="cover-stat-label">Opportunities mapped</div>
+    </div>
+    <div class="cover-stat">
+      <div class="cover-stat-num">5</div>
+      <div class="cover-stat-label">Dimensions covered</div>
+    </div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<div class="sticky-nav">
+  <div class="nav-inner">
+    <div class="nav-link active" id="nav-overview" onclick="showSection('overview')">Overview</div>
+    <div class="nav-link" id="nav-pages" onclick="showSection('pages')">Page Audit</div>
+    <div class="nav-link" id="nav-editorial" onclick="showSection('editorial')">Editorial</div>
+    <div class="nav-link" id="nav-product" onclick="showSection('product')">Product & UX</div>
+    <div class="nav-link" id="nav-technical" onclick="showSection('technical')">Technical & SEO</div>
+    <div class="nav-link" id="nav-commercial" onclick="showSection('commercial')">Commercial</div>
+    
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     OVERVIEW
+══════════════════════════════════════ -->
+<div class="section active" id="section-overview">
+<div class="page">
+  <div class="section-intro">
+    <div class="intro-tag">Executive Summary</div>
+    <h2>Where Trustnet stands today</h2>
+    <p>Trustnet has a strong data and ratings foundation but is operating well below its potential across every dimension — editorial depth, product experience, technical optimisation, and commercial activation. This plan maps every gap and every opportunity with clear owners and timelines.</p>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">170K</div>
+      <div class="stat-strip-label">Monthly Active Users</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">465K</div>
+      <div class="stat-strip-label">Monthly Sessions</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">308K</div>
+      <div class="stat-strip-label">Factsheet Views</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">12/24</div>
+      <div class="stat-strip-label">AI Citation Score</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">1.72</div>
+      <div class="stat-strip-label">Pages per Session</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">510</div>
+      <div class="stat-strip-label">AI Referral Sessions</div>
+    </div>
+  </div>
+
+  <div class="callout insight">
+    <strong>The core finding</strong>
+    <p>Trustnet has the right data, the right audience and the right brand — but the product experience, content structure and commercial model are not converting that asset into its full potential. The gaps below are not minor tweaks. They represent material revenue and audience growth sitting unrealised on the table.</p>
+  </div>
+
+  <div class="grid-4" style="margin-bottom:32px">
+    <div class="score-card">
+      <div class="score-num warn">C+</div>
+      <div class="score-label">Editorial Depth</div>
+    </div>
+    <div class="score-card">
+      <div class="score-num warn">C</div>
+      <div class="score-label">Product / UX</div>
+    </div>
+    <div class="score-card">
+      <div class="score-num warn">C+</div>
+      <div class="score-label">Technical SEO</div>
+    </div>
+    <div class="score-card">
+      <div class="score-num bad">D+</div>
+      <div class="score-label">Commercial Model</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="gap-card">
+      <div class="gap-card-header">
+        <div>
+          <div class="gap-card-title">Top 5 Critical Gaps</div>
+          <div class="gap-card-sub">Must fix in the next 60 days</div>
+        </div>
+        <div class="priority-badge p-high">Critical</div>
+      </div>
+      <div class="gap-card-body">
+        <p><strong>1. No AEO-structured content pages</strong> — Crown Rating, Alpha Manager, SRRI have no FAQ schema. AI platforms cannot cite Trustnet for these foundational queries. This is the single biggest AI citation gap.</p>
+        <p><strong>2. No email capture on high-intent pages</strong> — 308K factsheet views per month with zero email prompt. Every factsheet view is a warm lead walking out the door uncaptured.</p>
+        <p><strong>3. No Compare CTA on factsheet pages</strong> — Clarity shows 19% of users immediately search for another fund after landing. No compare button = missed engagement = pages/session stuck at 1.72.</p>
+        <p><strong>4. Schema programme partially live but 12 PBIs pending dev</strong> — NewsArticle, BreadcrumbList, Organization, Person and ItemList schemas are live. FinancialProduct, FAQPage, DefinedTerm, CollectionPage and SiteLinksSearchBox are written as PBIs but not yet in production. Sending these to dev this week unblocks the next phase of AI citation improvement.</p>
+        <p><strong>5. Fundswire content not differentiated from editorial</strong> — Sponsored Fundswire articles look identical to editorial. No trust signal for readers. AI platforms do not cite sponsored content as authority.</p>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-card-header">
+        <div>
+          <div class="gap-card-title">Top 5 Biggest Opportunities</div>
+          <div class="gap-card-sub">Highest revenue and growth potential</div>
+        </div>
+        <div class="priority-badge p-future">Strategic</div>
+      </div>
+      <div class="gap-card-body">
+        <p><strong>1. Crown Rating data licensing</strong> — Trustnet's Crown and Alpha ratings are used informally by the industry. A formal data licensing model to platforms like HL, AJ Bell, and Morningstar creates a new B2B revenue stream with no additional content cost.</p>
+        <p><strong>2. IFA audience activation</strong> — 10,899 IFA Signal users identified at F1 79% precision. This is a commercially valuable audience that fund managers would pay to reach. Fundswire is currently selling inventory to this audience at commodity rates — it should be sold at premium.</p>
+        <p><strong>3. Fund comparison as a product</strong> — Users want to compare funds (Clarity data proves it). A structured Fund vs Fund comparison page format — 10 pages to start — creates a linkable, rankable, citable page type that currently does not exist on Trustnet.</p>
+        <p><strong>4. AI-first content programme</strong> — With 510 AI referral sessions already arriving, a structured programme to improve citations from 12/24 to 18/24 would roughly triple AI-driven traffic by September 2026.</p>
+        <p><strong>5. Newsletter / email programme</strong> — Trustnet has a Subscribe option but no structured CRM programme. An IFA-specific weekly email using Most Researched Funds data as the lead would generate a recurring premium touchpoint with the highest-value audience.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PAGE AUDIT
+══════════════════════════════════════ -->
+<div class="section" id="section-pages">
+<div class="page">
+  <div class="section-intro">
+    <div class="intro-tag">Page-by-Page Audit</div>
+    <h2>Every page type reviewed</h2>
+    <p>A systematic audit of every major page type on trustnet.com — gaps, fixes and opportunities mapped for each.</p>
+  </div>
+
+  <table class="audit-table">
+    <thead>
+      <tr>
+        <th style="width:180px">Page Type</th>
+        <th style="width:100px">Traffic</th>
+        <th>Current Gaps</th>
+        <th>Opportunities</th>
+        <th style="width:80px">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="page-name">Homepage</div><div class="page-url">trustnet.com/</div></td>
+        <td>136K views/mo</td>
+        <td>
+          <span class="fix-pill">SearchAction schema LIVE</span>
+          <span class="fix-pill">Organization schema LIVE</span>
+          <span class="gap-pill">No WebSite schema</span>
+          <span class="gap-pill">Register CTA not prominent</span>
+          <span class="gap-pill">No personalisation for returning users</span>
+          <span class="gap-pill">Sponsored content not visually distinct</span>
+        </td>
+        <td>
+          <span class="opp-pill">Personalised fund recommendations (returning users)</span>
+          <span class="opp-pill">Crown Rating as hero USP above fold</span>
+          <span class="opp-pill">Most Researched Funds widget live on homepage</span>
+          <span class="opp-pill">SiteLinksSearchBox — Google highlights search in SERP</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Fund Universe Pages</div><div class="page-url">/fund/price-performance/o/...</div></td>
+        <td>138K views/mo</td>
+        <td>
+          <span class="gap-pill">CollectionPage schema — PBI written, pending dev</span>
+          <span class="gap-pill">Filter state not preserved in URL — applying Crown Rating or sector filters does not update the URL. Users cannot bookmark or share filtered views. Google cannot index filtered fund lists.</span>
+          <span class="gap-pill">Crown Rating not default sort on universe pages — users land on a generic list, not sorted by Crown Rating. Trustnet's core differentiator is buried in the filter menu rather than leading the experience.</span>
+          <span class="gap-pill">IFA filter buried — not default for IFA users</span>
+          <span class="gap-pill">No sector comparison on page</span>
+        </td>
+        <td>
+          <span class="opp-pill">CollectionPage schema — Google understands page as a fund list</span>
+          <span class="opp-pill">IFA filter auto-applied for IFA Signal audience</span>
+          <span class="opp-pill">Crown Rating filter as default sort</span>
+          <span class="opp-pill">Shareable filtered views — URLs users can bookmark and share</span>
+          <span class="opp-pill">Top fund performance widget — editorial hook for weekly content</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Fund Factsheet Pages</div><div class="page-url">/fund/factsheet/...</div></td>
+        <td>308K events/mo</td>
+        <td>
+          <span class="gap-pill">FinancialProduct schema — PBI written, pending dev</span>
+          <span class="gap-pill">No Compare CTA (19% users search immediately)</span>
+          <span class="gap-pill">No email capture / track fund prompt</span>
+          <span class="gap-pill">No Stay vs Switch recommendation</span>
+          <span class="gap-pill">No related articles from editorial</span>
+          <span class="gap-pill">No IFA-specific view (SRRI, charges, suitability)</span>
+        </td>
+        <td>
+          <span class="opp-pill">FinancialProduct schema — enables rich results for fund queries</span>
+          <span class="opp-pill">Compare CTA next to search — pages/session 1.72 → 2.4</span>
+          <span class="opp-pill">Stay vs Switch scoring widget — engagement driver</span>
+          <span class="opp-pill">Related editorial content module — cross-sell to news</span>
+          <span class="opp-pill">IFA view toggle — SRRI, Alpha rating, OCF in IFA layout</span>
+          <span class="opp-pill">Email capture for fund alerts — high-intent lead generation</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">News / Editorial Pages</div><div class="page-url">/news/...</div></td>
+        <td>High engagement</td>
+        <td>
+          <span class="fix-pill">NewsArticle schema LIVE</span>
+          <span class="gap-pill">Fund names not hyperlinked consistently</span>
+          <span class="gap-pill">No related funds widget</span>
+          <span class="gap-pill">No CTA to factsheet at article end</span>
+          <span class="fix-pill">Person schema LIVE — Gary Jackson + Matteo Anelli author pages built</span>
+          <span class="gap-pill">Author page URL resolves to generic search — check URL routing with dev</span>
+          <span class="fix-pill">NewsArticle schema LIVE — author, date, publisher all present</span>
+          <span class="fix-pill">BreadcrumbList LIVE — 3-level breadcrumb on all articles</span>
+          <span class="gap-pill">No content tagging by sector/theme</span>
+        </td>
+        <td>
+          <span class="opp-pill">Article + Person schema — Gary Jackson bylines in Google results</span>
+          <span class="opp-pill">Fund name auto-linking — every fund mentioned = factsheet link</span>
+          <span class="opp-pill">Related funds widget — direct path from article to research</span>
+          <span class="opp-pill">Sector/theme tagging — creates hub pages automatically</span>
+          <span class="opp-pill">Newsletter subscribe module inline in articles</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Author Pages</div><div class="page-url">/author/gary-jackson</div></td>
+        <td>Low — underutilised</td>
+        <td>
+          <span class="gap-pill">Person schema missing on www2 fund manager pages</span>
+          <span class="gap-pill">No E-E-A-T signals — qualifications, experience</span>
+          <span class="gap-pill">No article archive on author page</span>
+          <span class="gap-pill">Not indexed properly in Google</span>
+        </td>
+        <td>
+          <span class="opp-pill">Gary Jackson / Matteo Anelli pages already built — expand to all editorial staff</span>
+          <span class="opp-pill">Person schema — author queries cite Trustnet in AI results</span>
+          <span class="opp-pill">Fund manager author pages on www2 — E-E-A-T for manager interviews</span>
+        </td>
+        <td><span class="priority-badge p-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Crown Rating Pages</div><div class="page-url">/information/help/fe-ratings/</div></td>
+        <td>Ranking #1 for Crown queries</td>
+        <td>
+          <span class="gap-pill">No FAQPage schema</span>
+          <span class="gap-pill">No DefinedTerm schema for Crown Rating itself</span>
+          <span class="gap-pill">No structured Q&A format (AEO)</span>
+          <span class="gap-pill">No video explaining the methodology</span>
+          <span class="gap-pill">Competitor pages (Morningstar, HL) are longer and more structured</span>
+          <span class="fix-pill">Organization schema LIVE</span>
+        </td>
+        <td>
+          <span class="opp-pill">FAQPage schema — immediate AI citation improvement for Crown queries</span>
+          <span class="opp-pill">DefinedTerm schema — Google Knowledge Panel for Crown Rating</span>
+          <span class="opp-pill">Restructure as AEO page — Q&A format with 8–10 questions answered</span>
+          <span class="opp-pill">Explainer video — VideoObject schema, YouTube distribution</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Alpha Manager Pages</div><div class="page-url">/alphafundmanager/</div></td>
+        <td>Low — undiscovered</td>
+        <td>
+          <span class="gap-pill">No dedicated AEO landing page</span>
+          <span class="gap-pill">No FAQPage schema</span>
+          <span class="gap-pill">Not ranking for "what is Alpha Manager" queries</span>
+          <span class="gap-pill">No IFA-specific framing</span>
+        </td>
+        <td>
+          <span class="opp-pill">Dedicated "What is an FE Alpha Manager?" AEO page</span>
+          <span class="opp-pill">FAQPage schema — fix the IFA citation gap directly</span>
+          <span class="opp-pill">Cross-link Alpha Manager ratings from all fund factsheets</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Portfolio Tools (www2)</div><div class="page-url">www2.trustnet.com/Tools/Portfolio/</div></td>
+        <td>Portfolio Home 88K · Valuation 104K</td>
+        <td>
+          <span class="gap-pill">On legacy www2 domain — cross-domain tracking gap</span>
+          <span class="gap-pill">No WebApplication schema</span>
+          <span class="gap-pill">UX is dated — not mobile-optimised</span>
+          <span class="gap-pill">No prompts to track funds from factsheet pages</span>
+          <span class="gap-pill">go_to_portfolio_test event still firing</span>
+        </td>
+        <td>
+          <span class="opp-pill">Migration to www.trustnet.com — eliminates cross-domain friction</span>
+          <span class="opp-pill">WebApplication schema — Google understands this as a tool</span>
+          <span class="opp-pill">Track Fund CTA on factsheet pages — direct path to portfolio creation</span>
+          <span class="opp-pill">Portfolio as engagement anchor — users who add funds return daily</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Investment Trust Pages</div><div class="page-url">/fund/price-performance/t/...</div></td>
+        <td>Significant volume</td>
+        <td>
+          <span class="gap-pill">Investment Trust content thinner than unit trust content</span>
+          <span class="gap-pill">No premium/discount data prominence</span>
+          <span class="gap-pill">No AIC sector mapping</span>
+          <span class="gap-pill">Global Growth hub built — other sectors missing</span>
+        </td>
+        <td>
+          <span class="opp-pill">Investment Trust hub pages for all AIC sectors — 30+ pages</span>
+          <span class="opp-pill">Premium/discount widget on all IT factsheets</span>
+          <span class="opp-pill">Kepler Trust Intelligence partnership — co-branded IT research</span>
+        </td>
+        <td><span class="priority-badge p-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Fundswire Pages</div><div class="page-url">/fundswire/...</div></td>
+        <td>High volume — commercial</td>
+        <td>
+          <span class="gap-pill">Sponsored content not visually distinct from editorial</span>
+          <span class="gap-pill">No Article schema on Fundswire articles</span>
+          <span class="gap-pill">AI platforms do not cite sponsored content</span>
+          <span class="gap-pill">No performance data alongside sponsored articles</span>
+          <span class="gap-pill">No IFA-specific Fundswire filter</span>
+        </td>
+        <td>
+          <span class="opp-pill">Clearly label as sponsored — builds trust and editorial credibility</span>
+          <span class="opp-pill">Premium Fundswire tier — IFA-only distribution at higher CPM</span>
+          <span class="opp-pill">Performance data alongside articles — fund chart embedded in article</span>
+          <span class="opp-pill">AI-readiness labels — editorial vs sponsored clearly structured</span>
+        </td>
+        <td><span class="priority-badge p-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Education / Help Pages</div><div class="page-url">/information/help/</div></td>
+        <td>Low — high potential</td>
+        <td>
+          <span class="gap-pill">No FAQPage schema across any education pages</span>
+          <span class="gap-pill">No SRRI explained page</span>
+          <span class="gap-pill">No ISA guide in fund context</span>
+          <span class="gap-pill">Thin content — competitors (HL, MSE) have much longer pages</span>
+          <span class="gap-pill">No internal links to relevant funds from education content</span>
+        </td>
+        <td>
+          <span class="opp-pill">SRRI explainer — fixes IFA citation gap directly</span>
+          <span class="opp-pill">ISA fund selection guide — compete with HL/MSE for ISA queries</span>
+          <span class="opp-pill">FAQPage schema on all education pages — AI citation improvement</span>
+          <span class="opp-pill">Each education page links to relevant Crown-rated funds</span>
+          <span class="opp-pill">LearningResource schema — Google surfaces these in educational results</span>
+        </td>
+        <td><span class="priority-badge p-high">High</span></td>
+      </tr>
+      <tr>
+        <td><div class="page-name">Charting Tool (www2)</div><div class="page-url">www2.trustnet.com/Tools/Charting/</div></td>
+        <td>Moderate</td>
+        <td>
+          <span class="gap-pill">No WebApplication schema</span>
+          <span class="gap-pill">On www2 — SEO benefit goes to legacy domain</span>
+          <span class="gap-pill">Chart URLs not shareable / linkable</span>
+          <span class="gap-pill">No social sharing from chart view</span>
+        </td>
+        <td>
+          <span class="opp-pill">Shareable chart URLs — users share charts = backlinks + social traffic</span>
+          <span class="opp-pill">Chart embeds for Fundswire articles — differentiated commercial product</span>
+          <span class="opp-pill">WebApplication schema — Google understands as a tool not just a page</span>
+        </td>
+        <td><span class="priority-badge p-med">Medium</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     EDITORIAL
+══════════════════════════════════════ -->
+<div class="section" id="section-editorial">
+<div class="page">
+  <div class="section-intro">
+    <div class="intro-tag">Editorial Strategy</div>
+    <h2>Content gaps and opportunities</h2>
+    <p>Trustnet has strong editorial talent — Gary Jackson, Jonathan Jones, Matteo Anelli, Emmy Hawker, Patrick Sanders — but the content structure is not optimised for AI citation, search visibility or audience retention.</p>
+  </div>
+
+  <div class="callout warning">
+    <strong>The fundamental editorial gap</strong>
+    <p>Trustnet's editorial team produces high-quality analysis but the content is structured for human reading, not for AI citation or structured search. Every article should have schema markup, internal links to fund factsheets, and Q&A sections that AI platforms can extract as answers. None of these are currently present.</p>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:24px">
+    <div class="opp-card editorial">
+      <div class="opp-type">Editorial · Gap</div>
+      <div class="opp-title">AEO Content Pages — Crown Rating, Alpha Manager, SRRI</div>
+      <div class="opp-desc">These three concepts are core to Trustnet's identity but have no dedicated, AEO-structured pages. Each needs a standalone page with: a clear definition, 8–10 FAQ questions in schema format, methodology explanation, and links to top-rated funds. These pages would directly fix the AI citation gaps identified (SRRI at 0%, Alpha Manager partial, ISA queries lost to competitors).</div>
+      <div class="opp-impact">
+        <span class="impact-tag">AI citations +4</span>
+        <span class="impact-tag">Organic rankings</span>
+        <span class="impact-tag">IFA credibility</span>
+      </div>
+    </div>
+    <div class="opp-card editorial">
+      <div class="opp-type">Editorial · Gap</div>
+      <div class="opp-title">Fund vs Fund Comparison Content</div>
+      <div class="opp-desc">Users are comparing funds (fund_compare: 4,695 events in 21 days) but Trustnet has no editorial comparison content. A structured "Artemis Global Income vs Fidelity Global Dividend" page format — covering Crown Rating, performance, charges, manager tenure — would rank for high-intent comparison queries and be highly linkable. Start with the top 10 most-compared fund pairs from GA4 data.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">High-intent SEO</span>
+        <span class="impact-tag">Pages/session +0.4</span>
+        <span class="impact-tag">Backlinks</span>
+      </div>
+    </div>
+    <div class="opp-card editorial">
+      <div class="opp-type">Editorial · Opportunity</div>
+      <div class="opp-title">Most Researched Funds as a Regular Content Series</div>
+      <div class="opp-desc">The Most Researched Funds report (308K factsheet views/month) is a unique dataset only Trustnet has. Gary's team should publish a monthly editorial feature — "What investors were researching in April" — as a proper article with fund analysis, not just a data table. This is a citable, linkable, AI-indexable piece that competitors cannot replicate.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Unique data angle</span>
+        <span class="impact-tag">AI citations</span>
+        <span class="impact-tag">PR / backlinks</span>
+      </div>
+    </div>
+    <div class="opp-card editorial">
+      <div class="opp-type">Editorial · Gap</div>
+      <div class="opp-title">ISA Season Content Programme</div>
+      <div class="opp-desc">Hargreaves Lansdown, MSE and AJ Bell dominate ISA-related queries — Trustnet is not cited. The opportunity is a structured ISA content programme: "Best ISA funds by Crown Rating", "ISA vs SIPP — which funds suit each", "5-Crown funds for ISA 2026". These pages should use Crown Rating data as the editorial hook, which is unique to Trustnet.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">AI citations +3</span>
+        <span class="impact-tag">Retail acquisition</span>
+        <span class="impact-tag">Register conversions</span>
+      </div>
+    </div>
+    <div class="opp-card editorial">
+      <div class="opp-type">Editorial · Opportunity</div>
+      <div class="opp-title">IFA-Specific Editorial Track</div>
+      <div class="opp-desc">10,899 identified IFA Signal users are currently reading the same content as retail investors. A dedicated IFA editorial track — "IFA Briefing: This week's due diligence highlights" — would serve this audience specifically, improve IFA Signal audience retention, and create a premium content tier for Fundswire IFA distribution. Content would cover: Alpha Manager updates, OCF changes, SRRI re-ratings, manager moves.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">IFA retention</span>
+        <span class="impact-tag">Premium Fundswire</span>
+        <span class="impact-tag">IFA audience growth</span>
+      </div>
+    </div>
+    <div class="opp-card editorial">
+      <div class="opp-type">Editorial · Opportunity</div>
+      <div class="opp-title">Co-Branded Research Reports with Fund Managers</div>
+      <div class="opp-desc">Aberdeen Investments, Quilter, Capital Group and Baillie Gifford are already publishing Fundswire articles. The next step is co-branded research reports — Trustnet provides the data (Most Researched, Crown Ratings, Most Compared), fund managers provide the analysis. Published as a joint PDF/HTML report on trustnet.com. Each report = a high-authority backlink, a PR story, and a commercial revenue event.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Commercial revenue</span>
+        <span class="impact-tag">Backlinks</span>
+        <span class="impact-tag">AI citations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout strategy">
+    <strong>Editorial partnership opportunity — IFA networks</strong>
+    <p>PIMFA (Personal Investment Management and Financial Advice Association) and the lang cat both produce research for the IFA community. Trustnet's Crown Rating and Most Researched data would be the perfect foundation for a co-published annual IFA research report. This would place Trustnet editorial content directly in front of 10,000+ IFA professionals — exactly the audience Trustnet is trying to build.</p>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PRODUCT & UX
+══════════════════════════════════════ -->
+<div class="section" id="section-product">
+<div class="page">
+  <div class="section-intro">
+    <div class="intro-tag">Product & UX</div>
+    <h2>Experience gaps holding engagement back</h2>
+    <p>Clarity heatmap data (5,145 factsheet views, 1,742 real clicks) reveals exactly where users are frustrated. Pages/session sits at 1.72 against a 2.4 target. The product is not guiding users to their next action.</p>
+  </div>
+
+  <div class="callout insight">
+    <strong>What Clarity data tells us</strong>
+    <p>19% of all clicks on factsheet pages go directly to the search box — users are immediately searching for another fund. This is the single clearest UX signal in the data. Users want to compare but the product does not offer a visible comparison path. Add a Compare CTA next to the search box and pages/session will increase materially.</p>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="opp-card ux">
+      <div class="opp-type">UX · Critical Gap</div>
+      <div class="opp-title">No Compare CTA on Factsheet Pages</div>
+      <div class="opp-desc">Clarity confirms 19% of clicks go to fund search on factsheet pages. Users are manually searching for comparison funds because there is no Compare button visible. A "Compare with another fund" CTA next to the search bar — which pre-fills the current fund — would directly convert this intent into a comparison journey, increasing pages/session and fund_compare events.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Pages/session +0.3</span>
+        <span class="impact-tag">fund_compare events</span>
+        <span class="impact-tag">Time on site</span>
+      </div>
+    </div>
+    <div class="opp-card ux">
+      <div class="opp-type">UX · Critical Gap</div>
+      <div class="opp-title">Register CTA Not Prominent Enough</div>
+      <div class="opp-desc">The Engaged Retail audience has 17,441 users viewing 3+ factsheets but not registering. The Register CTA is in the header but not contextually surfaced at the moment of highest intent — when a user is deep in factsheet research. A mid-page Register prompt ("Save this fund to your portfolio — register free") at the point of third factsheet view would convert significantly better than the current header-only placement.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Register conversions</span>
+        <span class="impact-tag">cta_click events</span>
+        <span class="impact-tag">Registered user base</span>
+      </div>
+    </div>
+    <div class="opp-card product">
+      <div class="opp-type">Product · Opportunity</div>
+      <div class="opp-title">Stay vs Switch Recommendation Widget</div>
+      <div class="opp-desc">The Stay vs Switch scoring model is already built (Crown 40%, Quartile 30%, Alpha 20%, Drawdown 10%). Embedding this as an interactive widget on every factsheet page — "Should you stay in this fund or switch?" — gives users a decision-support tool unique to Trustnet. It also increases session depth as users compare the Stay vs Switch score across multiple funds.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Session depth</span>
+        <span class="impact-tag">Unique feature</span>
+        <span class="impact-tag">Return visits</span>
+      </div>
+    </div>
+    <div class="opp-card product">
+      <div class="opp-type">Product · Opportunity</div>
+      <div class="opp-title">IFA View Toggle on Fund Pages</div>
+      <div class="opp-desc">IFA Signal users (10,899) are viewing the same factsheet layout as retail investors. An IFA View toggle — surfacing SRRI, Alpha Manager rating, OCF, clean share class, Sharpe ratio and suitability indicators — would make Trustnet the default IFA research destination. This feature would require the filter_type=IFA GA4 event (already live) to trigger the view automatically for known IFA users.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">IFA retention</span>
+        <span class="impact-tag">IFA Signal growth</span>
+        <span class="impact-tag">Fundswire premium</span>
+      </div>
+    </div>
+    <div class="opp-card product">
+      <div class="opp-type">Product · Gap</div>
+      <div class="opp-title">No Email Capture at Point of High Intent</div>
+      <div class="opp-desc">308,482 factsheet views per month — the highest-intent page type on the site — with no email capture mechanism. A "Get alerts when this fund's Crown Rating changes" prompt on factsheet pages would convert a measurable proportion of these high-intent visits into email subscribers. This is the single lowest-effort, highest-return product change available.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Email subscribers</span>
+        <span class="impact-tag">Return visits</span>
+        <span class="impact-tag">CRM list growth</span>
+      </div>
+    </div>
+    <div class="opp-card product">
+      <div class="opp-type">Product · Opportunity</div>
+      <div class="opp-title">Personalised Homepage for Returning Users</div>
+      <div class="opp-desc">Clarity shows returning users are 24% of sessions (16,387 sessions in 3 days). These users have browsing history — funds they have viewed, sectors they follow — but the homepage shows the same generic content regardless. A personalised returning-user homepage — "Funds you've been researching", "Updates on your tracked funds" — would dramatically increase return visit engagement and track_fund adoption.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Return visit depth</span>
+        <span class="impact-tag">track_fund events</span>
+        <span class="impact-tag">Session length</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="gap-card">
+    <div class="gap-card-header">
+      <div>
+        <div class="gap-card-title">Pages/Session Improvement Plan</div>
+        <div class="gap-card-sub">Current: 1.72 · Target: 2.4 · Gap: 0.68 pages per session</div>
+      </div>
+    </div>
+    <div class="gap-card-body">
+      <div class="metric-row">
+        <div class="metric-label">Compare CTA on factsheet pages</div>
+        <div class="metric-current">0 (no CTA)</div>
+        <div class="metric-target">+0.25 est.</div>
+        <div class="metric-action">Add "Compare with another fund" button next to search. Pre-fills current fund in comparison view.</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Related editorial articles module</div>
+        <div class="metric-current">Not present</div>
+        <div class="metric-target">+0.15 est.</div>
+        <div class="metric-action">Show 3 related Trustnet articles on each factsheet page — cross-sell between fund research and editorial content.</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Stay vs Switch widget engagement</div>
+        <div class="metric-current">Not present</div>
+        <div class="metric-target">+0.12 est.</div>
+        <div class="metric-action">Embedded widget prompts users to check a second fund to compare Stay vs Switch scores.</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Fund universe improvements</div>
+        <div class="metric-current">1 click to factsheet</div>
+        <div class="metric-target">+0.10 est.</div>
+        <div class="metric-action">Crown Rating filter as default sort. Top-rated fund highlighted. Reduces pogo-sticking between universe and factsheet.</div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-label">Internal linking — articles to factsheets</div>
+        <div class="metric-current">Inconsistent</div>
+        <div class="metric-target">+0.08 est.</div>
+        <div class="metric-action">Fund names in editorial content automatically hyperlink to factsheet pages. Low dev effort, high engagement return.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TECHNICAL & SEO
+══════════════════════════════════════ -->
+<div class="section" id="section-technical">
+<div class="page">
+  <div class="section-intro">
+    <div class="intro-tag">Technical SEO & AI Visibility</div>
+    <h2>The infrastructure of discoverability</h2>
+    <p>Trustnet's technical SEO foundation is functional but not optimised. The schema implementation programme (12 PBIs pending dev, 5 already live) is the single highest-leverage technical project — it will directly improve both Google rich results and AI platform citations.</p>
+  </div>
+
+  <div class="callout insight">
+    <strong>AI citation = the new SEO</strong>
+    <p>Strong foundation already in place — NewsArticle, BreadcrumbList, Organization, Person and ItemList schemas are all live. 510 sessions per month are already arriving from AI platforms with a citation score of 12/24. At 18/24 (the September 2026 target) this would approximately double to ~1,000 sessions. At 22/24 — achievable with the full schema and AEO programme — AI referral could reach 2,000–3,000 sessions per month. AI referral is growing faster than any other channel and Trustnet is positioned to dominate fund research queries if it moves now.</p>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="gap-card">
+      <div class="gap-card-header">
+        <div>
+          <div class="gap-card-title">Schema — Live vs Missing (verified 28 April 2026)</div>
+          <div class="gap-card-sub">Checked live on trustnet.com via page source inspection</div>
+        </div>
+        <div class="priority-badge p-high">Verified</div>
+      </div>
+      <div class="gap-card-body">
+        <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Already Live — Confirmed from tracker</div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--green)">NewsArticle schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--green)">Live — all article pages. headline, datePublished, image, author, publisher confirmed.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--green)">Organization schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--green)">Live — sitewide. name, logo, sameAs (Facebook, Twitter, LinkedIn).</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--green)">BreadcrumbList schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--green)">Live — all pages on www.trustnet.com confirmed.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--green)">ItemList schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--green)">Live — related articles and fund comparison lists.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--green)">Person schema — Gary Jackson, Matteo Anelli</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--green)">Live — author pages built with full E-E-A-T design. Author name links to author page on all articles.</div></div>
+        <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 10px">PBI Written — Pending Dev (submitted this week)</div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">FAQPage schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — Crown Rating + Alpha Manager AEO pages. Fixes AI citation gap directly.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">FinancialProduct schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — all fund factsheet pages. Enables fund rich results in Google.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">DefinedTerm schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — Crown Rating methodology page. Google Knowledge Panel opportunity.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">CollectionPage schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — all 6 fund universe hub pages (O/T/E/P/N/B).</div></div>
+        <div class="metric-row" style="background:#FFF8E6;padding:6px 0"><div class="metric-label" style="flex:3;color:var(--amber)">SiteLinksSearchBox schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — NOT yet live. SearchAction is live but SiteLinksSearchBox query-input not yet implemented. Enables search bar in Google SERP.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">VideoObject schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — all video pages on trustnet.com.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">WebApplication schema</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — Charting tool + Portfolio tool on www2.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">Person schema — www2 fund managers</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — Alpha Manager and A-Z fund manager pages on www2.</div></div>
+        <div class="metric-row"><div class="metric-label" style="flex:3;color:var(--amber)">LearningResource + FAQPage — www2 education</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — ISA, pension, investment guides on www2.</div></div>
+        <div class="metric-row" style="border:none"><div class="metric-label" style="flex:3;color:var(--amber)">BreadcrumbList + Organization — www2</div><div class="metric-action" style="flex:4;font-size:12px;color:var(--amber)">PBI written — www2 domain needs separate schema signals from www.</div></div>
+      </div>
+    </div>
+    <div class="gap-card">
+      <div class="gap-card-header">
+        <div>
+          <div class="gap-card-title">AI Citation Improvement Plan</div>
+          <div class="gap-card-sub">Current 12/24 → Target 18/24 September 2026</div>
+        </div>
+        <div class="priority-badge p-high">High</div>
+      </div>
+      <div class="gap-card-body">
+        <div class="metric-row">
+          <div class="metric-label" style="flex:3">Crown Rating AEO page + FAQPage schema</div>
+          <div class="metric-action" style="flex:4;font-size:12px;color:var(--teal)">Fixes 2 queries: "What is a Crown Rating?" and "How does Crown Rating work?"</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label" style="flex:3">Alpha Manager AEO page + FAQPage schema</div>
+          <div class="metric-action" style="flex:4;font-size:12px;color:var(--teal)">Fixes 1 query: "What is an Alpha Manager rating?" — currently partial</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label" style="flex:3">SRRI explainer page + DefinedTerm schema</div>
+          <div class="metric-action" style="flex:4;font-size:12px;color:var(--teal)">Fixes 2 queries: "What is SRRI?" and "SRRI 5 funds UK" — currently not cited</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label" style="flex:3">ISA fund selection guide</div>
+          <div class="metric-action" style="flex:4;font-size:12px;color:var(--teal)">Fixes 1 query: "Best ISA funds 2026" — currently partial only</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label" style="flex:3">Global equity income content strengthening</div>
+          <div class="metric-action" style="flex:4;font-size:12px;color:var(--teal)">Fixes 1 query: "Best global equity income funds 2026" — currently partial</div>
+        </div>
+        <div class="metric-row" style="border:none">
+          <div class="metric-label" style="flex:3">IFA due diligence content page</div>
+          <div class="metric-action" style="flex:4;font-size:12px;color:var(--teal)">Fixes 1 query: "IFA fund due diligence 2026" — currently partial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="opp-card technical">
+      <div class="opp-type">Technical · Gap</div>
+      <div class="opp-title">go_to_portfolio_test GTM Tag Still Firing</div>
+      <div class="opp-desc">85,614 events in April 2026. The tag exists in GTM-P2VJLH and is firing across portfolio-adjacent pages. This inflates event counts and corrupts behavioural data. Remove the GTM tag this week — it is a low-risk, 5-minute change.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Data accuracy</span>
+        <span class="impact-tag">Event inflation fix</span>
+      </div>
+    </div>
+    <div class="opp-card technical">
+      <div class="opp-type">Technical · Gap</div>
+      <div class="opp-title">www2 Legacy Domain Splitting SEO Value</div>
+      <div class="opp-desc">Portfolio, Charting and other tool pages live on www2.trustnet.com. This splits domain authority, creates cross-domain tracking complexity, and means Google indexes tool pages under a secondary domain with less authority. A migration plan to consolidate onto www.trustnet.com would concentrate SEO value and simplify tracking.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Domain authority</span>
+        <span class="impact-tag">Tracking simplicity</span>
+        <span class="impact-tag">SEO consolidation</span>
+      </div>
+    </div>
+    <div class="opp-card technical">
+      <div class="opp-type">Technical · Opportunity</div>
+      <div class="opp-title">Core Web Vitals & Mobile Optimisation</div>
+      <div class="opp-desc">Clarity shows mobile is 30.57% of sessions but engagement is lower than desktop. Fund universe and factsheet pages are not optimised for mobile research journeys. Improving Core Web Vitals on these pages would directly improve Google rankings and mobile user retention — mobile is the growth vector as retail investor demographics shift younger.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Google rankings</span>
+        <span class="impact-tag">Mobile engagement</span>
+        <span class="impact-tag">Retail audience growth</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     COMMERCIAL
+══════════════════════════════════════ -->
+<div class="section" id="section-commercial">
+<div class="page">
+  <div class="section-intro">
+    <div class="intro-tag">Commercial Strategy</div>
+    <h2>Revenue gaps and new streams</h2>
+    <p>Trustnet's commercial model is primarily Fundswire (sponsored content) and data licensing. Both have significant untapped potential, and there are two entirely new revenue streams that the audience and product data now make possible.</p>
+  </div>
+
+  <div class="callout warning">
+    <strong>The commercial gap in one sentence</strong>
+    <p>Trustnet is selling commodity CPM advertising to a premium audience. 10,899 identified IFA users and 295 high-value commercial users represent an audience that should command 5–10x the CPM of a generic financial website. The data infrastructure to prove and sell this audience is now in place — it is not yet being used commercially.</p>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:24px">
+    <div class="opp-card commercial">
+      <div class="opp-type">Commercial · Opportunity · New Revenue</div>
+      <div class="opp-title">Premium IFA Audience Product</div>
+      <div class="opp-desc">The IFA Signal audience (10,899 users, F1 79% precision) is now validated and measurable. Fund managers want to reach IFAs specifically — not general investors. Trustnet can now offer a "Reach 10,899 active IFA researchers" audience product at a premium CPM, backed by GA4 data and the D13 precision model. This reframes Fundswire from content sponsorship to targeted audience activation — a significantly higher-value proposition.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">New revenue stream</span>
+        <span class="impact-tag">Premium CPM</span>
+        <span class="impact-tag">Fundswire differentiation</span>
+      </div>
+    </div>
+    <div class="opp-card commercial">
+      <div class="opp-type">Commercial · Existing Revenue · Growth Opportunity</div>
+      <div class="opp-title">Crown Rating Licensing — Expand an Existing Revenue Stream</div>
+      <div class="opp-desc">Crown Ratings are already published for all applicable funds. A licensing model already exists for fund groups wishing to use the rating on their own marketing materials or website. The opportunity is to grow this — actively approach fund managers who are using Crown Ratings in their materials without a formal licence, expand distribution to platforms and aggregators (HL, AJ Bell, Morningstar), and create a tiered licensing structure. Each new licensing deal also means Trustnet is cited on that platform, improving AI citation and brand visibility.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Existing revenue — grow it</span>
+        <span class="impact-tag">Platform brand presence</span>
+        <span class="impact-tag">AI citations from licensees</span>
+      </div>
+    </div>
+    <div class="opp-card commercial">
+      <div class="opp-type">Commercial · Gap</div>
+      <div class="opp-title">No Structured Email / Newsletter Product</div>
+      <div class="opp-desc">Trustnet has a subscribe option but no structured commercial email product. A weekly IFA Briefing email — using Most Researched Funds data as the lead story — would be a premium commercial vehicle. Fund managers would pay to be featured in an email reaching 10,000+ IFA researchers. The editorial team already has the data and content. This needs a platform owner, a CRM system (Umbraco is in place) and a commercial rate card.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">New revenue stream</span>
+        <span class="impact-tag">IFA audience retention</span>
+        <span class="impact-tag">Commercial differentiation</span>
+      </div>
+    </div>
+    <div class="opp-card commercial">
+      <div class="opp-type">Commercial · Opportunity</div>
+      <div class="opp-title">Co-Branded Research with Fund Managers</div>
+      <div class="opp-desc">Aberdeen, Quilter, Capital Group and Baillie Gifford are already paying for Fundswire articles. The next commercial tier is co-branded research reports: "UK Equity Income — What investors researched in Q1 2026 (Trustnet x Artemis)". Trustnet provides the data, the fund manager provides the analysis and distribution. Each report is a commercial event, a PR story and a backlink generator. Target: 4 co-branded reports per quarter.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Fundswire upsell</span>
+        <span class="impact-tag">PR / backlinks</span>
+        <span class="impact-tag">AI citations</span>
+      </div>
+    </div>
+    <div class="opp-card commercial">
+      <div class="opp-type">Commercial · Opportunity</div>
+      <div class="opp-title">Kepler Trust Intelligence Partnership</div>
+      <div class="opp-desc">Kepler Trust Intelligence is already publishing on Trustnet (multiple articles in April 2026). This relationship should be formalised as a structured content partnership — Kepler provides investment trust research, Trustnet provides data context and distribution. A co-branded Investment Trust Hub on trustnet.com, powered by Kepler research and Trustnet Crown Rating data, would be the most comprehensive investment trust resource in the UK.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">Investment trust content</span>
+        <span class="impact-tag">IFA authority</span>
+        <span class="impact-tag">Commercial partnership</span>
+      </div>
+    </div>
+    <div class="opp-card commercial">
+      <div class="opp-type">Commercial · Opportunity</div>
+      <div class="opp-title">Platform / Aggregator Partnerships</div>
+      <div class="opp-desc">Platforms like interactive investor, Hargreaves Lansdown and AJ Bell reach retail investors at the point of purchase decision. Trustnet's Crown Rating and Most Researched Funds data would add value to platform fund selection interfaces. A data partnership — where Trustnet data is embedded in platform experiences — would generate recurring data licensing fees and significant brand exposure to retail investors who do not currently visit trustnet.com.</div>
+      <div class="opp-impact">
+        <span class="impact-tag">B2B data revenue</span>
+        <span class="impact-tag">Brand reach</span>
+        <span class="impact-tag">Retail acquisition</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo({ top: document.querySelector('.sticky-nav').offsetTop, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
