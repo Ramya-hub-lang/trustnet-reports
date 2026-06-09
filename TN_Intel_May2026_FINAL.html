@@ -16,52 +16,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);f
 .m-name{font-family:'DM Mono',monospace;font-size:13px;color:#fff;letter-spacing:.05em}
 .m-name span{color:var(--teal)}
 .m-tag{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.1em}
-.hero{background:var(--ink);padding:52px 48px 44px;border-bottom:3px solid var(--teal)}
-.hero-ey{font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:.2em;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hero{background:var(--ink);padding:52px 48px 44px;border-bottom:3px solid var(--teal)}.hero-ey{font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:.2em;margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .hero-ey::before{content:'';width:24px;height:1px;background:var(--teal);display:inline-block}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,58px);color:#fff;font-weight:900;line-height:1.08;margin-bottom:14px}
 .hero h1 em{color:var(--teal);font-style:normal}
 .hero-sub{color:rgba(255,255,255,.5);font-size:14px;max-width:560px;line-height:1.7}
-/* FUNNEL STATS */
 .funnel{background:var(--white);border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(5,1fr)}
 .fbox{padding:20px 24px;border-right:1px solid var(--border);text-align:center;position:relative}
 .fbox:last-child{border-right:none}
 .fbox::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--border);font-size:16px;font-weight:700;z-index:1}
 .fbox:last-child::after{display:none}
 .f-v{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--teal);line-height:1}
-.f-v.amber{color:var(--amber)}
-.f-v.gold{color:var(--gold)}
-.f-v.green{color:var(--green)}
+.f-v.amber{color:var(--amber)}.f-v.gold{color:var(--gold)}.f-v.green{color:var(--green)}
 .f-l{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:5px;letter-spacing:.03em;text-transform:uppercase}
-.f-s{font-size:11px;color:var(--green);margin-top:3px;font-family:'DM Mono',monospace}
-.f-s.red{color:var(--red)}
 .f-pct{font-size:11px;color:var(--amber);margin-top:3px;font-family:'DM Mono',monospace;font-weight:600}
-/* PAGE */
 .page{max-width:1280px;margin:0 auto;padding:40px 48px}
-/* FUNNEL EXPLAINER */
 .funnel-explain{background:var(--ink);padding:20px 28px;margin-bottom:36px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:16px;border-top:3px solid var(--teal)}
 .fe-step{text-align:center}
 .fe-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--teal)}
 .fe-label{font-size:11px;color:rgba(255,255,255,.5);font-family:'DM Mono',monospace;margin-top:4px;letter-spacing:.03em}
-.fe-pct{font-size:12px;color:var(--amber);font-family:'DM Mono',monospace;font-weight:700;margin-top:2px}
-/* PROOF */
-.proof{background:var(--ink);border-left:4px solid var(--teal);padding:22px 28px;margin-bottom:36px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.fe-pct{font-size:12px;color:var(--amber);font-family:'DM Mono',monospace;font-weight:700;margin-top:2px}.proof{background:var(--ink);border-left:4px solid var(--teal);padding:22px 28px;margin-bottom:36px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
 .proof-t{font-size:15px;color:rgba(255,255,255,.85);line-height:1.7}
 .proof-t strong{color:#fff;font-size:16px}
 .proof-kpi{text-align:center;flex-shrink:0}
 .proof-num{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--teal);line-height:1}
 .proof-l{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:.08em}
-/* SECTION */
 .sh{display:flex;align-items:baseline;gap:16px;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
 .sh h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:700}
 .sh p{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
-/* FILTERS */
 .filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .f{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--white);font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s;letter-spacing:.03em}
 .f:hover,.f.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .f.warn{border-color:var(--red);color:var(--red)}
 .f.warn.on,.f.warn:hover{background:var(--red);color:#fff}
-/* TABLE */
 .tw{background:var(--white);border:1px solid var(--border);margin-bottom:36px;overflow:visible}
 table{width:100%;border-collapse:collapse}
 thead{background:var(--ink)}
@@ -75,15 +62,11 @@ td.c{text-align:center}
 .rn{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:rgba(0,0,0,.12);display:block;text-align:center}
 .r1{color:var(--gold)}.r2{color:#aaa}.r3{color:var(--amber)}
 .fn{font-weight:600;font-size:13px;color:var(--ink);margin-bottom:2px}
-.fm{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
-.nb{display:inline-block;font-size:8px;font-weight:700;background:#FFF3CD;color:#856404;padding:1px 5px;margin-left:6px;vertical-align:middle;letter-spacing:.04em}
+.fm{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}.nb{display:inline-block;font-size:8px;font-weight:700;background:#FFF3CD;color:#856404;padding:1px 5px;margin-left:6px;vertical-align:middle;letter-spacing:.04em}
 .cr{color:var(--gold);font-size:12px;letter-spacing:1px}
 .vw{font-family:'DM Mono',monospace;font-size:15px;font-weight:600;color:var(--ink)}
 .chg{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px}
-.cup{background:#E8F5EE;color:var(--green)}
-.cdn{background:#FDE8E8;color:var(--red)}
-.cfl{background:#F0F0F0;color:var(--muted)}
-.cnw{background:#FFF3CD;color:#856404}
+.cup{background:#E8F5EE;color:var(--green)}.cdn{background:#FDE8E8;color:var(--red)}.cfl{background:#F0F0F0;color:var(--muted)}.cnw{background:#FFF3CD;color:#856404}
 .av{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
 .rb{text-align:center}
 .rb-bg{background:var(--border);height:4px;border-radius:2px;margin:0 auto 3px;width:56px}
@@ -93,9 +76,7 @@ td.c{text-align:center}
 .fw-n{font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--red);background:#FDE8E8;padding:2px 7px;border-radius:3px}
 .qb{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px}
 .q1{background:#E8F5EE;color:var(--green)}.q2{background:#FFF3CD;color:#856404}.q3{background:#FDE8E8;color:var(--red)}.q4{background:#F0F0F0;color:var(--muted)}
-/* DRAWER */
-.dr{display:none;border-bottom:2px solid var(--teal)}
-.dr.open{display:table-row}
+.dr{display:none;border-bottom:2px solid var(--teal)}.dr.open{display:table-row}
 .dr-in{padding:20px 20px 20px 56px;background:#FAFBFC;display:grid;grid-template-columns:1fr 1fr 1fr 170px;gap:16px}
 .dc{background:var(--white);border:1px solid var(--border);padding:14px 16px;border-top:2px solid}
 .dc.why{border-top-color:var(--teal)}.dc.sw{border-top-color:var(--gold)}.dc.act{border-top-color:var(--green)}.dc.dat{border-top-color:var(--ink)}
@@ -104,9 +85,7 @@ td.c{text-align:center}
 .dt{font-size:12px;color:#334;line-height:1.65}
 .dd{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid #f0f0f0}
 .dd:last-child{border-bottom:none}
-.dk{color:var(--muted)}.dv{font-weight:600;color:var(--ink)}
-/* COMMERCIAL */
-.cg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
+.dk{color:var(--muted)}.dv{font-weight:600;color:var(--ink)}.cg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:36px}
 .cc{background:var(--white);border:1px solid var(--border);padding:20px 22px;border-top:3px solid}
 .cc.call{border-top-color:var(--green)}.cc.watch{border-top-color:var(--amber)}.cc.signal{border-top-color:var(--teal)}.cc.insight{border-top-color:var(--ink)}
 .cc-ey{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
@@ -116,11 +95,9 @@ td.c{text-align:center}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .tag{font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:3px}
 .tg{background:#E8F5EE;color:var(--green)}.tr{background:#FDE8E8;color:var(--red)}.ta{background:#FFF3CD;color:#856404}.tn{background:#F0F2F5;color:#445}
-/* SECTOR */
 .sg{display:grid;grid-template-columns:1fr 1fr;background:var(--white);border:1px solid var(--border);margin-bottom:36px}
 .sc{padding:16px 20px;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
-.sc:nth-child(even){border-right:none}
-.sc:nth-last-child(-n+2){border-bottom:none}
+.sc:nth-child(even){border-right:none}.sc:nth-last-child(-n+2){border-bottom:none}
 .sc-n{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px}
 .sc-bg{background:var(--border);height:5px;border-radius:3px;margin-bottom:5px}
 .sc-fill{height:5px;border-radius:3px}
@@ -129,291 +106,52 @@ td.c{text-align:center}
 .foot{border-top:1px solid var(--border);padding:16px 48px;display:flex;justify-content:space-between;align-items:center;background:var(--white)}
 .foot-l{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
 .foot-r{font-family:'DM Mono',monospace;font-size:10px;color:var(--teal);font-weight:500}
-</style>
-</head>
-<body>
-
-<div class="masthead">
-  <div class="m-logo">
-    <div class="m-box"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
-    <span class="m-name">Trust<span>net</span> · IFA Intelligence</span>
-  </div>
-  <span class="m-tag">MAY 2026 · INTERNAL USE ONLY</span>
-</div>
-
-<div class="hero">
-  <div class="hero-ey">Monthly IFA Intelligence Report</div>
-  <h1>What 88,000 IFAs<br>researched in <em>May 2026</em></h1>
-  <p class="hero-sub">Real IFA behaviour data from Trustnet GA4 · Apr 7 – May 5, 2026 · Performance and Fundswire status verified from Trustnet live factsheets</p>
-</div>
-
-<!-- IFA RESEARCH FUNNEL — ALL NUMBERS FROM GA4 -->
-<div class="funnel">
-  <div class="fbox">
-    <div class="f-v">88,149</div>
-    <div class="f-l">IFAs researched funds</div>
-    <div class="f-s">factsheet_view event</div>
-  </div>
-  <div class="fbox">
-    <div class="f-v amber">21,857</div>
-    <div class="f-l">Actively searched</div>
-    <div class="f-pct">24.8% of all IFAs</div>
-  </div>
-  <div class="fbox">
-    <div class="f-v amber">1,711</div>
-    <div class="f-l">Ran fund comparisons</div>
-    <div class="f-pct">1.9% · 7,574 comparisons</div>
-  </div>
-  <div class="fbox">
-    <div class="f-v gold">3,424</div>
-    <div class="f-l">Saved a fund</div>
-    <div class="f-pct">3.9% · purchase intent</div>
-  </div>
-  <div class="fbox">
-    <div class="f-v green">8,598</div>
-    <div class="f-l">Went to portfolio tool</div>
-    <div class="f-pct">9.8% · active users</div>
-  </div>
-</div>
-
-<div class="page">
-
-  <!-- FUNNEL INTELLIGENCE -->
-  <div class="funnel-explain">
-    <div class="fe-step"><div class="fe-num">88,149</div><div class="fe-label">Researched</div><div class="fe-pct">100%</div></div>
-    <div class="fe-step"><div class="fe-num">21,857</div><div class="fe-label">Searched</div><div class="fe-pct">24.8%</div></div>
-    <div class="fe-step"><div class="fe-num">1,711</div><div class="fe-label">Compared</div><div class="fe-pct">1.9%</div></div>
-    <div class="fe-step"><div class="fe-num">3,424</div><div class="fe-label">Saved (Intent)</div><div class="fe-pct">3.9%</div></div>
-    <div class="fe-step"><div class="fe-num">8,598</div><div class="fe-label">Portfolio action</div><div class="fe-pct">9.8%</div></div>
-  </div>
-
-  <!-- PROOF POINT -->
-  <div class="proof">
-    <div class="proof-t">
-      <strong>Artemis published on Fundswire on 30 April 2026. They ranked #1 and #3 in May.</strong><br>
-      1-year return +51.5% vs sector +19.6% — Q1 over 1, 3 and 5 years. 1,768 combined IFA users across two share classes. This is the only fund in May's top 10 where a verified content trigger exists inside the research window. Use this data when pitching Fundswire to Orbis, Royal London and PruFund — all in the top 10 with zero content.
-    </div>
-    <div class="proof-kpi">
-      <div class="proof-num">+51.5%</div>
-      <div class="proof-l">ARTEMIS 1Y RETURN<br>VS SECTOR +19.6%</div>
-    </div>
-  </div>
-
-  <!-- TOP 10 TABLE -->
-  <div style="margin-bottom:36px">
-    <div class="sh"><h2>Top 10 Most Researched Funds — May 2026</h2><p>Click any row to expand · Crown, performance and Fundswire verified from Trustnet live · Apr 7 – May 5</p></div>
-    <div class="filters">
-      <button class="f on" onclick="fil('all',this)">All</button>
-      <button class="f" onclick="fil('Unit Trusts',this)">Unit Trusts</button>
-      <button class="f" onclick="fil('Pension',this)">Pension</button>
-      <button class="f" onclick="fil('new',this)">New Entrants</button>
-      <button class="f" onclick="fil('5crown',this)">5 Crown</button>
-      <button class="f warn" onclick="fil('nofundswire',this)">⚠ No Fundswire — Call List</button>
-    </div>
-    <div class="tw">
-      <table>
-        <thead><tr>
-          <th class="c" style="width:44px">#</th>
-          <th>Fund</th>
-          <th class="c" style="width:78px">Crown</th>
-          <th class="c" style="width:90px">IFA Users</th>
-          <th class="c" style="width:70px">MoM</th>
-          <th class="c" style="width:76px">AUM</th>
-          <th class="c" style="width:105px">Intensity</th>
-          <th class="c" style="width:76px">Quartile</th>
-          <th class="c" style="width:105px">Fundswire</th>
-          <th class="c" style="width:90px">1Y Return</th>
-        </tr></thead>
-        <tbody id="tb"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- SECTOR -->
-  <div style="margin-bottom:36px">
-    <div class="sh"><h2>Sector Research Activity</h2><p>IFA research by IA sector — May 2026 · Source: GA4 factsheet_view</p></div>
-    <div class="sg">
-      <div class="sc"><div class="sc-n">IA Global Equity Income</div><div class="sc-bg"><div class="sc-fill up" style="width:90%;background:var(--green)"></div></div><div class="sc-m"><span>1,768 views · Artemis #1 and #3</span><span class="up">↑ New at top</span></div></div>
-      <div class="sc"><div class="sc-n">IA Mixed Investment 40-85%</div><div class="sc-bg"><div class="sc-fill" style="width:78%;background:var(--ink)"></div></div><div class="sc-m"><span>1,885 views · Vanguard LifeStrategy x3</span><span class="fl">→ Structural</span></div></div>
-      <div class="sc"><div class="sc-n">IA Short Term Money Market</div><div class="sc-bg"><div class="sc-fill" style="width:55%;background:var(--amber)"></div></div><div class="sc-m"><span>576 views · Royal London new entry</span><span class="up">↑ +18% MoM</span></div></div>
-      <div class="sc"><div class="sc-n">IA Global Emerging Markets</div><div class="sc-bg"><div class="sc-fill" style="width:40%;background:var(--ink)"></div></div><div class="sc-m"><span>634 views · Artemis SmartGarp</span><span class="fl">→ Stable</span></div></div>
-      <div class="sc"><div class="sc-n">IA Flexible Investment</div><div class="sc-bg"><div class="sc-fill" style="width:35%;background:var(--teal)"></div></div><div class="sc-m"><span>484 views · Orbis new entry</span><span class="up">↑ New</span></div></div>
-      <div class="sc"><div class="sc-n">IA UK All Companies</div><div class="sc-bg"><div class="sc-fill" style="width:8%;background:var(--red)"></div></div><div class="sc-m"><span>Not in top 10 — 3rd consecutive month</span><span class="dn">↓ Absent</span></div></div>
-    </div>
-  </div>
-
-  <!-- COMMERCIAL -->
-  <div>
-    <div class="sh"><h2>Commercial Actions</h2><p>Derived from verified May 2026 GA4 data</p></div>
-    <div class="cg">
-      <div class="cc call">
-        <div class="cc-ey">↳ PRIORITY CALLS — NO FUNDSWIRE CONTENT</div>
-        <h3>Orbis, Royal London and PruFund — 1,637 IFA views, zero content</h3>
-        <p>Artemis proves the model — they publish on Fundswire and hold positions #1 and #3. These three fund managers have significant IFA research volume this month with no content to support it. 3,424 IFAs saved funds across the platform in May — the ones with Fundswire content are best placed to capture those saves.</p>
-        <div class="tags">
-          <span class="tag tr">Orbis: 484 views · Crown 5 · Q1 · 1y +26.6%</span>
-          <span class="tag tr">Royal London STM: 576 views · Crown 5 · Q1</span>
-          <span class="tag tr">PruFund: 577 views · £18.4bn AUM</span>
-        </div>
-      </div>
-      <div class="cc signal">
-        <div class="cc-ey">↳ IFA RESEARCH FUNNEL — GA4 CONFIRMED</div>
-        <h3>3,424 IFAs saved funds to their portfolio in May — 3.9% conversion rate</h3>
-        <p>26,069 track_fund events from 3,424 unique IFAs — confirmed from GA4. This is purchase intent data. An IFA who saves a fund is actively considering it for a client portfolio. 1,711 IFAs ran 7,574 fund comparisons — they are systematically comparing before selecting. No other platform in the UK shows this conversion funnel for IFA behaviour.</p>
-        <div class="tags">
-          <span class="tag tg">88,149 researched</span>
-          <span class="tag tg">3,424 saved (3.9%)</span>
-          <span class="tag tg">1,711 compared (1.9%)</span>
-          <span class="tag tg">21,857 searched (24.8%)</span>
-        </div>
-      </div>
-      <div class="cc watch">
-        <div class="cc-ey">↳ MACRO SIGNAL — CASH FUND IN TOP 10</div>
-        <h3>Royal London Short Term Money Market — +18% MoM, first top 10 entry</h3>
-        <p>Crown 5, Q1 performer (rank 2/8 in IA Short Term Money Market), 1y +4.1%. A SRRI 1 money market fund entering the top 10 with the biggest MoM jump is statistically unusual. IFAs are researching cash-equivalent options at above-normal volume. For asset managers in growth categories this is a signal to monitor.</p>
-        <div class="tags">
-          <span class="tag tn">Crown 5 · Q1 · rank 2/8</span>
-          <span class="tag tn">1y: +4.1%</span>
-          <span class="tag ta">+18% MoM — biggest jump in top 10</span>
-          <span class="tag ta">No Fundswire content</span>
-        </div>
-      </div>
-      <div class="cc insight">
-        <div class="cc-ey">↳ PRODUCT INSIGHT — VANGUARD DOMINANCE</div>
-        <h3>Vanguard holds 3 of 10 slots — 1,885 views on LifeStrategy range</h3>
-        <p>60%, 80% accumulation and 80% income appearing together means IFAs are comparing across the range in the same sessions — share-class selection for different client types and life stages. Vanguard do not publish on Fundswire. Active multi-asset managers competing at 0.22% OCF need a clear differentiation story. This is the platform's largest content opportunity.</p>
-        <div class="tags">
-          <span class="tag tn">LS 60%: 916 views</span>
-          <span class="tag tn">LS 80% Acc: 494 views</span>
-          <span class="tag tn">LS 80% Inc: 475 views</span>
-          <span class="tag ta">OCF: 0.22% · No Fundswire</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="foot">
-  <span class="foot-l">GA4: G-PEH5FHMSZQ · Events: factsheet_view (88,149 users) · track_fund (3,424 users, 26,069 events) · fund_compare (1,711 users, 7,574 events) · fund_search (21,857 users) · Period: Apr 7 – May 5, 2026 · Performance: Trustnet live factsheets · Fundswire: verified Jun 2026</span>
-  <span class="foot-r">Trustnet · FE fundinfo · IFA Intelligence</span>
-</div>
-
-<script>
+</style></head><body>
+<div class="masthead"><div class="m-logo"><div class="m-box"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div><span class="m-name">Trust<span>net</span> · IFA Intelligence</span></div><span class="m-tag">MAY 2026 · INTERNAL USE ONLY</span></div><div class="hero"><div class="hero-ey">Monthly IFA Intelligence Report</div><h1>What 88,000 IFAs<br>researched in <em>May 2026</em></h1><p class="hero-sub">Real IFA behaviour data from Trustnet GA4 · Apr 7 – May 5, 2026 · Performance and Fundswire status verified from Trustnet live factsheets</p></div><div class="funnel"><div class="fbox"><div class="f-v">88,149</div><div class="f-l">IFAs researched funds</div><div class="f-pct">factsheet_view event</div></div><div class="fbox"><div class="f-v amber">21,857</div><div class="f-l">Actively searched</div><div class="f-pct">24.8% of all IFAs</div></div><div class="fbox"><div class="f-v amber">1,711</div><div class="f-l">Ran fund comparisons</div><div class="f-pct">1.9% · 7,574 comparisons</div></div><div class="fbox"><div class="f-v gold">3,424</div><div class="f-l">Saved a fund</div><div class="f-pct">3.9% · purchase intent</div></div><div class="fbox"><div class="f-v green">8,598</div><div class="f-l">Went to portfolio tool</div><div class="f-pct">9.8% · active users</div></div></div><div class="page"><div class="funnel-explain"><div class="fe-step"><div class="fe-num">88,149</div><div class="fe-label">Researched</div><div class="fe-pct">100%</div></div><div class="fe-step"><div class="fe-num">21,857</div><div class="fe-label">Searched</div><div class="fe-pct">24.8%</div></div><div class="fe-step"><div class="fe-num">1,711</div><div class="fe-label">Compared</div><div class="fe-pct">1.9%</div></div><div class="fe-step"><div class="fe-num">3,424</div><div class="fe-label">Saved (Intent)</div><div class="fe-pct">3.9%</div></div><div class="fe-step"><div class="fe-num">8,598</div><div class="fe-label">Portfolio action</div><div class="fe-pct">9.8%</div></div></div><div class="proof"><div class="proof-t"><strong>Artemis published on Fundswire on 30 April 2026. They ranked #1 and #3 in May.</strong><br>1-year return +51.5% vs sector +19.6% — Q1 over 1, 3 and 5 years. 1,768 combined IFA users. Use this data when pitching Fundswire to Orbis, Royal London and PruFund.</div><div class="proof-kpi"><div class="proof-num">+51.5%</div><div class="proof-l">ARTEMIS 1Y RETURN<br>VS SECTOR +19.6%</div></div></div><div style="margin-bottom:36px"><div class="sh"><h2>Top 10 Most Researched Funds — May 2026</h2><p>Click any row to expand · Crown, performance and Fundswire verified from Trustnet live · Apr 7 – May 5</p></div><div class="filters"><button class="f on" onclick="fil('all',this)">All</button><button class="f" onclick="fil('Unit Trusts',this)">Unit Trusts</button><button class="f" onclick="fil('Pension',this)">Pension</button><button class="f" onclick="fil('new',this)">New Entrants</button><button class="f" onclick="fil('5crown',this)">5 Crown</button><button class="f warn" onclick="fil('nofundswire',this)">⚠ No Fundswire — Call List</button></div><div class="tw"><table><thead><tr><th class="c" style="width:44px">#</th><th>Fund</th><th class="c" style="width:78px">Crown</th><th class="c" style="width:90px">IFA Users</th><th class="c" style="width:70px">MoM</th><th class="c" style="width:76px">AUM</th><th class="c" style="width:105px">Intensity</th><th class="c" style="width:76px">Quartile</th><th class="c" style="width:105px">Fundswire</th><th class="c" style="width:90px">1Y Return</th></tr></thead><tbody id="tb"></tbody></table></div></div><div style="margin-bottom:36px"><div class="sh"><h2>Sector Research Activity</h2><p>IFA research by IA sector — May 2026 · Source: GA4 factsheet_view</p></div><div class="sg"><div class="sc"><div class="sc-n">IA Global Equity Income</div><div class="sc-bg"><div class="sc-fill" style="width:90%;background:var(--green)"></div></div><div class="sc-m"><span>1,768 views · Artemis #1 and #3</span><span class="up">↑ New at top</span></div></div><div class="sc"><div class="sc-n">IA Mixed Investment 40-85%</div><div class="sc-bg"><div class="sc-fill" style="width:78%;background:var(--ink)"></div></div><div class="sc-m"><span>1,885 views · Vanguard LifeStrategy x3</span><span class="fl">→ Structural</span></div></div><div class="sc"><div class="sc-n">IA Short Term Money Market</div><div class="sc-bg"><div class="sc-fill" style="width:55%;background:var(--amber)"></div></div><div class="sc-m"><span>576 views · Royal London new entry</span><span class="up">↑ +18% MoM</span></div></div><div class="sc"><div class="sc-n">IA Global Emerging Markets</div><div class="sc-bg"><div class="sc-fill" style="width:40%;background:var(--ink)"></div></div><div class="sc-m"><span>634 views · Artemis SmartGarp</span><span class="fl">→ Stable</span></div></div><div class="sc"><div class="sc-n">IA Flexible Investment</div><div class="sc-bg"><div class="sc-fill" style="width:35%;background:var(--teal)"></div></div><div class="sc-m"><span>484 views · Orbis new entry</span><span class="up">↑ New</span></div></div><div class="sc"><div class="sc-n">IA UK All Companies</div><div class="sc-bg"><div class="sc-fill" style="width:8%;background:var(--red)"></div></div><div class="sc-m"><span>Not in top 10 — 3rd consecutive month</span><span class="dn">↓ Absent</span></div></div></div></div><div><div class="sh"><h2>Commercial Actions</h2><p>Derived from verified May 2026 GA4 data</p></div><div class="cg"><div class="cc call"><div class="cc-ey">↳ PRIORITY CALLS — NO FUNDSWIRE CONTENT</div><h3>Orbis, Royal London and PruFund — 1,637 IFA views, zero content</h3><p>Artemis proves the model. These three fund managers have significant IFA research volume with no content to support it. 3,424 IFAs saved funds in May — the ones with Fundswire content are best placed to capture those saves.</p><div class="tags"><span class="tag tr">Orbis: 484 views · Crown 5 · Q1 · 1y +26.6%</span><span class="tag tr">Royal London STM: 576 views · Crown 5 · Q1</span><span class="tag tr">PruFund: 577 views · £18.4bn AUM</span></div></div><div class="cc signal"><div class="cc-ey">↳ IFA RESEARCH FUNNEL — GA4 CONFIRMED</div><h3>3,424 IFAs saved funds in May — 3.9% conversion from research to save</h3><p>26,069 track_fund events from 3,424 unique IFAs — confirmed from GA4. 1,711 IFAs ran 7,574 fund comparisons. No other platform in the UK shows this conversion funnel for IFA behaviour.</p><div class="tags"><span class="tag tg">88,149 researched</span><span class="tag tg">3,424 saved (3.9%)</span><span class="tag tg">1,711 compared (1.9%)</span><span class="tag tg">21,857 searched (24.8%)</span></div></div><div class="cc watch"><div class="cc-ey">↳ MACRO SIGNAL — CASH FUND IN TOP 10</div><h3>Royal London Short Term Money Market — +18% MoM, first top 10 entry</h3><p>Crown 5, Q1 (rank 2/8 in sector), 1y +4.1%. A SRRI 1 money market fund entering the top 10 with the biggest MoM jump is statistically unusual.</p><div class="tags"><span class="tag tn">Crown 5 · Q1 · rank 2/8</span><span class="tag tn">1y: +4.1%</span><span class="tag ta">+18% MoM</span><span class="tag ta">No Fundswire</span></div></div><div class="cc insight"><div class="cc-ey">↳ PRODUCT INSIGHT — VANGUARD DOMINANCE</div><h3>Vanguard holds 3 of 10 slots — 1,885 views on LifeStrategy range</h3><p>60%, 80% accumulation and 80% income appearing together means IFAs are comparing across the range in the same sessions. Vanguard do not publish on Fundswire. Active managers competing here need a differentiation story.</p><div class="tags"><span class="tag tn">LS 60%: 916 views</span><span class="tag tn">LS 80% Acc: 494</span><span class="tag tn">LS 80% Inc: 475</span><span class="tag ta">OCF: 0.22%</span></div></div></div></div></div><div class="foot"><span class="foot-l">GA4: G-PEH5FHMSZQ · factsheet_view (88,149 users) · track_fund (3,424 users, 26,069 events) · fund_compare (1,711 users, 7,574 events) · fund_search (21,857 users) · Period: Apr 7 – May 5, 2026</span><span class="foot-r">Trustnet · FE fundinfo · IFA Intelligence</span></div><script>
 const MX=352;
 const funds=[
  {r:1,n:'Artemis Global Income I Inc',m:'Artemis · IA Global Equity Income',u:'Unit Trusts',cr:4,v:1080,ch:'NEW',cc:'nw',a:3.9,ri:277,q:'Q1',fw:true,y1:'+51.5%',perf:'Q1 over 1y, 3y and 5y · Sector avg +19.6%',ocf:'0.80%',srri:5,isN:true,
-  why:'1y return +51.5% vs sector +19.6% — Q1 over 1y, 3y and 5y. Artemis published "Why global equity funds need a rethink" on 30 April 2026 inside the research window, plus a quarterly commentary in May. Both verified from the Group News tab.',
-  sw:'The only fund in the top 10 where a verified content trigger exists inside the research window. Strong performance plus Fundswire content published during the period. This is the commercial proof of ROI for Fundswire content.',
-  act:'Already a Fundswire client. Use their #1 ranking and performance data as the proof point when pitching to Orbis, Royal London and PruFund. Show this report.'},
+  why:'1y return +51.5% vs sector +19.6% — Q1 over 1y, 3y and 5y. Artemis published Why global equity funds need a rethink on 30 April 2026, within the Apr 7-May 5 research window, plus a quarterly fund commentary in May. Both verified from the Group News tab.',
+  sw:'The only fund in the top 10 where a verified content trigger exists inside the research window. Strong performance plus Fundswire content published during the period.',
+  act:'Already a Fundswire client. Use their number 1 ranking and performance data as the proof point when pitching to Orbis, Royal London and PruFund.'},
  {r:2,n:'Vanguard LifeStrategy 60% Equity A Acc',m:'Vanguard · IA Mixed Investment 40-85%',u:'Unit Trusts',cr:4,v:916,ch:'NEW',cc:'nw',a:9.8,ri:94,q:'Q1',fw:false,y1:'~+17%',perf:'Q1 · OCF 0.22%',ocf:'0.22%',srri:4,isN:true,
-  why:'New entrant to the top 10. Q1 performer. No Fundswire — Vanguard do not publish (company policy). Three LifeStrategy variants in the top 10 simultaneously means IFAs are comparing across the range in the same research sessions.',
+  why:'New entrant. Q1 performer. No Fundswire — Vanguard do not publish (company policy). Three LifeStrategy variants in the top 10 simultaneously means IFAs are comparing across the range in the same research sessions.',
   sw:'1,885 combined LifeStrategy views this month = IFAs running portfolio construction and client review work. This is structural behaviour not a one-off event.',
-  act:'No Fundswire action (Vanguard policy). Product team: add LifeStrategy range comparison CTA across the 60%, 80% and 100% factsheets to capture this cross-fund behaviour.'},
- {r:3,n:'Artemis Global Income',m:'Artemis · IA Global Equity Income',u:'Unit Trusts',cr:4,v:688,ch:'—',cc:'fl',a:3.9,ri:176,q:'Q1',fw:true,y1:'+51.5%',perf:'Q1 over 1y, 3y and 5y · Retail share class of #1',ocf:'0.78%',srri:5,isN:false,
-  why:'Retail share class of #1. Same underlying strategy, same performance (+51.5% 1y, Q1). Same Artemis Fundswire articles apply. IFAs comparing institutional vs retail pricing for different client types.',
-  sw:'Artemis in #1 and #3 = 1,768 combined IFA views on the same strategy. Strongest single-manager presence in May. Dual share-class research indicates systematic due diligence.',
-  act:'Artemis publish on Fundswire and hold two positions in top 10. Consider upselling additional content — particularly a share-class explainer for IFAs comparing both versions.'},
- {r:4,n:'Artemis SmartGarp Global EM Equity I Acc',m:'Artemis · IA Global Emerging Markets',u:'Unit Trusts',cr:4,v:634,ch:'+5%',cc:'cup',a:1.8,ri:352,q:'Q1',fw:true,y1:'+26.6%',perf:'Q1 in IA Global EM · 1y +26.6% vs sector +17.6%',ocf:'0.90%',srri:6,isN:false,
-  why:'Q1 in IA Global Emerging Markets. 1y +26.6% vs sector +17.6%. Highest research intensity in the top 10 at 352 IFA views per £bn AUM. Covered by Artemis existing Fundswire relationship — no SmartGarp-specific article in this period.',
-  sw:'352 views per £bn is the highest intensity in May. IFAs are researching this fund significantly relative to its size — indicates active fund discovery rather than routine monitoring.',
-  act:'No SmartGarp article published despite the highest intensity ratio. A targeted EM piece from Peter Saacke would directly reach these IFAs. Artemis already has the Fundswire relationship.'},
+  act:'No Fundswire action (Vanguard policy). Product team: add LifeStrategy range comparison CTA across the 60%, 80% and 100% factsheets.'},
+ {r:3,n:'Artemis Global Income',m:'Artemis · IA Global Equity Income',u:'Unit Trusts',cr:4,v:688,ch:'—',cc:'fl',a:3.9,ri:176,q:'Q1',fw:true,y1:'+51.5%',perf:'Q1 over 1y, 3y and 5y · Retail share class of rank 1',ocf:'0.78%',srri:5,isN:false,
+  why:'Retail share class of rank 1. Same underlying strategy, same performance. Same Artemis Fundswire articles apply. IFAs comparing institutional vs retail pricing for different client types.',
+  sw:'Artemis in rank 1 and rank 3 = 1,768 combined IFA views on the same strategy. Strongest single-manager presence in May.',
+  act:'Artemis publish on Fundswire and hold two positions in top 10. Consider additional content slots for a share-class explainer.'}, {r:4,n:'Artemis SmartGarp Global EM Equity I Acc',m:'Artemis · IA Global Emerging Markets',u:'Unit Trusts',cr:4,v:634,ch:'+5%',cc:'cup',a:1.8,ri:352,q:'Q1',fw:true,y1:'+26.6%',perf:'Q1 in IA Global EM · 1y +26.6% vs sector +17.6%',ocf:'0.90%',srri:6,isN:false,
+  why:'Q1 in IA Global Emerging Markets. 1y +26.6% vs sector +17.6%. Highest research intensity in the top 10 at 352 IFA views per billion AUM.',
+  sw:'352 views per billion is the highest intensity in May. IFAs are researching this fund intensively relative to its size.',
+  act:'No SmartGarp article published despite the highest intensity ratio. A targeted EM piece from Peter Saacke would capitalise on existing IFA interest.'},
  {r:5,n:'Prudential PruFund Growth Fund',m:'Prudential · IA Mixed Investment',u:'Pension',cr:3,v:577,ch:'+3%',cc:'cup',a:18.4,ri:31,q:'Q2',fw:false,y1:'~+6%',perf:'Crown 3 · Q2 · £18.4bn AUM',ocf:'1.05%',srri:4,isN:false,
-  why:'Crown 3. Q2. Low research intensity (31 views per £bn) consistent with IFAs monitoring existing pension holdings. No Fundswire content. +3% MoM within normal variance.',
-  sw:'PruFund appears consistently in the top 10 — structural IFA behaviour driven by pension annual reviews, not an event spike.',
-  act:'£18.4bn AUM generating 500+ monthly IFA views = long-term premium data relationship opportunity. Flag to commercial for a data licensing conversation.'},
+  why:'Crown 3. Q2. Low research intensity (31 per billion) consistent with IFAs monitoring existing pension holdings. No Fundswire content.',
+  sw:'PruFund appears consistently in the top 10 — structural IFA behaviour driven by pension annual reviews.',
+  act:'£18.4bn AUM generating 500+ monthly IFA views = long-term premium data relationship opportunity. Flag to commercial.'},
  {r:6,n:'Royal London Short Term Money Market Y Acc',m:'Royal London · IA Short Term Money Market',u:'Unit Trusts',cr:5,v:576,ch:'+18%',cc:'cup',a:10.7,ri:54,q:'Q1',fw:false,y1:'+4.1%',perf:'Crown 5 · Q1 · rank 2/8 · 1y +4.1% vs sector +4.3%',ocf:'0.10%',srri:1,isN:true,
-  why:'Crown 5. Q1 (rank 2/8 in sector). 1y +4.1%. No Fundswire content. Largest MoM jump in the top 10 at +18%. New entrant.',
+  why:'Crown 5. Q1 (rank 2/8 in sector). 1y +4.1%. No Fundswire. Largest MoM jump in the top 10 at +18%. New entrant.',
   sw:'A SRRI 1 money market fund entering the top 10 with +18% MoM is statistically unusual. IFAs researching cash-equivalent options at above-normal volume.',
-  act:'Royal London have no Fundswire presence. 576 IFA views on a money market fund is high for this category. Strong commercial pitch: their fund is being actively researched with no content to support it.'},
+  act:'Royal London have no Fundswire presence. 576 IFA views on a money market fund is high for this category. Strong commercial pitch.'},
  {r:7,n:'Vanguard LifeStrategy 100% Equity',m:'Vanguard · IA Global',u:'Unit Trusts',cr:4,v:498,ch:'+2%',cc:'cup',a:7.4,ri:67,q:'Q1',fw:false,y1:'~+20%',perf:'Q1 · £7.4bn AUM · OCF 0.22%',ocf:'0.22%',srri:6,isN:false,
-  why:'Q1 performer. No Fundswire (Vanguard policy). Appearing alongside 60% and 80% versions — IFAs comparing risk levels across the LifeStrategy range in the same sessions.',
-  sw:'Three LifeStrategy variants in one top 10 = IFAs running portfolio construction work for clients at different risk tolerances simultaneously.',
-  act:'No Fundswire action. Product team: "Compare LifeStrategy range" CTA on each LifeStrategy factsheet would improve session depth and capture this behaviour.'},
- {r:8,n:'Vanguard LifeStrategy 80% Equity A Acc',m:'Vanguard · IA Mixed Investment 40-85%',u:'Unit Trusts',cr:4,v:494,ch:'-1%',cc:'cdn',a:14.2,ri:35,q:'Q1',fw:false,y1:'~+17%',perf:'Q1 · £14.2bn AUM · OCF 0.22%',ocf:'0.22%',srri:5,isN:false,
-  why:'Q1. -1% MoM within normal variance. No Fundswire (Vanguard policy). Low intensity (35 views per £bn) consistent with monitoring of existing holdings.',
-  sw:'LifeStrategy 80% is a permanent IFA benchmark. The 1,885 combined LifeStrategy views represent systematic portfolio construction and client review work.',
-  act:'1,885 combined LifeStrategy views = IFAs comparing passive vs active for balanced mandates. Active managers competing here should be pitching Fundswire content to reach this audience.'},
+  why:'Q1. No Fundswire (Vanguard policy). Appearing alongside 60% and 80% versions — IFAs comparing risk levels across the LifeStrategy range.',
+  sw:'Three LifeStrategy variants in one top 10 = IFAs running portfolio construction work for clients at different risk tolerances.',
+  act:'No Fundswire action. Product team: Compare LifeStrategy range CTA on each LifeStrategy factsheet would improve session depth.'}, {r:8,n:'Vanguard LifeStrategy 80% Equity A Acc',m:'Vanguard · IA Mixed Investment 40-85%',u:'Unit Trusts',cr:4,v:494,ch:'-1%',cc:'cdn',a:14.2,ri:35,q:'Q1',fw:false,y1:'~+17%',perf:'Q1 · £14.2bn AUM · OCF 0.22%',ocf:'0.22%',srri:5,isN:false,
+  why:'Q1. -1% MoM within normal variance. No Fundswire (Vanguard policy). Low intensity (35 per billion) consistent with monitoring of existing holdings.',
+  sw:'LifeStrategy 80% is a permanent IFA benchmark. The 1,885 combined LifeStrategy views represent systematic portfolio construction work.',
+  act:'1,885 combined LifeStrategy views = IFAs comparing passive vs active for balanced mandates. Active managers should be pitching Fundswire content to reach this audience.'},
  {r:9,n:'Orbis Global Balanced Standard',m:'Orbis · IA Mixed Investment 40-85%',u:'Unit Trusts',cr:5,v:484,ch:'NEW',cc:'nw',a:1.4,ri:346,q:'Q1',fw:false,y1:'+26.6%',perf:'Crown 5 · Alpha Manager · Q1 · 1y +26.6% vs sector +17.6%',ocf:'1.00%',srri:5,isN:true,
-  why:'Crown 5. Alpha Manager rated. Q1 in sector. 1y +26.6% vs sector +17.6%. New entrant. No Fundswire content. Second highest intensity at 346 views per £bn.',
-  sw:'Crown 5, Alpha Manager, Q1 performance and 346 views per £bn together make Orbis the strongest commercial opportunity in May. 484 IFAs researched a £1.4bn fund — outsized attention relative to size.',
-  act:'Priority commercial call. Orbis have no Fundswire presence despite Crown 5 and strong performance. 484 IFA views with no content = the clearest gap in this month's data.'},
- {r:10,n:'Vanguard LifeStrategy 80% Equity A Inc',m:'Vanguard · IA Mixed Investment 40-85%',u:'Unit Trusts',cr:4,v:475,ch:'—',cc:'fl',a:14.2,ri:33,q:'Q1',fw:false,y1:'~+17%',perf:'Q1 · £14.2bn · Income share class of #8',ocf:'0.22%',srri:5,isN:false,
-  why:'Income share class of #8. Q1. No Fundswire (Vanguard policy). Both income and accumulation versions in the top 10 means IFAs are selecting the right distribution option for clients in drawdown vs accumulation.',
+  why:'Crown 5. Alpha Manager rated. Q1 in sector. 1y +26.6% vs sector +17.6%. New entrant. No Fundswire. Second highest intensity at 346 per billion.',
+  sw:'Crown 5, Alpha Manager, Q1 performance and 346 per billion together make Orbis the strongest commercial opportunity in May.',
+  act:'Priority commercial call. Orbis have no Fundswire presence despite Crown 5 and strong performance. 484 IFA views with no content = the clearest gap in this month data.'},
+ {r:10,n:'Vanguard LifeStrategy 80% Equity A Inc',m:'Vanguard · IA Mixed Investment 40-85%',u:'Unit Trusts',cr:4,v:475,ch:'—',cc:'fl',a:14.2,ri:33,q:'Q1',fw:false,y1:'~+17%',perf:'Q1 · £14.2bn · Income share class of rank 8',ocf:'0.22%',srri:5,isN:false,
+  why:'Income share class of rank 8. Q1. No Fundswire (Vanguard policy). Both income and accumulation versions in the top 10 means IFAs are selecting the right distribution option.',
   sw:'Income vs accumulation comparison is active portfolio management work for clients at different life stages.',
-  act:'Product team: income/accumulation toggle or "also available as" widget on LifeStrategy factsheets would reduce friction and improve session depth. Measurable via GA4 click events.'},
+  act:'Product team: income/accumulation toggle on LifeStrategy factsheets would reduce friction and improve session depth.'},
 ];
-
 function stars(n){let s='';for(let i=0;i<5;i++)s+=i<n?'★':'☆';return s;}
-
-function render(data){
-  const tb=document.getElementById('tb');
-  tb.innerHTML='';
-  data.forEach(f=>{
-    const rc=f.r===1?'r1':f.r===2?'r2':f.r===3?'r3':'';
-    const rw=Math.round((f.ri/MX)*100);
-    const tr=document.createElement('tr');
-    tr.className='fr';
-    tr.dataset.u=f.u; tr.dataset.c=f.cr; tr.dataset.new=f.isN; tr.dataset.fw=f.fw;
-    tr.innerHTML=
-      `<td class="c"><span class="rn ${rc}">${f.r}</span></td>`+
-      `<td><div class="fn">${f.n}${f.isN?'<span class="nb">NEW</span>':''}</div><div class="fm">${f.m}</div></td>`+
-      `<td class="c"><span class="cr">${stars(f.cr)}</span></td>`+
-      `<td class="c"><span class="vw">${f.v.toLocaleString()}</span></td>`+
-      `<td class="c"><span class="chg c${f.cc}">${f.ch}</span></td>`+
-      `<td class="c"><span class="av">£${f.a}bn</span></td>`+
-      `<td class="c rb"><div class="rb-bg"><div class="rb-fill" style="width:${rw}%"></div></div><div class="rb-n">${f.ri}/£bn</div></td>`+
-      `<td class="c"><span class="qb q${f.q==='Q1'?1:f.q==='Q2'?2:3}">${f.q}</span></td>`+
-      `<td class="c"><span class="${f.fw?'fw-y':'fw-n'}">${f.fw?'CONTENT':'NO CONTENT'}</span></td>`+
-      `<td class="c" style="font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:${f.y1.startsWith('+5')||f.y1.startsWith('+2')||f.y1.startsWith('+1')||f.y1.startsWith('+8')||f.y1.startsWith('+4')||f.y1.startsWith('+6')||f.y1.startsWith('+7')||f.y1.startsWith('+9')||f.y1.startsWith('+')?'var(--green)':'var(--ink)'}">${f.y1}</td>`;
-    tr.onclick=()=>tog(f.r);
-    tb.appendChild(tr);
-    const dr=document.createElement('tr');
-    dr.className='dr'; dr.id='d'+f.r;
-    dr.innerHTML=`<td colspan="10"><div class="dr-in">`+
-      `<div class="dc why"><div class="dl">Why trending</div><div class="dt">${f.why}</div></div>`+
-      `<div class="dc sw"><div class="dl">So what</div><div class="dt">${f.sw}</div></div>`+
-      `<div class="dc act"><div class="dl">Commercial action</div><div class="dt">${f.act}</div></div>`+
-      `<div class="dc dat"><div class="dl">Fund data</div>`+
-      `<div class="dd"><span class="dk">IFA views</span><span class="dv">${f.v.toLocaleString()}</span></div>`+
-      `<div class="dd"><span class="dk">AUM</span><span class="dv">£${f.a}bn</span></div>`+
-      `<div class="dd"><span class="dk">Intensity</span><span class="dv" style="color:var(--teal)">${f.ri}/£bn</span></div>`+
-      `<div class="dd"><span class="dk">Quartile</span><span class="dv">${f.q}</span></div>`+
-      `<div class="dd"><span class="dk">1Y Return</span><span class="dv">${f.y1}</span></div>`+
-      `<div class="dd"><span class="dk">Performance</span><span class="dv" style="font-size:10px">${f.perf}</span></div>`+
-      `<div class="dd"><span class="dk">OCF</span><span class="dv">${f.ocf}</span></div>`+
-      `<div class="dd"><span class="dk">SRRI</span><span class="dv">${f.srri}/7</span></div>`+
-      `</div></div></td>`;
-    tb.appendChild(dr);
-  });
-}
-
-function tog(r){
-  const dr=document.getElementById('d'+r);
-  if(!dr) return;
-  const isOpen=dr.classList.contains('open');
-  document.querySelectorAll('.dr').forEach(d=>d.classList.remove('open'));
-  document.querySelectorAll('.fr').forEach(r=>r.classList.remove('on'));
-  if(!isOpen){dr.classList.add('open');dr.previousElementSibling.classList.add('on');}
-}
-
-function fil(t,btn){
-  document.querySelectorAll('.f').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('.fr').forEach(r=>{
-    let show=true;
-    if(t==='Unit Trusts') show=r.dataset.u==='Unit Trusts';
-    else if(t==='Pension') show=r.dataset.u==='Pension';
-    else if(t==='new') show=r.dataset.new==='true';
-    else if(t==='5crown') show=r.dataset.c==='5';
-    else if(t==='nofundswire') show=r.dataset.fw==='false';
-    r.style.display=show?'':'none';
-    if(!show){const rn=r.querySelector('.rn');if(rn){const d=document.getElementById('d'+rn.textContent.trim());if(d){d.classList.remove('open');d.style.display='none';}}}
-    else{const rn=r.querySelector('.rn');if(rn){const d=document.getElementById('d'+rn.textContent.trim());if(d){d.style.display='';}}}
-  });
-}
-
+function render(data){const tb=document.getElementById('tb');tb.innerHTML='';data.forEach(f=>{const rc=f.r===1?'r1':f.r===2?'r2':f.r===3?'r3':'';const rw=Math.round((f.ri/MX)*100);const tr=document.createElement('tr');tr.className='fr';tr.dataset.u=f.u;tr.dataset.c=f.cr;tr.dataset.new=f.isN;tr.dataset.fw=f.fw;tr.innerHTML='<td class="c"><span class="rn '+rc+'">'+f.r+'</span></td><td><div class="fn">'+f.n+(f.isN?'<span class="nb">NEW</span>':'')+'</div><div class="fm">'+f.m+'</div></td><td class="c"><span class="cr">'+stars(f.cr)+'</span></td><td class="c"><span class="vw">'+f.v.toLocaleString()+'</span></td><td class="c"><span class="chg c'+f.cc+'">'+f.ch+'</span></td><td class="c"><span class="av">£'+f.a+'bn</span></td><td class="c rb"><div class="rb-bg"><div class="rb-fill" style="width:'+rw+'%"></div></div><div class="rb-n">'+f.ri+'/£bn</div></td><td class="c"><span class="qb q'+(f.q==='Q1'?1:f.q==='Q2'?2:3)+'">'+f.q+'</span></td><td class="c"><span class="'+(f.fw?'fw-y':'fw-n')+'">'+(f.fw?'CONTENT':'NO CONTENT')+'</span></td><td class="c" style="font-family:DM Mono,monospace;font-size:12px;font-weight:600;color:'+(f.y1.startsWith('+')?'var(--green)':'var(--ink)')+'">'+(f.y1)+'</td>';tr.onclick=()=>tog(f.r);tb.appendChild(tr);const dr=document.createElement('tr');dr.className='dr';dr.id='d'+f.r;dr.innerHTML='<td colspan="10"><div class="dr-in"><div class="dc why"><div class="dl">Why trending</div><div class="dt">'+f.why+'</div></div><div class="dc sw"><div class="dl">So what</div><div class="dt">'+f.sw+'</div></div><div class="dc act"><div class="dl">Commercial action</div><div class="dt">'+f.act+'</div></div><div class="dc dat"><div class="dl">Fund data</div><div class="dd"><span class="dk">IFA views</span><span class="dv">'+f.v.toLocaleString()+'</span></div><div class="dd"><span class="dk">AUM</span><span class="dv">£'+f.a+'bn</span></div><div class="dd"><span class="dk">Intensity</span><span class="dv" style="color:var(--teal)">'+f.ri+'/£bn</span></div><div class="dd"><span class="dk">Quartile</span><span class="dv">'+f.q+'</span></div><div class="dd"><span class="dk">1Y Return</span><span class="dv">'+f.y1+'</span></div><div class="dd"><span class="dk">OCF</span><span class="dv">'+f.ocf+'</span></div><div class="dd"><span class="dk">SRRI</span><span class="dv">'+f.srri+'/7</span></div></div></div></td>';tb.appendChild(dr);});}
+function tog(r){const dr=document.getElementById('d'+r);if(!dr)return;const isOpen=dr.classList.contains('open');document.querySelectorAll('.dr').forEach(d=>d.classList.remove('open'));document.querySelectorAll('.fr').forEach(r=>r.classList.remove('on'));if(!isOpen){dr.classList.add('open');dr.previousElementSibling.classList.add('on');}}
+function fil(t,btn){document.querySelectorAll('.f').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.querySelectorAll('.fr').forEach(r=>{let show=true;if(t==='Unit Trusts')show=r.dataset.u==='Unit Trusts';else if(t==='Pension')show=r.dataset.u==='Pension';else if(t==='new')show=r.dataset.new==='true';else if(t==='5crown')show=r.dataset.c==='5';else if(t==='nofundswire')show=r.dataset.fw==='false';r.style.display=show?'':'none';if(!show){const rn=r.querySelector('.rn');if(rn){const d=document.getElementById('d'+rn.textContent.trim());if(d){d.classList.remove('open');d.style.display='none';}}}else{const rn=r.querySelector('.rn');if(rn){const d=document.getElementById('d'+rn.textContent.trim());if(d)d.style.display='';}}});}
 render(funds);
-</script>
-</body>
-</html>
+</script></body></html>
