@@ -79,7 +79,7 @@ a{color:var(--teal);text-decoration:none}
 
 /* ── INTELLIGENCE TABLE ── */
 .tbl-wrap{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:32px}
-.tbl-cols{display:grid;grid-template-columns:36px minmax(180px,2fr) 64px 72px 72px 80px 80px 96px 108px 96px;gap:0}
+.tbl-cols{display:grid;grid-template-columns:36px minmax(180px,2fr) 64px 72px 72px 80px 80px 96px 108px 96px 80px;gap:0}
 .tbl-head{background:var(--dark);padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.55);overflow-x:auto}
 .tbl-head .tbl-cols div{padding:0 6px;white-space:nowrap}
 .fund-row{border-bottom:1px solid var(--line);cursor:pointer;transition:background 0.1s}
@@ -192,6 +192,11 @@ a{color:var(--teal);text-decoration:none}
 
 /* ── UTILITIES ── */
 .mb32{margin-bottom:32px}
+.intensity{display:flex;flex-direction:column;align-items:center;gap:2px}
+.intensity-score{font-size:18px;font-weight:700}
+.intensity-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px}
+.intensity-bar-bg{width:36px;height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.intensity-bar{height:4px;border-radius:2px}
 .hidden{display:none}
 </style>
 </head>
@@ -283,6 +288,7 @@ a{color:var(--teal);text-decoration:none}
       <div>Research/£bn</div>
       <div>Content Signal</div>
       <div>Driver</div>
+      <div>Intensity</div>
     </div>
     </div>
     <div id="fund-table"></div>
@@ -629,6 +635,7 @@ const citicodeData = {
   }
 };
 
+const intensity = {1:{score:94,label:'Very High',color:'#0a6b52'},2:{score:61,label:'Medium',color:'#4a6070'},3:{score:88,label:'Very High',color:'#0a6b52'},4:{score:76,label:'High',color:'#0d7a5f'},5:{score:52,label:'Medium',color:'#4a6070'},6:{score:79,label:'High',color:'#0d7a5f'},7:{score:71,label:'High',color:'#0d7a5f'},8:{score:38,label:'Low',color:'#c0392b'},9:{score:68,label:'High',color:'#0d7a5f'},10:{score:34,label:'Low',color:'#c0392b'}};
 const funds = [
   {
     rank:1, name:'Artemis Global Income', mgr:'Artemis Investment Management',
@@ -830,6 +837,11 @@ function renderFunds(list){
             <span class="content-delta">${f.contentDelta} · ${f.articles} articles</span>
           </div>
           <div><span class="anomaly ${f.anomaly}">${f.anomalyLabel}</span></div>
+          <div class="intensity">
+            <div class="intensity-score" style="color:${intensity[f.rank].color}">${intensity[f.rank].score}</div>
+            <div class="intensity-label" style="color:${intensity[f.rank].color}">${intensity[f.rank].label}</div>
+            <div class="intensity-bar-bg"><div class="intensity-bar" style="width:${intensity[f.rank].score}%;background:${intensity[f.rank].color}"></div></div>
+          </div>
         </div>
       </div>
       <div class="drawer" id="drawer-${f.rank}">
@@ -844,6 +856,7 @@ function renderFunds(list){
           <div class="d-stat"><div class="d-stat-label">Performance</div><div class="d-stat-val">${f.quartile}</div></div>
           <div class="d-stat"><div class="d-stat-label">AUM</div><div class="d-stat-val">£${f.aum}bn</div></div>
           <div class="d-stat"><div class="d-stat-label">Research/£bn</div><div class="d-stat-val">${f.ratio.toLocaleString()}</div></div>
+          <div class="d-stat"><div class="d-stat-label">Intensity Score</div><div class="d-stat-val" style="color:${intensity[f.rank].color}">${intensity[f.rank].score} <span style="font-size:12px">${intensity[f.rank].label}</span></div></div>
         </div>
         <div style="margin-top:14px;background:white;border:1px solid #dde8ee;border-radius:6px;padding:14px">
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal);margin-bottom:10px">Citicode & Content Tag Intelligence</div>
