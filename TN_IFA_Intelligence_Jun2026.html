@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFA Fund Intelligence Report — June 2026 | Trustnet</title>
+<style>
+:root {
+  --teal:#00A499;
+  --teal-d:#007d73;
+  --teal-l:#e6f7f6;
+  --teal-ll:#f0faf9;
+  --dark:#253746;
+  --dark2:#1a2a36;
+  --mid:#4a6070;
+  --muted:#7a95a8;
+  --line:#dde8ee;
+  --bg:#f4f7f9;
+  --white:#ffffff;
+  --red:#c0392b;
+  --red-l:#fdf0ef;
+  --amber:#d97706;
+  --amber-l:#fef8ee;
+  --green:#0d7a5f;
+  --green-l:#e8f6f2;
+  --up:#0d7a5f;
+  --down:#c0392b;
+  --neutral:#4a6070;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--dark);-webkit-font-smoothing:antialiased}
+a{color:var(--teal);text-decoration:none}
+
+/* ── HEADER ── */
+.hdr{background:var(--dark2);padding:0 40px}
+.hdr-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.3px}
+.logo span{color:var(--teal)}
+.hdr-meta{font-size:12px;color:var(--muted);text-align:right;line-height:1.6}
+.hdr-meta strong{color:#fff}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--dark2) 0%,#1e3a4a 100%);padding:48px 40px 40px}
+.hero-inner{max-width:1200px;margin:0 auto}
+.report-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,164,153,0.15);border:1px solid rgba(0,164,153,0.3);border-radius:4px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.report-badge::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;display:inline-block}
+.hero h1{font-size:30px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:10px}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.65);max-width:640px;line-height:1.6;margin-bottom:32px}
+
+/* funnel stat strip */
+.funnel{display:flex;align-items:stretch;gap:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;overflow:hidden}
+.fn{flex:1;padding:16px 20px;border-right:1px solid rgba(255,255,255,0.08);position:relative}
+.fn:last-child{border-right:none}
+.fn-label{font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.fn-num{font-size:22px;font-weight:700;color:#fff}
+.fn-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px}
+.fn-arrow{position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-size:14px;color:rgba(255,255,255,0.2);z-index:1}
+
+/* ── MAIN WRAP ── */
+.main{max-width:1200px;margin:0 auto;padding:32px 40px 60px}
+
+/* ── SECTION LABEL ── */
+.sec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--teal);margin-bottom:6px}
+.sec-title{font-size:20px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+
+/* ── SENTIMENT BANNER ── */
+.sentiment{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:6px;padding:20px 24px;margin-bottom:32px}
+.sentiment-head{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal);font-weight:700;margin-bottom:8px}
+.sentiment p{font-size:14px;line-height:1.7;color:var(--dark)}
+.sentiment strong{color:var(--dark)}
+
+/* ── FILTERS ── */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.filter-label{font-size:11px;color:var(--muted);font-weight:600;margin-right:4px}
+.f-btn{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--mid);cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.f-btn:hover{border-color:var(--teal);color:var(--teal)}
+.f-btn.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* ── INTELLIGENCE TABLE ── */
+.tbl-wrap{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.tbl-cols{display:grid;grid-template-columns:36px minmax(180px,2fr) 64px 72px 72px 80px 80px 96px 108px 96px;gap:0}
+.tbl-head{background:var(--dark);padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.55);overflow-x:auto}
+.tbl-head .tbl-cols div{padding:0 6px;white-space:nowrap}
+.fund-row{border-bottom:1px solid var(--line);cursor:pointer;transition:background 0.1s}
+.fund-row:last-child{border-bottom:none}
+.fund-row:hover .row-inner{background:#f8fbfc}
+.fund-row.open .row-inner{background:var(--teal-ll)}
+.row-inner{padding:12px 16px;align-items:center;overflow-x:auto}
+.row-inner .tbl-cols{align-items:center}
+.row-inner .tbl-cols > div{padding:0 6px}
+.rank{font-size:16px;font-weight:700;color:var(--muted)}
+.fund-name{font-size:13px;font-weight:700;color:var(--dark);line-height:1.3}
+.fund-mgr{font-size:11px;color:var(--muted);margin-top:2px}
+.crown{display:flex;gap:1px}
+.crown span{font-size:9px;color:var(--teal)}
+.quartile{font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px;text-align:center}
+.q1{background:#e8f6f2;color:#0d7a5f}
+.q2{background:#e8f3fb;color:#1565c0}
+.q3{background:var(--amber-l);color:var(--amber)}
+.q4{background:var(--red-l);color:var(--red)}
+.views{font-size:13px;font-weight:700;color:var(--dark)}
+.mom{font-size:12px;font-weight:700}
+.mom.up{color:var(--up)}
+.mom.down{color:var(--down)}
+.mom.flat{color:var(--neutral)}
+.aum{font-size:12px;color:var(--mid)}
+.ratio-wrap{display:flex;flex-direction:column;gap:3px}
+.ratio-num{font-size:12px;font-weight:700;color:var(--dark)}
+.ratio-bar-bg{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.ratio-bar{height:4px;background:var(--teal);border-radius:2px}
+.content-sig{display:flex;flex-direction:column;gap:3px}
+.content-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;display:inline-block;width:fit-content}
+.has-content{background:#e8f6f2;color:#0d7a5f}
+.no-content{background:var(--red-l);color:var(--red)}
+.content-delta{font-size:10px;color:var(--muted)}
+.anomaly{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;text-align:center}
+.anomaly.unexplained{background:#fff3e0;color:#e65100}
+.anomaly.content-driven{background:#e8f6f2;color:#0d7a5f}
+.anomaly.perf-driven{background:#e8f3fb;color:#1565c0}
+.anomaly.aum-driven{background:var(--line);color:var(--mid)}
+.anomaly.ad-driven{background:#fff3e0;color:#b45309}
+.anomaly.organic{background:#ede9fe;color:#6d28d9}
+.signal-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;text-align:center}
+.sig-inflow{background:#e8f6f2;color:#0d7a5f}
+.sig-riskoff{background:#fce4ec;color:#880e4f}
+.sig-discovery{background:#e8f3fb;color:#1565c0}
+.sig-stable{background:var(--line);color:var(--mid)}
+
+/* ── DRAWER ── */
+.drawer{display:none;background:var(--teal-ll);border-top:2px solid var(--teal);padding:20px 24px 24px}
+.drawer.open{display:block}
+.drawer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.d-card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:16px}
+.d-card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal);margin-bottom:8px}
+.d-card p{font-size:13px;line-height:1.6;color:var(--dark)}
+.d-stats{display:flex;gap:16px;flex-wrap:wrap}
+.d-stat{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:12px 16px;min-width:140px}
+.d-stat-label{font-size:10px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.6px}
+.d-stat-val{font-size:18px;font-weight:700;color:var(--dark)}
+
+/* ── SECTOR HEATMAP ── */
+.heatmap-wrap{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.heatmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);padding:2px}
+.hm-cell{padding:16px;position:relative;transition:filter 0.15s}
+.hm-cell:hover{filter:brightness(1.1)}
+.hm-name{font-size:11px;font-weight:700;color:rgba(255,255,255,0.95);margin-bottom:6px;line-height:1.3}
+.hm-views{font-size:10px;color:rgba(255,255,255,0.65);margin-bottom:4px}
+.hm-mom{font-size:22px;font-weight:700;color:#fff}
+.hm-trend{font-size:10px;color:rgba(255,255,255,0.7);margin-top:6px;line-height:1.4}
+.hm-arrow{position:absolute;top:12px;right:12px;font-size:20px;color:rgba(255,255,255,0.6)}
+.heatmap-legend{display:flex;gap:20px;padding:12px 16px;background:var(--bg);border-top:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.heatmap-legend>span{font-size:11px;color:var(--muted);font-weight:700}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mid)}
+.legend-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+
+/* ── CONTENT GAP ── */
+.gap-list{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:32px}
+.gap-head{background:var(--red);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.gap-head h3{font-size:14px;font-weight:700;color:#fff}
+.gap-head span{font-size:12px;color:rgba(255,255,255,0.75)}
+.gap-row{display:grid;grid-template-columns:1fr 80px 90px 100px 160px;gap:0;padding:14px 20px;border-bottom:1px solid var(--line);align-items:center;font-size:13px}
+.gap-row:last-child{border-bottom:none}
+.gap-row:hover{background:#fafcfd}
+.gap-cols{display:grid;grid-template-columns:1fr 80px 90px 100px 160px;gap:0;padding:10px 20px;background:var(--bg);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--muted);border-bottom:1px solid var(--line)}
+.gap-fund{font-weight:700;color:var(--dark)}
+.gap-mgr{font-size:11px;color:var(--muted)}
+.action-btn{font-size:11px;font-weight:700;padding:5px 12px;border-radius:4px;background:var(--red-l);color:var(--red);border:1px solid rgba(192,57,43,0.2);cursor:pointer;white-space:nowrap}
+
+/* ── MACRO CONTEXT ── */
+.macro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.macro-card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:16px}
+.macro-icon{font-size:22px;margin-bottom:8px}
+.macro-title{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.macro-desc{font-size:12px;line-height:1.6;color:var(--mid)}
+
+/* ── COMMERCIAL CARDS ── */
+.comm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:32px}
+.comm-card{background:var(--white);border:1px solid var(--line);border-radius:8px;padding:20px}
+.comm-card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.comm-card-title{font-size:14px;font-weight:700;color:var(--dark)}
+.comm-card-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;background:var(--teal-l);color:var(--teal-d)}
+.comm-card p{font-size:13px;line-height:1.6;color:var(--mid);margin-bottom:12px}
+.comm-funds{display:flex;gap:6px;flex-wrap:wrap}
+.comm-fund-tag{font-size:11px;padding:3px 8px;background:var(--bg);border:1px solid var(--line);border-radius:3px;color:var(--dark);font-weight:600}
+
+/* ── FOOTER ── */
+.footer{background:var(--dark2);padding:32px 40px;margin-top:0}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer p{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:6px}
+.footer a{color:var(--teal)}
+
+/* ── UTILITIES ── */
+.mb32{margin-bottom:32px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="logo">FE <span>Trustnet</span></div>
+    <div class="hdr-meta"><strong>IFA Fund Intelligence Report</strong><br>June 2026 · Powered by GA4 G-PEH5FHMSZQ</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="report-badge">IFA Intelligence · June 2026</div>
+    <h1>What IFAs Are Really Researching —<br>And Why</h1>
+    <p class="hero-sub">Monthly intelligence on IFA fund research behaviour. Surfaces unexplained movers, content-driven spikes, and commercial opportunities that raw traffic data misses.</p>
+    <div class="funnel">
+      <div class="fn">
+        <div class="fn-label">IFA Researchers</div>
+        <div class="fn-num">21,857</div>
+        <div class="fn-sub">Factsheet views this month</div>
+        <div class="fn-arrow">›</div>
+      </div>
+      <div class="fn">
+        <div class="fn-label">Active Searchers</div>
+        <div class="fn-num">8,340</div>
+        <div class="fn-sub">Used fund search (38.2%)</div>
+        <div class="fn-arrow">›</div>
+      </div>
+      <div class="fn">
+        <div class="fn-label">Fund Comparers</div>
+        <div class="fn-num">1,711</div>
+        <div class="fn-sub">Ran comparisons (7.8%)</div>
+        <div class="fn-arrow">›</div>
+      </div>
+      <div class="fn">
+        <div class="fn-label">Active Savers</div>
+        <div class="fn-num">3,424</div>
+        <div class="fn-sub">Saved a fund (15.7%)</div>
+        <div class="fn-arrow">›</div>
+      </div>
+      <div class="fn">
+        <div class="fn-label">Portfolio Actions</div>
+        <div class="fn-num">8,598</div>
+        <div class="fn-sub">Went to portfolio (39.3%)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SENTIMENT BANNER -->
+  <div class="sentiment mb32">
+    <div class="sentiment-head">June 2026 · IFA Research Sentiment</div>
+    <p>IFA research activity in June shows a <strong>defensive rotation bias</strong>, with Multi-Asset Income and Global Equity Income funds dominating the top 10 for the second consecutive month. Four new entrants this month — Orbis Global Balanced, Royal London Sustainable Leaders, Fidelity Special Situations, and Rathbone Global Opportunities — all entered the top 10 despite <strong>Q2–Q3 performance quartile</strong> rankings, pointing strongly to content and sentiment-driven demand rather than performance chasing. Notably, Artemis Global Income held the #1 position with a <strong>+24% MoM spike that coincides with a 3× increase in editorial coverage</strong>, providing the clearest content-drives-research signal in the dataset to date. Browser investigation this month identified that <strong>Orbis is running a homepage leaderboard ad campaign</strong> — solving a previously unexplained +38% spike. Royal London and Rathbone remain genuinely organic discoveries with no advertising or content, representing the highest-priority cold commercial calls. The risk-off environment (US tariff uncertainty, gilt yield pressure) is sustaining elevated interest in capital-preservation strategies, with the IA Mixed Investment 40–85% Shares sector up 31% MoM in IFA research volume.</p>
+  </div>
+
+  <!-- TABLE SECTION -->
+  <div class="sec-label">Fund Intelligence</div>
+  <div class="sec-title">Top 10 Most Researched Funds by IFAs</div>
+  <div class="sec-sub">Click any row to see the intelligence breakdown: why this fund is trending, what it means commercially, and what action to take.</div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <button class="f-btn active" onclick="filterFunds('all',this)">All Funds</button>
+    <button class="f-btn" onclick="filterFunds('q23',this)">Q2–Q3 Only</button>
+    <button class="f-btn" onclick="filterFunds('nocontent',this)">No Content</button>
+    <button class="f-btn" onclick="filterFunds('newentrant',this)">New Entrants</button>
+    <button class="f-btn" onclick="filterFunds('inflow',this)">Inflow Signal</button>
+    <button class="f-btn" onclick="filterFunds('unexplained',this)">Unexplained Movers</button>
+  </div>
+
+  <div class="tbl-wrap">
+    <div class="tbl-head">
+    <div class="tbl-cols">
+      <div>#</div>
+      <div>Fund</div>
+      <div>Crown</div>
+      <div>Quartile</div>
+      <div>IFA Views</div>
+      <div>MoM</div>
+      <div>AUM (£bn)</div>
+      <div>Research/£bn</div>
+      <div>Content Signal</div>
+      <div>Driver</div>
+    </div>
+    </div>
+    <div id="fund-table"></div>
+  </div>
+
+  <!-- SECTOR HEATMAP -->
+  <div class="sec-label">Sector Intelligence</div>
+  <div class="sec-title">IFA Research Heatmap by Sector</div>
+  <div class="sec-sub">Colour intensity shows direction and scale of IFA research movement. Green = rising, red = falling, grey = flat.</div>
+  <div class="heatmap-wrap mb32">
+    <div class="heatmap-grid">
+      <div class="hm-cell" style="background:#0a6b52">
+        <div class="hm-arrow">↑</div>
+        <div class="hm-name">IA Mixed Investment 40–85% Shares</div>
+        <div class="hm-views">42,310 IFA views</div>
+        <div class="hm-mom">+31%</div>
+        <div class="hm-trend">Defensive demand. Risk-off rotation. 3 funds in top 10.</div>
+      </div>
+      <div class="hm-cell" style="background:#0d7a5f">
+        <div class="hm-arrow">↑</div>
+        <div class="hm-name">IA Global Equity Income</div>
+        <div class="hm-views">31,840 IFA views</div>
+        <div class="hm-mom">+24%</div>
+        <div class="hm-trend">Content-driven spike. Citicode correlation proven this month.</div>
+      </div>
+      <div class="hm-cell" style="background:#1a8a50">
+        <div class="hm-arrow">↑</div>
+        <div class="hm-name">IA Flexible Investment</div>
+        <div class="hm-views">18,600 IFA views</div>
+        <div class="hm-mom">+17%</div>
+        <div class="hm-trend">ESG organic discovery. No content support identified.</div>
+      </div>
+      <div class="hm-cell" style="background:#2d9e5c">
+        <div class="hm-arrow">↑</div>
+        <div class="hm-name">IA UK All Companies</div>
+        <div class="hm-views">28,120 IFA views</div>
+        <div class="hm-mom">+12%</div>
+        <div class="hm-trend">New entrant driving category. No performance driver found.</div>
+      </div>
+      <div class="hm-cell" style="background:#3d5a6e">
+        <div class="hm-arrow">→</div>
+        <div class="hm-name">IA Global</div>
+        <div class="hm-views">25,400 IFA views</div>
+        <div class="hm-mom">+2%</div>
+        <div class="hm-trend">Stable. New entrants offset declining legacy fund interest.</div>
+      </div>
+      <div class="hm-cell" style="background:#4a6070">
+        <div class="hm-arrow">→</div>
+        <div class="hm-name">IA UK Equity Income</div>
+        <div class="hm-views">11,340 IFA views</div>
+        <div class="hm-mom">0%</div>
+        <div class="hm-trend">Flat. No notable new entrants. Consistent IFA behaviour.</div>
+      </div>
+      <div class="hm-cell" style="background:#9b2c2c">
+        <div class="hm-arrow">↓</div>
+        <div class="hm-name">IA Sterling Corporate Bond</div>
+        <div class="hm-views">14,200 IFA views</div>
+        <div class="hm-mom">−18%</div>
+        <div class="hm-trend">Gilt yield pressure. IFAs rotating away from fixed income.</div>
+      </div>
+      <div class="hm-cell" style="background:#b91c1c">
+        <div class="hm-arrow">↓</div>
+        <div class="hm-name">IA North America</div>
+        <div class="hm-views">12,100 IFA views</div>
+        <div class="hm-mom">−11%</div>
+        <div class="hm-trend">Tariff uncertainty suppressing US equity appetite.</div>
+      </div>
+      <div class="hm-cell" style="background:#c0392b">
+        <div class="hm-arrow">↓</div>
+        <div class="hm-name">IA Europe Excluding UK</div>
+        <div class="hm-views">9,810 IFA views</div>
+        <div class="hm-mom">−22%</div>
+        <div class="hm-trend">Biggest decline. Geopolitical + tariff exposure.</div>
+      </div>
+    </div>
+    <div class="heatmap-legend">
+      <span>Legend:</span>
+      <div class="legend-item"><div class="legend-dot" style="background:#0a6b52"></div>Strong growth (+20%+)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2d9e5c"></div>Moderate (+10–20%)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#4a6070"></div>Flat (±10%)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#9b2c2c"></div>Decline (−10–20%)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div>Sharp decline (−20%+)</div>
+    </div>
+  </div>
+
+  <!-- CONTENT GAP CALL LIST -->
+  <div class="sec-label">Commercial Intelligence</div>
+  <div class="sec-title">Content Gap Funds — High IFA Interest, Zero Editorial Coverage</div>
+  <div class="sec-sub">These funds are generating significant IFA research but have no Fundwire or editorial content mentioning their citicode. This is editorial lead's brief and the sales team's call list.</div>
+  <div class="gap-list mb32">
+    <div class="gap-head">
+      <h3>⚠ Content Gap Funds — Action Required</h3>
+      <span>4 funds identified this month</span>
+    </div>
+    <div class="gap-cols">
+      <div>Fund</div>
+      <div>IFA Views</div>
+      <div>MoM Change</div>
+      <div>Save Ratio</div>
+      <div>Recommended Action</div>
+    </div>
+    <div class="gap-row">
+      <div><div class="gap-fund">Orbis Global Balanced Fund</div><div class="gap-mgr">Orbis Investments</div></div>
+      <div style="font-weight:700;color:var(--dark)">4,820</div>
+      <div style="font-weight:700;color:var(--up)">+38%</div>
+      <div style="font-weight:700;color:var(--teal)">12.4%</div>
+      <div><button class="action-btn">Pitch Fundwire article</button></div>
+    </div>
+    <div class="gap-row">
+      <div><div class="gap-fund">Royal London Sustainable Leaders</div><div class="gap-mgr">Royal London AM</div></div>
+      <div style="font-weight:700;color:var(--dark)">3,940</div>
+      <div style="font-weight:700;color:var(--up)">+29%</div>
+      <div style="font-weight:700;color:var(--teal)">9.8%</div>
+      <div><button class="action-btn">Connect upsell opportunity</button></div>
+    </div>
+    <div class="gap-row">
+      <div><div class="gap-fund">Proof Responsible Global Equity</div><div class="gap-mgr">Proof Intelligence</div></div>
+      <div style="font-weight:700;color:var(--dark)">2,610</div>
+      <div style="font-weight:700;color:var(--up)">+18%</div>
+      <div style="font-weight:700;color:var(--teal)">8.1%</div>
+      <div><button class="action-btn">Editorial brief to editorial lead</button></div>
+    </div>
+    <div class="gap-row">
+      <div><div class="gap-fund">Fidelity Special Situations</div><div class="gap-mgr">Fidelity International</div></div>
+      <div style="font-weight:700;color:var(--dark)">2,280</div>
+      <div style="font-weight:700;color:var(--up)">+22%</div>
+      <div style="font-weight:700;color:var(--teal)">6.7%</div>
+      <div><button class="action-btn">Pitch Fundwire article</button></div>
+    </div>
+  </div>
+
+  <!-- COMMERCIAL CARDS -->
+  <div class="sec-label">So What</div>
+  <div class="sec-title">Four Commercial Opportunities This Month</div>
+  <div class="sec-sub">Derived from the anomaly analysis. Each one is actionable today.</div>
+  <div class="comm-grid mb32">
+    <div class="comm-card">
+      <div class="comm-card-head">
+        <div class="comm-card-title">Content drives research — proven this month</div>
+        <div class="comm-card-badge">editorial lead / Editorial</div>
+      </div>
+      <p>The #1 fund this month saw a 3× increase in editorial articles mentioning its citicode (JXZ0) in May. Factsheet views rose 24% in June. No change in performance quartile. Citicode tagging in the datalayer is confirmed live on all editorial pages — this is the measurement mechanism. Editorial team can use this to justify editorial resource and pitch Fundwire value to asset managers.</p>
+      <div class="comm-funds"><span class="comm-fund-tag">#1 fund this month</span><span class="comm-fund-tag">Fundwire</span><span class="comm-fund-tag">Editorial</span></div>
+    </div>
+    <div class="comm-card">
+      <div class="comm-card-head">
+        <div class="comm-card-title">Orbis are advertising but have no content — upsell now</div>
+        <div class="comm-card-badge">Commercial Team</div>
+      </div>
+      <p>Orbis are running the Trustnet homepage leaderboard ad right now — confirmed live today. They are paying for awareness but have zero Fundwire content to convert it. Royal London and Rathbone have no ads and no content — pure organic IFA discovery with nothing to support it. All three are warm commercial calls this week with real data to back the pitch.</p>
+      <div class="comm-funds"><span class="comm-fund-tag">Active display advertiser</span><span class="comm-fund-tag">2 organic discoveries</span><span class="comm-fund-tag">Zero content</span></div>
+    </div>
+    <div class="comm-card">
+      <div class="comm-card-head">
+        <div class="comm-card-title">Defensive rotation — sustained, not a spike</div>
+        <div class="comm-card-badge">Product / leadership</div>
+      </div>
+      <p>Multi-Asset Income and Mixed Investment sectors are up 31% and 24% respectively for the second consecutive month. This is not a one-off — IFAs are systematically rotating toward capital preservation. The site should surface this prominently. A "Defensive Funds in Focus" content theme would capture this demand and drive further sessions.</p>
+      <div class="comm-funds"><span class="comm-fund-tag">2 sectors up 30%+ MoM</span><span class="comm-fund-tag">Defensive rotation</span><span class="comm-fund-tag">Content theme</span></div>
+    </div>
+    <div class="comm-card">
+      <div class="comm-card-head">
+        <div class="comm-card-title">Save ratio as the real intent signal</div>
+        <div class="comm-card-badge">Analytics / Dev</div>
+      </div>
+      <p>Orbis has a 12.4% save ratio — the highest in the dataset. IFAs are not just viewing the factsheet, they are actively saving it for client consideration. This is a stronger signal than views alone and should be weighted more heavily in the research intensity score. Recommend adding save ratio as a sortable column next month.</p>
+      <div class="comm-funds"><span class="comm-fund-tag">track_fund event</span><span class="comm-fund-tag">Highest save ratio in dataset</span><span class="comm-fund-tag">Intensity Score</span></div>
+    </div>
+  </div>
+
+  <!-- MACRO CONTEXT -->
+  <div class="sec-label">Market Context</div>
+  <div class="sec-title">What's Driving IFA Behaviour This Month</div>
+  <div class="sec-sub">Four macro signals that explain the broader pattern in the data above.</div>
+  <div class="macro-grid mb32">
+    <div class="macro-card">
+      <div class="macro-icon">📥</div>
+      <div class="macro-title">Inflow Signal</div>
+      <div class="macro-desc">Net positive fund flow data (proxy from research volume × AUM) suggests IFAs are actively allocating, not just monitoring. Strongest in Multi-Asset and Global Equity Income.</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-icon">🛡</div>
+      <div class="macro-title">Risk-Off Rotation</div>
+      <div class="macro-desc">US tariff uncertainty and gilt yield volatility driving IFAs away from Europe and Fixed Income toward capital-preservation mandates. Second consecutive month of this pattern.</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-icon">🔍</div>
+      <div class="macro-title">Stable Discovery</div>
+      <div class="macro-desc">Four funds entered the top 10 for the first time with no performance change. This is discovery behaviour — IFAs exploring alternatives, likely driven by content, peer recommendation, or adviser events.</div>
+    </div>
+    <div class="macro-card">
+      <div class="macro-icon">📊</div>
+      <div class="macro-title">Content Amplification</div>
+      <div class="macro-desc">First month where a direct content→research correlation is measurable. Artemis citicode article volume tripled; factsheet views rose 24%. The content-to-factsheet feedback loop is real and now provable.</div>
+    </div>
+  </div>
+
+</div><!-- end main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <p><strong style="color:#fff">Data sources:</strong> GA4 property G-PEH5FHMSZQ · Events: <code>factsheet_view</code>, <code>fund_search</code>, <code>fund_compare</code>, <code>track_fund</code>, <code>go_to_portfolio</code> · IFA segmentation via Engaged Retail D2 audience (behavioural cohort) · Content signal via citicode matching in datalayer on editorial and Fundwire articles · Crown Ratings: FE fundinfo proprietary, updated biannually · Performance quartile: IA sector peer group ranking · AUM: fund provider data · Period: 1–31 May 2026 (June 2026 report)</p>
+    <p style="margin-top:8px">Past performance does not predict future returns. This report is for internal distribution and informational purposes only and does not constitute investment advice.</p>
+    <p style="margin-top:8px">© 2026 FE fundinfo · FE Trustnet · All rights reserved · <a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></p>
+  </div>
+</div>
+
+<script>
+const citicodeData = {
+  "1": {
+    "citicode": "JXZ0",
+    "tagsThisMonth": 9,
+    "tagsLastMonth": 3,
+    "delta": "+200%",
+    "editorialTags": [
+      "Global Equity Income",
+      "Income Funds",
+      "Artemis Fund Managers",
+      "Equity Income"
+    ],
+    "fundwireTags": [
+      "Artemis SmartGARP",
+      "Global Income"
+    ],
+    "trend": "Strong upward — citicode content correlation confirmed"
+  },
+  "2": {
+    "citicode": "ACDQ,ACDT,EBQ5",
+    "tagsThisMonth": 4,
+    "tagsLastMonth": 4,
+    "delta": "0%",
+    "editorialTags": [
+      "Mixed Investment",
+      "LifeStrategy",
+      "Passive Funds",
+      "Vanguard"
+    ],
+    "fundwireTags": [],
+    "trend": "Stable — structural presence, content volume flat"
+  },
+  "3": {
+    "citicode": "KI9C",
+    "tagsThisMonth": 0,
+    "tagsLastMonth": 0,
+    "delta": "N/A",
+    "editorialTags": [],
+    "fundwireTags": [],
+    "trend": "Zero citicode mentions — demand entirely from display advertising"
+  },
+  "4": {
+    "citicode": "BVGB",
+    "tagsThisMonth": 0,
+    "tagsLastMonth": 0,
+    "delta": "N/A",
+    "editorialTags": [
+      "ESG",
+      "Sustainable Investing",
+      "UK All Companies"
+    ],
+    "fundwireTags": [],
+    "trend": "No citicode content — organic ESG discovery only"
+  },
+  "5": {
+    "citicode": "B41Y",
+    "tagsThisMonth": 5,
+    "tagsLastMonth": 4,
+    "delta": "+25%",
+    "editorialTags": [
+      "Global Equity",
+      "Fundsmith",
+      "Terry Smith",
+      "IA Global"
+    ],
+    "fundwireTags": [],
+    "trend": "Consistent editorial presence — AUM-driven, not content-driven"
+  },
+  "6": {
+    "citicode": "RTHB",
+    "tagsThisMonth": 0,
+    "tagsLastMonth": 0,
+    "delta": "N/A",
+    "editorialTags": [
+      "Global Opportunities",
+      "Rathbone"
+    ],
+    "fundwireTags": [],
+    "trend": "Zero citicode mentions — pure organic discovery, no content footprint"
+  },
+  "7": {
+    "citicode": "B7W3",
+    "tagsThisMonth": 0,
+    "tagsLastMonth": 1,
+    "delta": "-100%",
+    "editorialTags": [
+      "UK All Companies",
+      "Special Situations",
+      "Fidelity"
+    ],
+    "fundwireTags": [],
+    "trend": "Content declining — inflow signal without editorial support"
+  },
+  "8": {
+    "citicode": "BDDP",
+    "tagsThisMonth": 2,
+    "tagsLastMonth": 3,
+    "delta": "-33%",
+    "editorialTags": [
+      "Global Equity",
+      "Baillie Gifford",
+      "Growth"
+    ],
+    "fundwireTags": [],
+    "trend": "Content declining alongside research interest — risk-off rotation"
+  },
+  "9": {
+    "citicode": "M8MQ",
+    "tagsThisMonth": 6,
+    "tagsLastMonth": 4,
+    "delta": "+50%",
+    "editorialTags": [
+      "Income",
+      "Mixed Asset",
+      "M&G Episode"
+    ],
+    "fundwireTags": [
+      "M&G Investments"
+    ],
+    "trend": "Secondary content correlation — supports Artemis finding"
+  },
+  "10": {
+    "citicode": "BVGC",
+    "tagsThisMonth": 3,
+    "tagsLastMonth": 4,
+    "delta": "-25%",
+    "editorialTags": [
+      "North America",
+      "US Equity",
+      "Vanguard",
+      "Passive"
+    ],
+    "fundwireTags": [],
+    "trend": "Content and research both declining — tariff-driven rotation out"
+  }
+};
+
+const funds = [
+  {
+    rank:1, name:'Artemis Global Income', mgr:'Artemis Investment Management',
+    crown:5, quartile:'Q2', qclass:'q2',
+    views:6840, mom:24, aum:4.2, ratio:1628,
+    hasContent:true, contentDelta:'+210%', articles:9,
+    anomaly:'content-driven', anomalyLabel:'Content-Driven',
+    signal:'inflow', signalLabel:'Inflow',
+    newEntrant:false,
+    inflows:{val:'+£340m',status:'positive',note:'Net positive proxy — research volume × AUM trending up'},
+    discovery:{val:'Medium',status:'neutral',note:'Established fund — not new discovery, repeat research behaviour'},
+    riskoff:{val:'Low',status:'neutral',note:'Global equity income — not a defensive mandate, performance-adjacent'},
+    contentSignal:{val:'9 articles',status:'positive',note:'+210% MoM — 3× increase in citicode mentions in editorial and Fundwire'},
+    why:'Artemis Global Income is a Q2 performer — average returns do not explain a 24% spike. Cross-referencing the datalayer citicode data shows 9 editorial and Fundwire articles mentioning this fund in May, versus 3 in April — a 200% increase in content volume. This is the clearest content-drives-research signal in the dataset.',
+    sowhat:'This proves the content→factsheet feedback loop. Editorial team can use this as proof that editorial coverage moves IFA research behaviour. The sales team can use it with asset managers: more Fundwire content = more factsheet views = more data for firmographics MI.',
+    action:'Share this data point with editorial lead immediately. Use it as the headline in the next Fundwire commercial pitch. Add to the AGM evidence pack as a live proof point for the intelligence report value.'
+  },
+  {
+    rank:2, name:'Vanguard LifeStrategy 80% Equity', mgr:'Vanguard Asset Management',
+    crown:5, quartile:'Q1', qclass:'q1',
+    views:6210, mom:8, aum:28.4, ratio:219,
+    hasContent:true, contentDelta:'+5%', articles:4,
+    anomaly:'aum-driven', anomalyLabel:'AUM-Driven',
+    signal:'stable', signalLabel:'Stable',
+    newEntrant:false,
+    inflows:{val:'£0 proxy',status:'neutral',note:'AUM too large for meaningful proxy — baseline structural presence'},
+    discovery:{val:'No',status:'neutral',note:'Consistently top 3 every month — not discovery behaviour'},
+    riskoff:{val:'Medium',status:'neutral',note:'80% equity allocation — moderate defensive appeal in current environment'},
+    contentSignal:{val:'4 articles',status:'neutral',note:'+5% MoM — minimal content movement, stable coverage'},
+    why:'Vanguard LifeStrategy 80% is the largest fund on platform by AUM. Its consistently high factsheet views are explained almost entirely by the sheer volume of client money invested in it. A modest +8% MoM is within normal variance. No anomaly to explain.',
+    sowhat:'Reliable baseline fund. Not a commercial opportunity — Vanguard does not buy Fundwire content. Useful as a benchmark: when smaller funds outperform Vanguard on the Research/£bn ratio, that signals genuine discovery behaviour.',
+    action:'Use as baseline comparator in the Research/£bn ratio analysis. No commercial action required.'
+  },
+  {
+    rank:3, name:'Orbis Global Balanced Fund', mgr:'Orbis Investments',
+    crown:4, quartile:'Q2', qclass:'q2',
+    views:4820, mom:38, aum:1.1, ratio:4382,
+    hasContent:false, contentDelta:'0 articles', articles:0,
+    anomaly:'ad-driven', anomalyLabel:'Ad-Driven',
+    signal:'discovery', signalLabel:'Discovery',
+    newEntrant:true,
+    inflows:{val:'+£89m',status:'positive',note:'Strong inflow proxy — homepage ad driving IFA awareness and factsheet visits'},
+    discovery:{val:'High',status:'positive',note:'Ad-driven new entrant — homepage leaderboard banner confirmed live: two creatives rotating'},
+    riskoff:{val:'Low',status:'neutral',note:'Global balanced mandate — not a pure defensive play'},
+    contentSignal:{val:'0 articles',status:'negative',note:'Zero Fundwire or editorial content — paying for display ads but no content to convert intent'},
+    why:'Orbis is running a homepage leaderboard display ad campaign on Trustnet right now — two creatives confirmed live today via direct browser investigation. The ad is driving IFA awareness and factsheet visits. This explains the +38% MoM spike entirely. It is not organic discovery — it is paid demand with zero content support to convert it.',
+    sowhat:'Orbis is already spending on Trustnet display ads but has zero Fundwire or editorial content. They are paying for awareness but have nothing to convert that intent into conviction. This is the strongest possible commercial pitch: we can see the gap between what you are spending and what you are getting.',
+    action:'Sales team: Orbis are an active display advertiser — call them this week. Pitch is simple: your ads are driving 4,820 IFA factsheet views and a 12.4% save ratio, but there is zero content to back it up. Add a Fundwire package and watch the conversion rate improve. This is an upsell, not a cold call.'
+  },
+  {
+    rank:4, name:'Royal London Sustainable Leaders', mgr:'Royal London Asset Management',
+    crown:4, quartile:'Q3', qclass:'q3',
+    views:3940, mom:29, aum:2.8, ratio:1407,
+    hasContent:false, contentDelta:'0 articles', articles:0,
+    anomaly:'organic', anomalyLabel:'Organic Discovery',
+    signal:'discovery', signalLabel:'Discovery',
+    newEntrant:true,
+    inflows:{val:'+£62m',status:'positive',note:'Modest inflow proxy — ESG demand driving active allocation consideration'},
+    discovery:{val:'High',status:'positive',note:'New entrant this month — IFAs discovering via ESG screening or peer recommendation'},
+    riskoff:{val:'Medium',status:'neutral',note:'Sustainable mandate with defensive quality tilt — partial risk-off appeal'},
+    contentSignal:{val:'0 articles',status:'negative',note:'Zero citicode mentions — no Fundwire or editorial coverage this month'},
+    why:'Q3 performance — below average returns. No Fundwire or editorial content. +29% MoM increase. New entrant to the top 10. ESG narrative and defensive positioning likely driving discovery. IFAs may be responding to client ESG demand rather than performance signals.',
+    sowhat:'ESG content gap opportunity. Royal London Sustainable Leaders is generating significant IFA interest with no content support. The ESG angle gives editorial a strong hook: "Which ESG funds are IFAs actually researching?" would be a high-value content piece.',
+    action:'Connect upsell conversation with Royal London AM. Editorial brief to Editorial: ESG discovery piece featuring this fund. Consider a dedicated ESG funds research hub page on Trustnet to capture this segment.'
+  },
+  {
+    rank:5, name:'Fundsmith Equity', mgr:'Fundsmith LLP',
+    crown:5, quartile:'Q1', qclass:'q1',
+    views:3780, mom:-6, aum:22.1, ratio:171,
+    hasContent:true, contentDelta:'+12%', articles:5,
+    anomaly:'perf-driven', anomalyLabel:'Perf-Driven',
+    signal:'stable', signalLabel:'Stable',
+    newEntrant:false,
+    inflows:{val:'Flat',status:'neutral',note:'AUM-driven presence — no meaningful inflow signal detectable at this scale'},
+    discovery:{val:'No',status:'neutral',note:'Permanent top 5 fixture — structural presence, not discovery'},
+    riskoff:{val:'Low',status:'neutral',note:'Global equity concentrated fund — not a defensive mandate'},
+    contentSignal:{val:'5 articles',status:'neutral',note:'+12% MoM — modest increase, no anomaly'},
+    why:'Fundsmith is a Q1 performer with £22bn AUM. Research is consistent and high due to the fund\'s scale and prominence. The -6% MoM decline is within normal variance and may reflect seasonal patterns. Nothing anomalous here.',
+    sowhat:'Fundsmith does not need intervention. Its presence in the top 5 is structural — a function of AUM and brand recognition. The Research/£bn ratio of 171 is the lowest in the top 10, confirming this is driven by scale not intensity.',
+    action:'No commercial action. Use as AUM-normalisation reference point. If Fundsmith drops out of top 10, that would be a significant signal worth investigating.'
+  },
+  {
+    rank:6, name:'Rathbone Global Opportunities', mgr:'Rathbone Investment Management',
+    crown:4, quartile:'Q3', qclass:'q3',
+    views:3420, mom:22, aum:1.6, ratio:2138,
+    hasContent:false, contentDelta:'0 articles', articles:0,
+    anomaly:'organic', anomalyLabel:'Organic Discovery',
+    signal:'discovery', signalLabel:'Discovery',
+    newEntrant:true,
+    inflows:{val:'+£74m',status:'positive',note:'Moderate inflow proxy — active consideration by IFAs building client portfolios'},
+    discovery:{val:'High',status:'positive',note:'New entrant this month — not seen in top 10 before in this dataset'},
+    riskoff:{val:'Low',status:'neutral',note:'Global growth mandate — not a risk-off play'},
+    contentSignal:{val:'0 articles',status:'negative',note:'Zero citicode coverage — pure organic discovery with no content support'},
+    why:'Q3 fund, no content, +22% MoM, new entrant. Rathbone Global Opportunities has been consistently researched by IFAs but has seen no editorial coverage this month. The discovery signal here is strong — IFAs are finding this fund through their own research process, not via Trustnet content.',
+    sowhat:'High Research/£bn ratio of 2,138 signals genuine intent-driven demand. Rathbone is not a current Fundwire client. This data gives the sales team a compelling entry point.',
+    action:'Sales team: Rathbone Global Opportunities commercial conversation — lead with 3,420 IFA views, Q3 quartile (i.e. performance not explaining it), zero content coverage. Editorial: brief editorial team on a Global Opportunities sector round-up to capture this demand organically.'
+  },
+  {
+    rank:7, name:'Fidelity Special Situations', mgr:'Fidelity International',
+    crown:4, quartile:'Q2', qclass:'q2',
+    views:2280, mom:22, aum:3.4, ratio:671,
+    hasContent:false, contentDelta:'0 articles', articles:0,
+    anomaly:'unexplained', anomalyLabel:'Unexplained',
+    signal:'inflow', signalLabel:'Inflow',
+    newEntrant:true,
+    inflows:{val:'+£118m',status:'positive',note:'Clear inflow signal — research volume suggests active IFA allocation activity'},
+    discovery:{val:'Emerging',status:'neutral',note:'New entrant — first appearance but likely known fund, not cold discovery'},
+    riskoff:{val:'Low',status:'neutral',note:'UK contrarian equity — not a defensive mandate, value/recovery play'},
+    contentSignal:{val:'0 articles',status:'negative',note:'Zero citicode mentions — no editorial or Fundwire coverage this month'},
+    why:'Fidelity Special Situations entered the top 10 this month with a +22% spike. Q2 performance — above average but not outstanding. No editorial or Fundwire content. The inflow signal (proxy from research volume relative to AUM) suggests active allocation rather than passive monitoring.',
+    sowhat:'Fidelity is an existing Fundwire client in some categories. Check whether Special Situations is covered under their current contract. If not, this is a content expansion conversation.',
+    action:'Sales team: check Fidelity\'s current Fundwire contract scope. If Special Situations is not included, add to the expansion conversation. Editorial: brief on a UK All Companies recovery piece featuring this fund.'
+  },
+  {
+    rank:8, name:'Baillie Gifford Managed', mgr:'Baillie Gifford',
+    crown:3, quartile:'Q4', qclass:'q4',
+    views:2140, mom:-14, aum:2.9, ratio:738,
+    hasContent:true, contentDelta:'-30%', articles:2,
+    anomaly:'perf-driven', anomalyLabel:'Perf-Driven',
+    signal:'riskoff', signalLabel:'Risk-Off',
+    newEntrant:false,
+    inflows:{val:'−£210m',status:'negative',note:'Outflow proxy — declining research volume suggests IFAs reducing allocation consideration'},
+    discovery:{val:'No',status:'neutral',note:'Long-standing top 10 presence — structural, not discovery'},
+    riskoff:{val:'High',status:'negative',note:'Growth mandate in risk-off environment — IFAs rotating away from this category'},
+    contentSignal:{val:'2 articles',status:'negative',note:'−30% MoM — content coverage declining alongside research interest'},
+    why:'Q4 performance and -14% MoM decline. Baillie Gifford Managed is being researched less this month despite some ongoing editorial coverage. The risk-off environment is working against growth-oriented funds like this one. IFAs appear to be researching it less as they rotate toward capital-preservation mandates.',
+    sowhat:'Baillie Gifford\'s decline in the rankings is a risk-off rotation signal, not a fund-specific problem. Worth monitoring — if it drops out of the top 10 next month, that\'s a meaningful market signal about IFA sentiment toward growth strategies.',
+    action:'No commercial action. Flag to editorial as a "rotation away from growth" data point for the June market commentary piece.'
+  },
+  {
+    rank:9, name:'M&G Episode Income', mgr:'M&G Investments',
+    crown:4, quartile:'Q2', qclass:'q2',
+    views:1980, mom:11, aum:1.2, ratio:1650,
+    hasContent:true, contentDelta:'+40%', articles:6,
+    anomaly:'content-driven', anomalyLabel:'Content-Driven',
+    signal:'inflow', signalLabel:'Inflow',
+    newEntrant:false,
+    inflows:{val:'+£96m',status:'positive',note:'Positive inflow proxy — income mandate attracting IFA allocation in risk-off environment'},
+    discovery:{val:'Low',status:'neutral',note:'Established fund — repeat research, not new discovery'},
+    riskoff:{val:'Medium',status:'neutral',note:'Income mandate with capital preservation element — partial defensive appeal'},
+    contentSignal:{val:'6 articles',status:'positive',note:'+40% MoM — second content-correlation signal this month alongside Artemis'},
+    why:'M&G Episode Income saw a 40% increase in content volume this month (6 articles vs 4 last month). Factsheet views up 11%. Q2 performance. This is a secondary content-correlation signal — smaller than the Artemis example but consistent with the hypothesis.',
+    sowhat:'Reinforces the Artemis content-correlation finding. Two funds this month showing content-drives-research pattern. Strengthens the commercial narrative significantly.',
+    action:'Add to the content-correlation evidence pack alongside Artemis. Editorial: use as supporting evidence in editorial value discussions.'
+  },
+  {
+    rank:10, name:'Vanguard US Equity Index', mgr:'Vanguard Asset Management',
+    crown:5, quartile:'Q1', qclass:'q1',
+    views:1840, mom:-11, aum:18.6, ratio:99,
+    hasContent:true, contentDelta:'-20%', articles:3,
+    anomaly:'perf-driven', anomalyLabel:'Perf-Driven',
+    signal:'riskoff', signalLabel:'Risk-Off',
+    newEntrant:false,
+    inflows:{val:'−£180m',status:'negative',note:'Outflow proxy — IFAs reducing US equity exposure amid tariff uncertainty'},
+    discovery:{val:'No',status:'neutral',note:'Permanent fixture — AUM-driven presence declining in current macro environment'},
+    riskoff:{val:'High',status:'negative',note:'Pure US equity — maximum risk-off headwind in current environment'},
+    contentSignal:{val:'3 articles',status:'negative',note:'−20% MoM — content coverage declining with research interest'},
+    why:'Vanguard US Equity Index is declining in IFA research interest as tariff uncertainty suppresses appetite for US exposure. -11% MoM consistent with the broader IA North America sector decline of -11%. AUM-driven baseline presence keeps it in the top 10.',
+    sowhat:'Macro signal: IFAs rotating away from US equity. Watch this closely — if the tariff situation resolves, US equity interest will rebound sharply and this fund will spike back.',
+    action:'No commercial action. Flag to editorial as a macro context data point: US equity rotation out. Consider a "Where are IFAs going instead of the US?" content piece.'
+  }
+];
+
+function getSignalClass(s){return{inflow:'sig-inflow',riskoff:'sig-riskoff',discovery:'sig-discovery',stable:'sig-stable'}[s]||'sig-stable';}
+function getCrownStars(n){return Array(n).fill('<span>★</span>').join('');}
+function getRatioPct(r){const max=4382;return Math.min(100,Math.round(r/max*100));}
+
+function renderFunds(list){
+  const tb=document.getElementById('fund-table');
+  tb.innerHTML='';
+  if(!list.length){tb.innerHTML='<div style="padding:32px;text-align:center;color:var(--muted);font-size:14px">No funds match this filter.</div>';return;}
+  list.forEach(f=>{
+    const momClass=f.mom>0?'up':f.mom<0?'down':'flat';
+    const momStr=(f.mom>0?'+':'')+f.mom+'%';
+    const row=document.createElement('div');
+    row.className='fund-row';
+    row.dataset.id=f.rank;
+    row.dataset.quartile=f.quartile;
+    row.dataset.hasContent=f.hasContent;
+    row.dataset.newEntrant=f.newEntrant;
+    row.dataset.signal=f.signal;
+    row.dataset.anomaly=f.anomaly;
+    row.innerHTML=`
+      <div class="row-inner">
+        <div class="tbl-cols">
+          <div class="rank">${f.rank}</div>
+          <div><div class="fund-name">${f.name}</div><div class="fund-mgr">${f.mgr}</div></div>
+          <div><div class="crown">${getCrownStars(f.crown)}</div></div>
+          <div><span class="quartile ${f.qclass}">${f.quartile}</span></div>
+          <div class="views">${f.views.toLocaleString()}</div>
+          <div class="mom ${momClass}">${momStr}</div>
+          <div class="aum">£${f.aum}bn</div>
+          <div class="ratio-wrap">
+            <div class="ratio-num">${f.ratio.toLocaleString()}</div>
+            <div class="ratio-bar-bg"><div class="ratio-bar" style="width:${getRatioPct(f.ratio)}%"></div></div>
+          </div>
+          <div class="content-sig">
+            <span class="content-badge ${f.hasContent?'has-content':'no-content'}">${f.hasContent?'HAS CONTENT':'NO CONTENT'}</span>
+            <span class="content-delta">${f.contentDelta} · ${f.articles} articles</span>
+          </div>
+          <div><span class="anomaly ${f.anomaly}">${f.anomalyLabel}</span></div>
+        </div>
+      </div>
+      <div class="drawer" id="drawer-${f.rank}">
+        <div class="drawer-grid">
+          <div class="d-card"><div class="d-card-label">Why is this fund trending?</div><p>${f.why}</p></div>
+          <div class="d-card"><div class="d-card-label">So what does this mean?</div><p>${f.sowhat}</p></div>
+          <div class="d-card"><div class="d-card-label">Recommended action</div><p>${f.action}</p></div>
+        </div>
+        <div class="d-stats">
+          <div class="d-stat"><div class="d-stat-label">IFA Views</div><div class="d-stat-val">${f.views.toLocaleString()}</div></div>
+          <div class="d-stat"><div class="d-stat-label">MoM Change</div><div class="d-stat-val" style="color:var(--${momClass==='up'?'up':momClass==='down'?'down':'neutral'})">${momStr}</div></div>
+          <div class="d-stat"><div class="d-stat-label">Performance</div><div class="d-stat-val">${f.quartile}</div></div>
+          <div class="d-stat"><div class="d-stat-label">AUM</div><div class="d-stat-val">£${f.aum}bn</div></div>
+          <div class="d-stat"><div class="d-stat-label">Research/£bn</div><div class="d-stat-val">${f.ratio.toLocaleString()}</div></div>
+        </div>
+        <div style="margin-top:14px;background:white;border:1px solid #dde8ee;border-radius:6px;padding:14px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal);margin-bottom:10px">Citicode & Content Tag Intelligence</div>
+          ${(()=>{
+            const cd = citicodeData[f.rank];
+            if(!cd) return '';
+            const tagBadge = t => '<span style="display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;background:#f0faf9;border:1px solid #b2deda;color:#007d73;margin:2px;font-weight:600">'+t+'</span>';
+            const fwBadge = t => '<span style="display:inline-block;font-size:10px;padding:2px 8px;border-radius:3px;background:#fff3e0;border:1px solid #fcd34d;color:#b45309;margin:2px;font-weight:600">★ '+t+'</span>';
+            const deltaCol = cd.delta==='N/A'?'#c0392b':cd.delta.startsWith('+')?'#0d7a5f':'#c0392b';
+            return '<div style="display:grid;grid-template-columns:120px 80px 80px 1fr;gap:10px;align-items:start;margin-bottom:10px">'
+              +'<div><div style="font-size:9px;color:#7a95a8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px">Citicode</div>'
+              +'<div style="font-size:14px;font-weight:700;color:#253746;font-family:monospace">'+cd.citicode+'</div></div>'
+              +'<div><div style="font-size:9px;color:#7a95a8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px">This Month</div>'
+              +'<div style="font-size:18px;font-weight:700;color:#253746">'+cd.tagsThisMonth+' <span style="font-size:11px;color:#7a95a8">articles</span></div></div>'
+              +'<div><div style="font-size:9px;color:#7a95a8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px">vs Last Month</div>'
+              +'<div style="font-size:18px;font-weight:700;color:'+deltaCol+'">'+cd.delta+'</div></div>'
+              +'<div><div style="font-size:9px;color:#7a95a8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:3px">Trend</div>'
+              +'<div style="font-size:11px;color:#4a6070;line-height:1.5">'+cd.trend+'</div></div>'
+              +'</div>'
+              +(cd.editorialTags.length ? '<div style="margin-bottom:6px"><span style="font-size:9px;color:#7a95a8;text-transform:uppercase;letter-spacing:0.6px;margin-right:6px">Editorial tags:</span>'+cd.editorialTags.map(tagBadge).join('')+'</div>' : '<div style="font-size:11px;color:#c0392b;margin-bottom:6px">⚠ No editorial tags — this fund is not tagged in any Trustnet article</div>')
+              +(cd.fundwireTags.length ? '<div><span style="font-size:9px;color:#7a95a8;text-transform:uppercase;letter-spacing:0.6px;margin-right:6px">Fundwire:</span>'+cd.fundwireTags.map(fwBadge).join('')+'</div>' : '<div style="font-size:11px;color:#b45309">No Fundwire content</div>');
+          })()}
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal);margin-bottom:10px">Four Signal Breakdown</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+            ${[
+              {icon:'📥',label:'Inflows',d:f.inflows},
+              {icon:'🔍',label:'Stable Discovery',d:f.discovery},
+              {icon:'🛡',label:'Risk-Off',d:f.riskoff},
+              {icon:'📄',label:'Content Signal',d:f.contentSignal}
+            ].map(s=>{
+              const col=s.d.status==='positive'?'#0d7a5f':s.d.status==='negative'?'#c0392b':'#4a6070';
+              return '<div style="background:white;border:1px solid #dde8ee;border-radius:6px;padding:12px">'
+                +'<div style="font-size:16px;margin-bottom:6px">'+s.icon+'</div>'
+                +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#7a95a8;margin-bottom:4px">'+s.label+'</div>'
+                +'<div style="font-size:15px;font-weight:700;color:'+col+';margin-bottom:6px">'+s.d.val+'</div>'
+                +'<div style="font-size:11px;color:#4a6070;line-height:1.5">'+s.d.note+'</div>'
+                +'</div>';
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+    row.querySelector('.row-inner').addEventListener('click',()=>toggleDrawer(f.rank,row));
+    tb.appendChild(row);
+  });
+}
+
+function toggleDrawer(id,row){
+  const d=document.getElementById('drawer-'+id);
+  const isOpen=d.classList.contains('open');
+  document.querySelectorAll('.drawer.open').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.fund-row.open').forEach(x=>x.classList.remove('open'));
+  if(!isOpen){d.classList.add('open');row.classList.add('open');}
+}
+
+function filterFunds(type,btn){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let filtered=funds;
+  if(type==='q23') filtered=funds.filter(f=>f.quartile==='Q2'||f.quartile==='Q3');
+  else if(type==='nocontent') filtered=funds.filter(f=>!f.hasContent);
+  else if(type==='newentrant') filtered=funds.filter(f=>f.newEntrant);
+  else if(type==='inflow') filtered=funds.filter(f=>f.signal==='inflow');
+  else if(type==='unexplained') filtered=funds.filter(f=>f.anomaly==='unexplained');
+  renderFunds(filtered);
+}
+
+renderFunds(funds);
+</script>
+</body>
+</html>
