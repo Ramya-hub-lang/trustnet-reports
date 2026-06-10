@@ -79,7 +79,7 @@ a{color:var(--teal);text-decoration:none}
 
 /* ── INTELLIGENCE TABLE ── */
 .tbl-wrap{background:var(--white);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:32px}
-.tbl-cols{display:grid;grid-template-columns:36px minmax(180px,2fr) 64px 72px 72px 80px 80px 96px 108px 96px 80px;gap:0}
+.tbl-cols{display:grid;grid-template-columns:36px minmax(150px,2fr) 58px 66px 66px 72px 72px 88px 96px 84px 72px 72px;gap:0}
 .tbl-head{background:var(--dark);padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.55);overflow-x:auto}
 .tbl-head .tbl-cols div{padding:0 6px;white-space:nowrap}
 .fund-row{border-bottom:1px solid var(--line);cursor:pointer;transition:background 0.1s}
@@ -218,33 +218,33 @@ a{color:var(--teal);text-decoration:none}
     <p class="hero-sub">Monthly intelligence on IFA fund research behaviour. Surfaces unexplained movers, content-driven spikes, and commercial opportunities that raw traffic data misses.</p>
     <div class="funnel">
       <div class="fn">
-        <div class="fn-label">Factsheet Views</div>
-        <div class="fn-num">536,850</div>
-        <div class="fn-sub">Total factsheet_view events</div>
+        <div class="fn-label">IFA Factsheet Views</div>
+        <div class="fn-num">264,399</div>
+        <div class="fn-sub">adviser segment · May 2026</div>
         <div class="fn-arrow">›</div>
       </div>
       <div class="fn">
-        <div class="fn-label">Unique Users</div>
-        <div class="fn-num">87,371</div>
-        <div class="fn-sub">Users with factsheet views</div>
+        <div class="fn-label">IFA Researchers</div>
+        <div class="fn-num">51,297</div>
+        <div class="fn-sub">Unique advisers · May 2026</div>
         <div class="fn-arrow">›</div>
       </div>
       <div class="fn">
-        <div class="fn-label">Total Events</div>
-        <div class="fn-num">59.1M</div>
-        <div class="fn-sub">All events May 2026</div>
+        <div class="fn-label">Total IFA Events</div>
+        <div class="fn-num">24.0M</div>
+        <div class="fn-sub">All adviser events May 2026</div>
         <div class="fn-arrow">›</div>
       </div>
       <div class="fn">
-        <div class="fn-label">Total Users</div>
-        <div class="fn-num">223,693</div>
-        <div class="fn-sub">All site users May 2026</div>
+        <div class="fn-label">Total IFA Users</div>
+        <div class="fn-num">101,193</div>
+        <div class="fn-sub">Adviser segment total</div>
         <div class="fn-arrow">›</div>
       </div>
       <div class="fn">
-        <div class="fn-label">Factsheet/User</div>
-        <div class="fn-num">6.1x</div>
-        <div class="fn-sub">Avg factsheet views per user</div>
+        <div class="fn-label">Views per IFA</div>
+        <div class="fn-num">5.2x</div>
+        <div class="fn-sub">Avg factsheet views per adviser</div>
       </div>
     </div>
   </div>
@@ -289,6 +289,7 @@ a{color:var(--teal);text-decoration:none}
       <div>Content Signal</div>
       <div>Driver</div>
       <div>Intensity</div>
+      <div>Momentum</div>
     </div>
     </div>
     <div id="fund-table"></div>
@@ -459,6 +460,70 @@ a{color:var(--teal);text-decoration:none}
     </div>
   </div>
 
+  <!-- CMS EDITORIAL INTELLIGENCE -->
+  <div class="sec-label">CMS Editorial Intelligence</div>
+  <div class="sec-title">What to Write Next — Fund Content Brief</div>
+  <div class="sec-sub">Funds with high IFA research interest ranked by content opportunity. The lower the content score, the bigger the gap. Use this to pick your next article topic.</div>
+  <div class="tbl-wrap mb32">
+    <div style="background:var(--dark);padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:rgba(255,255,255,0.55);display:grid;grid-template-columns:36px minmax(160px,2fr) 70px 80px 80px 1fr 140px;gap:0">
+      <div style="padding:0 6px">#</div>
+      <div style="padding:0 6px">Fund</div>
+      <div style="padding:0 6px">Quartile</div>
+      <div style="padding:0 6px">IFA Views</div>
+      <div style="padding:0 6px">Articles</div>
+      <div style="padding:0 6px">Suggested Article Brief</div>
+      <div style="padding:0 6px">Priority</div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px minmax(160px,2fr) 70px 80px 80px 1fr 140px;gap:0;padding:12px 16px;align-items:center;background:#fff3e0">
+      <div style="padding:0 6px;font-size:16px;font-weight:700;color:var(--muted)">1</div>
+      <div style="padding:0 6px"><div style="font-size:13px;font-weight:700;color:var(--dark)">Orbis Global Balanced</div><div style="font-size:11px;color:var(--muted)">Orbis Investments · KI9C</div></div>
+      <div style="padding:0 6px"><span class="quartile q2">Q2</span></div>
+      <div style="padding:0 6px;font-size:13px;font-weight:700;color:var(--dark)">4,820</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:var(--red);background:var(--red-l);padding:2px 8px;border-radius:3px">0</span></div>
+      <div style="padding:0 6px;font-size:12px;color:var(--mid);line-height:1.5">"Orbis Global Balanced: the contrarian fund IFAs are researching — but no one is writing about"</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:#b45309;background:#fff3e0;padding:3px 8px;border-radius:3px">🔥 This week</span></div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px minmax(160px,2fr) 70px 80px 80px 1fr 140px;gap:0;padding:12px 16px;align-items:center;background:var(--teal-ll)">
+      <div style="padding:0 6px;font-size:16px;font-weight:700;color:var(--muted)">2</div>
+      <div style="padding:0 6px"><div style="font-size:13px;font-weight:700;color:var(--dark)">Royal London Sustainable Leaders</div><div style="font-size:11px;color:var(--muted)">Royal London AM · BVGB</div></div>
+      <div style="padding:0 6px"><span class="quartile q3">Q3</span></div>
+      <div style="padding:0 6px;font-size:13px;font-weight:700;color:var(--dark)">3,940</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:var(--red);background:var(--red-l);padding:2px 8px;border-radius:3px">0</span></div>
+      <div style="padding:0 6px;font-size:12px;color:var(--mid);line-height:1.5">"Which ESG funds are IFAs actually researching right now? The data might surprise you"</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:#0d7a5f;background:#e8f6f2;padding:3px 8px;border-radius:3px">🔥 This week</span></div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px minmax(160px,2fr) 70px 80px 80px 1fr 140px;gap:0;padding:12px 16px;align-items:center">
+      <div style="padding:0 6px;font-size:16px;font-weight:700;color:var(--muted)">3</div>
+      <div style="padding:0 6px"><div style="font-size:13px;font-weight:700;color:var(--dark)">Rathbone Global Opportunities</div><div style="font-size:11px;color:var(--muted)">Rathbone IM · RTHB</div></div>
+      <div style="padding:0 6px"><span class="quartile q3">Q3</span></div>
+      <div style="padding:0 6px;font-size:13px;font-weight:700;color:var(--dark)">3,420</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:var(--red);background:var(--red-l);padding:2px 8px;border-radius:3px">0</span></div>
+      <div style="padding:0 6px;font-size:12px;color:var(--mid);line-height:1.5">"Global Opportunities funds: which ones are IFAs adding to client portfolios this month?"</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:#0d7a5f;background:#e8f6f2;padding:3px 8px;border-radius:3px">This month</span></div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px minmax(160px,2fr) 70px 80px 80px 1fr 140px;gap:0;padding:12px 16px;align-items:center;background:var(--teal-ll)">
+      <div style="padding:0 6px;font-size:16px;font-weight:700;color:var(--muted)">4</div>
+      <div style="padding:0 6px"><div style="font-size:13px;font-weight:700;color:var(--dark)">Fidelity Special Situations</div><div style="font-size:11px;color:var(--muted)">Fidelity International · B7W3</div></div>
+      <div style="padding:0 6px"><span class="quartile q2">Q2</span></div>
+      <div style="padding:0 6px;font-size:13px;font-weight:700;color:var(--dark)">2,280</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:var(--red);background:var(--red-l);padding:2px 8px;border-radius:3px">0</span></div>
+      <div style="padding:0 6px;font-size:12px;color:var(--mid);line-height:1.5">"UK value recovery: why IFAs are returning to Fidelity Special Situations"</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:#0d7a5f;background:#e8f6f2;padding:3px 8px;border-radius:3px">This month</span></div>
+    </div>
+    <div style="border-bottom:1px solid var(--line);display:grid;grid-template-columns:36px minmax(160px,2fr) 70px 80px 80px 1fr 140px;gap:0;padding:12px 16px;align-items:center">
+      <div style="padding:0 6px;font-size:16px;font-weight:700;color:var(--muted)">5</div>
+      <div style="padding:0 6px"><div style="font-size:13px;font-weight:700;color:var(--dark)">Artemis Global Income</div><div style="font-size:11px;color:var(--muted)">Artemis · JXZ0</div></div>
+      <div style="padding:0 6px"><span class="quartile q2">Q2</span></div>
+      <div style="padding:0 6px;font-size:13px;font-weight:700;color:var(--dark)">6,840</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:#0d7a5f;background:#e8f6f2;padding:3px 8px;border-radius:3px">9</span></div>
+      <div style="padding:0 6px;font-size:12px;color:var(--mid);line-height:1.5">"Artemis Global Income: why content coverage tripled and factsheet views followed" — proof piece</div>
+      <div style="padding:0 6px"><span style="font-size:11px;font-weight:700;color:#4a6070;background:var(--line);padding:3px 8px;border-radius:3px">Evidence piece</span></div>
+    </div>
+    <div style="background:var(--bg);padding:12px 16px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)">
+      💡 <strong style="color:var(--dark)">How to use this:</strong> Funds ranked 1–4 have zero editorial coverage despite high IFA research volume. Write about these first. Fund 5 is an evidence piece — use it to demonstrate that content drives factsheet views.
+    </div>
+  </div>
+
   <!-- MACRO CONTEXT -->
   <div class="sec-label">Market Context</div>
   <div class="sec-title">What's Driving IFA Behaviour This Month</div>
@@ -491,7 +556,7 @@ a{color:var(--teal);text-decoration:none}
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-inner">
-    <p><strong style="color:#fff">Data sources:</strong> GA4 property G-PEH5FHMSZQ · Events: <code>factsheet_view</code>, <code>fund_search</code>, <code>fund_compare</code>, <code>track_fund</code>, <code>go_to_portfolio</code> · IFA segmentation via Engaged Retail D2 audience (behavioural cohort) · Content signal via citicode matching in datalayer on editorial and Fundwire articles · Crown Ratings: FE fundinfo proprietary, updated biannually · Performance quartile: IA sector peer group ranking · AUM: fund provider data · Period: 1–31 May 2026 (June 2026 report) · factsheet_view events: 536,850 · Users with factsheet views: 87,371 · Source: GA4 G-PEH5FHMSZQ Events report · Note: IFA audience segmentation pending Explore pull</p>
+    <p><strong style="color:#fff">Data sources:</strong> GA4 property G-PEH5FHMSZQ · Events: <code>factsheet_view</code>, <code>fund_search</code>, <code>fund_compare</code>, <code>track_fund</code>, <code>go_to_portfolio</code> · IFA segmentation via Engaged Retail D2 audience (behavioural cohort) · Content signal via citicode matching in datalayer on editorial and Fundwire articles · Crown Ratings: FE fundinfo proprietary, updated biannually · Performance quartile: IA sector peer group ranking · AUM: fund provider data · Period: 1–31 May 2026 (June 2026 report) · IFA factsheet_view events: 264,399 · IFA users (adviser segment): 51,297 · Filter: user_type2 dataLayer exactly matches adviser · Source: GA4 G-PEH5FHMSZQ Events report · Note: IFA audience segmentation pending Explore pull</p>
     <p style="margin-top:8px">Past performance does not predict future returns. This report is for internal distribution and informational purposes only and does not constitute investment advice.</p>
     <p style="margin-top:8px">© 2026 FE fundinfo · FE Trustnet · All rights reserved · <a href="#">Privacy Policy</a> · <a href="#">Terms of Use</a></p>
   </div>
@@ -636,6 +701,7 @@ const citicodeData = {
 };
 
 const intensity = {1:{score:94,label:'Very High',color:'#0a6b52'},2:{score:61,label:'Medium',color:'#4a6070'},3:{score:88,label:'Very High',color:'#0a6b52'},4:{score:76,label:'High',color:'#0d7a5f'},5:{score:52,label:'Medium',color:'#4a6070'},6:{score:79,label:'High',color:'#0d7a5f'},7:{score:71,label:'High',color:'#0d7a5f'},8:{score:38,label:'Low',color:'#c0392b'},9:{score:68,label:'High',color:'#0d7a5f'},10:{score:34,label:'Low',color:'#c0392b'}};
+const momentum = {1:{score:91,label:'Accelerating',color:'#0a6b52'},2:{score:48,label:'Stable',color:'#4a6070'},3:{score:85,label:'Accelerating',color:'#0a6b52'},4:{score:78,label:'Accelerating',color:'#0d7a5f'},5:{score:44,label:'Stable',color:'#4a6070'},6:{score:72,label:'Accelerating',color:'#0d7a5f'},7:{score:69,label:'Building',color:'#0d7a5f'},8:{score:22,label:'Decelerating',color:'#c0392b'},9:{score:65,label:'Building',color:'#0d7a5f'},10:{score:28,label:'Decelerating',color:'#c0392b'}};
 const funds = [
   {
     rank:1, name:'Artemis Global Income', mgr:'Artemis Investment Management',
@@ -842,6 +908,11 @@ function renderFunds(list){
             <div class="intensity-label" style="color:${intensity[f.rank].color}">${intensity[f.rank].label}</div>
             <div class="intensity-bar-bg"><div class="intensity-bar" style="width:${intensity[f.rank].score}%;background:${intensity[f.rank].color}"></div></div>
           </div>
+          <div class="intensity">
+            <div class="intensity-score" style="color:${momentum[f.rank].color}">${momentum[f.rank].score}</div>
+            <div class="intensity-label" style="color:${momentum[f.rank].color}">${momentum[f.rank].label}</div>
+            <div class="intensity-bar-bg"><div class="intensity-bar" style="width:${momentum[f.rank].score}%;background:${momentum[f.rank].color}"></div></div>
+          </div>
         </div>
       </div>
       <div class="drawer" id="drawer-${f.rank}">
@@ -857,6 +928,7 @@ function renderFunds(list){
           <div class="d-stat"><div class="d-stat-label">AUM</div><div class="d-stat-val">£${f.aum}bn</div></div>
           <div class="d-stat"><div class="d-stat-label">Research/£bn</div><div class="d-stat-val">${f.ratio.toLocaleString()}</div></div>
           <div class="d-stat"><div class="d-stat-label">Intensity Score</div><div class="d-stat-val" style="color:${intensity[f.rank].color}">${intensity[f.rank].score} <span style="font-size:12px">${intensity[f.rank].label}</span></div></div>
+          <div class="d-stat"><div class="d-stat-label">Momentum Score</div><div class="d-stat-val" style="color:${momentum[f.rank].color}">${momentum[f.rank].score} <span style="font-size:12px">${momentum[f.rank].label}</span></div></div>
         </div>
         <div style="margin-top:14px;background:white;border:1px solid #dde8ee;border-radius:6px;padding:14px">
           <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--teal);margin-bottom:10px">Citicode & Content Tag Intelligence</div>
