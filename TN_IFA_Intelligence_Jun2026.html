@@ -998,7 +998,10 @@ function filterFunds(type,btn){
   renderFunds(filtered);
 }
 
-renderFunds(funds);
+// Default to Q2/Q3 filter on load
+const defaultBtn = document.querySelector('.f-btn[onclick*="q23"]');
+if(defaultBtn){ document.querySelector('.f-btn.active').classList.remove('active'); defaultBtn.classList.add('active'); }
+renderFunds(funds.filter(f=>f.quartile==='Q2'||f.quartile==='Q3'));
 </script>
 </body>
 </html>
