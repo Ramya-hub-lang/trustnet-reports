@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FE fundinfo MCP Server — Strategy</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#F2F4F7;color:#253746;}
+
+  /* NAV */
+  .nav{background:#253746;padding:0 40px;display:flex;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+  .nav-brand{color:#00A499;font-size:15px;font-weight:700;padding:15px 20px 15px 0;border-right:1px solid #374858;margin-right:4px;white-space:nowrap;}
+  .nav-link{color:#9AAFBE;font-size:12px;padding:17px 13px;cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  .nav-link:hover,.nav-link.active{color:white;border-bottom-color:#00A499;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#1a2a36,#253746);padding:48px 48px 36px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;right:-80px;top:-80px;width:350px;height:350px;border-radius:50%;background:rgba(0,164,153,0.07);}
+  .hero-tag{display:inline-block;background:rgba(0,164,153,0.18);color:#00A499;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;}
+  .hero h1{font-size:38px;color:white;font-weight:700;line-height:1.15;margin-bottom:8px;}
+  .hero h1 span{color:#00A499;}
+  .hero-sub{font-size:14px;color:#9AAFBE;margin-bottom:24px;}
+  .hero-stats{display:flex;gap:16px;flex-wrap:wrap;}
+  .hero-stat{background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 18px;}
+  .hero-stat strong{display:block;font-size:20px;color:#00A499;font-weight:700;}
+  .hero-stat span{font-size:11px;color:#9AAFBE;}
+
+  /* SECTIONS */
+  .sec{padding:40px 48px;}
+  .sec.grey{background:#F2F4F7;}
+  .sec.white{background:white;}
+  .sec.dark{background:#253746;}
+  .sec-inner{max-width:1100px;margin:0 auto;}
+  .sec-title{font-size:20px;font-weight:700;color:#253746;margin-bottom:6px;padding-bottom:10px;border-bottom:3px solid #00A499;}
+  .sec-sub{font-size:13px;color:#677384;margin-bottom:20px;margin-top:4px;}
+
+  /* GRIDS */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+
+  /* CARDS */
+  .card{background:white;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .card-title{font-size:11px;font-weight:700;color:#677384;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;}
+
+  /* METRICS */
+  .metric{text-align:center;background:white;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .metric-val{font-size:26px;font-weight:700;margin-bottom:3px;}
+  .metric-lbl{font-size:11px;color:#677384;}
+  .metric-sub{font-size:10px;color:#9AAFBE;margin-top:2px;}
+
+  /* FLOW */
+  .flow-wrap{background:white;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .flow-center{text-align:center;margin:4px 0;}
+  .flow-box{display:inline-block;padding:8px 24px;border-radius:8px;font-size:12px;font-weight:700;}
+  .flow-box.dark{background:#253746;color:white;}
+  .flow-box.teal{background:#00A499;color:white;}
+  .flow-box.grey{background:#F2F4F7;color:#253746;border:1.5px solid #DDE2E8;font-weight:500;}
+  .flow-box.green{background:#0A6B35;color:white;}
+  .flow-box.red{background:#C0392B;color:white;}
+  .flow-arr{text-align:center;color:#DDE2E8;font-size:16px;line-height:1;margin:2px 0;}
+
+  /* SCENARIO */
+  .scenario{background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:16px;}
+  .scenario-hdr{padding:12px 18px;display:flex;align-items:center;gap:12px;}
+  .scenario-hdr.before{background:#FEF2F2;}
+  .scenario-hdr.after{background:#F0FDF4;}
+  .scenario-icon{font-size:20px;}
+  .scenario-title{font-size:13px;font-weight:700;}
+  .scenario-title.before{color:#C0392B;}
+  .scenario-title.after{color:#0A6B35;}
+  .scenario-body{padding:14px 18px;font-size:13px;color:#333;line-height:1.7;}
+
+  /* BENEFIT CARDS */
+  .benefit-card{background:white;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:4px solid #00A499;}
+  .benefit-num{font-size:32px;font-weight:700;color:#00A499;margin-bottom:6px;}
+  .benefit-title{font-size:14px;font-weight:700;color:#253746;margin-bottom:6px;}
+  .benefit-body{font-size:12px;color:#677384;line-height:1.7;}
+
+  /* COMPETITOR TABLE */
+  .cmp-tbl{width:100%;border-collapse:collapse;background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .cmp-tbl th{padding:11px 14px;font-size:12px;font-weight:700;text-align:left;}
+  .cmp-tbl th:nth-child(1){background:#253746;color:white;}
+  .cmp-tbl th:nth-child(2){background:#C0392B;color:white;}
+  .cmp-tbl th:nth-child(3){background:#00A499;color:white;}
+  .cmp-tbl td{padding:10px 14px;font-size:12px;border-bottom:1px solid #F2F4F7;}
+  .cmp-tbl tr:last-child td{border-bottom:none;}
+  .cmp-tbl tr:nth-child(even) td{background:#F8F9FA;}
+  .cmp-tbl td:first-child{font-weight:700;color:#253746;}
+  .yes{color:#0A6B35;font-weight:700;}
+  .no{color:#C0392B;}
+  .partial{color:#B45309;}
+
+  /* ENTITLEMENT TABLE */
+  .ent-tbl{width:100%;border-collapse:collapse;background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .ent-tbl th{background:#253746;color:white;padding:10px 14px;font-size:11px;font-weight:700;text-align:left;}
+  .ent-tbl td{padding:10px 14px;font-size:12px;border-bottom:1px solid #F2F4F7;}
+  .ent-tbl tr:last-child td{border-bottom:none;}
+  .ent-tbl tr:nth-child(even) td{background:#F8F9FA;}
+  .ent-tbl td:first-child{font-weight:700;color:#253746;}
+  .allowed{color:#0A6B35;font-weight:700;}
+  .blocked{color:#C0392B;font-weight:700;}
+  .internal{color:#B45309;font-weight:700;}
+
+  /* PHASE */
+  .phase-card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .phase-hdr{padding:11px 16px;display:flex;justify-content:space-between;align-items:center;}
+  .phase-hdr.teal{background:#00A499;}
+  .phase-hdr.dark{background:#253746;}
+  .phase-hdr.blue{background:#1D4ED8;}
+  .phase-ttl{font-size:14px;font-weight:700;color:white;}
+  .phase-sprint{font-size:10px;color:rgba(255,255,255,0.75);}
+  .phase-sub{background:#F2F4F7;padding:7px 16px;font-size:11px;font-weight:700;color:#253746;}
+  .phase-item{padding:9px 16px;border-bottom:1px solid #F2F4F7;font-size:12px;color:#333;display:flex;gap:8px;align-items:flex-start;}
+  .phase-item:last-child{border-bottom:none;}
+  .pdot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0;background:#00A499;}
+
+  /* TOOLS */
+  .tool-card{background:white;border-radius:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:4px solid #00A499;}
+  .tool-name{font-size:12px;font-weight:700;color:#253746;margin-bottom:3px;}
+  .tool-desc{font-size:11px;color:#677384;line-height:1.6;}
+
+  /* NOTES */
+  .note{border-radius:8px;padding:11px 14px;font-size:12px;margin-bottom:14px;}
+  .note.teal{background:#E0F7F6;color:#00A499;border-left:4px solid #00A499;font-weight:600;}
+  .note.red{background:#FEF2F2;color:#C0392B;border-left:4px solid #C0392B;font-weight:600;}
+  .note.green{background:#F0FDF4;color:#0A6B35;border-left:4px solid #0A6B35;font-weight:600;}
+  .note.orange{background:#FEF3C7;color:#B45309;border-left:4px solid #B45309;font-weight:600;}
+
+  .footer{background:#253746;padding:18px 48px;text-align:center;font-size:11px;color:#677384;}
+
+  @media(max-width:900px){
+    .g2,.g3,.g4{grid-template-columns:1fr;}
+    .sec{padding:24px;}
+    .hero{padding:28px 24px;}
+    .nav{overflow-x:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">FE fundinfo MCP</div>
+  <div class="nav-link active" onclick="navTo('what')">What Is It</div>
+  <div class="nav-link" onclick="navTo('today')">Today vs Tomorrow</div>
+  <div class="nav-link" onclick="navTo('tools')">MCP Tools</div>
+  <div class="nav-link" onclick="navTo('benefit')">Commercial Benefit</div>
+  <div class="nav-link" onclick="navTo('competitor')">Competitive Position</div>
+  <div class="nav-link" onclick="navTo('data')">Data Entitlements</div>
+  <div class="nav-link" onclick="navTo('how')">How It Works</div>
+  <div class="nav-link" onclick="navTo('phases')">Build Plan</div>
+  <div class="nav-link" onclick="navTo('cost')">Cost &amp; Timeline</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Strategy — August 2026</div>
+  <h1>FE fundinfo <span>MCP Server</span></h1>
+  <p class="hero-sub">What it is, why it matters, how it works and what it means commercially for FE fundinfo</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>MCP</strong><span>Model Context Protocol</span></div>
+    <div class="hero-stat"><strong>Phase 1</strong><span>5 tools, 100-day build</span></div>
+    <div class="hero-stat"><strong>Morningstar</strong><span>Already live — Nov 2025</span></div>
+    <div class="hero-stat"><strong>0</strong><span>Competitors with Crown Rating MCP</span></div>
+  </div>
+</div>
+
+<!-- WHAT IS MCP -->
+<div class="sec grey" id="what">
+  <div class="sec-inner">
+    <h2 class="sec-title">What Is MCP — Model Context Protocol</h2>
+    <p class="sec-sub">A standard that lets AI assistants connect directly to data sources and take actions on behalf of users.</p>
+
+    <div class="note teal" style="margin-bottom:20px;font-size:13px;">Think of MCP as a universal plug socket. AI assistants — like Claude, ChatGPT, Copilot — are the devices. FE fundinfo data is the electricity. MCP is the socket that connects them.</div>
+
+    <div class="g3" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-title">Without MCP</div>
+        <div style="font-size:13px;color:#333;line-height:1.8;">
+          An asset manager wants to know how their fund performed on Trustnet last month.<br><br>
+          They email their account manager. The account manager manually pulls a report. It takes 2–3 days. The data is already stale by the time it arrives.
+        </div>
+      </div>
+      <div class="card" style="border-top:4px solid #00A499;">
+        <div class="card-title" style="color:#00A499;">With MCP</div>
+        <div style="font-size:13px;color:#333;line-height:1.8;">
+          An asset manager's AI assistant connects to the FE fundinfo MCP server. Their analyst types a question in plain English. The answer comes back in seconds — live data, no account manager needed.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">What Changes</div>
+        <div style="font-size:13px;color:#333;line-height:1.8;">
+          FE fundinfo data becomes machine-readable and AI-accessible. Asset managers don't need a portal login. Their AI tools query fundinfo data directly — just like a human would, but instantly.
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-wrap">
+      <div class="flow-center"><div class="flow-box dark">Asset Manager AI Agent (Claude / Copilot / ChatGPT)</div></div>
+      <div class="flow-arr">↓ connects via MCP standard protocol</div>
+      <div class="flow-center"><div class="flow-box teal">FE fundinfo MCP Server (Cloudflare Workers)</div></div>
+      <div class="flow-arr">↓ authenticated, entitlement-filtered query</div>
+      <div class="flow-center"><div class="flow-box grey">Lightning API + Fabric Gold Layer + Nexus MI</div></div>
+      <div class="flow-arr">↓ structured data response</div>
+      <div class="flow-center"><div class="flow-box grey">AI agent formats and presents answer to analyst</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TODAY VS TOMORROW -->
+<div class="sec white" id="today">
+  <div class="sec-inner">
+    <h2 class="sec-title">Today vs Tomorrow — The Logical Case</h2>
+    <p class="sec-sub">Three real scenarios showing the difference MCP makes for asset managers and FE fundinfo.</p>
+
+    <!-- Scenario 1 -->
+    <div style="margin-bottom:24px;">
+      <div style="font-size:14px;font-weight:700;color:#253746;margin-bottom:10px;">Scenario 1 — Fund Performance Intelligence</div>
+      <div class="scenario">
+        <div class="scenario-hdr before"><div class="scenario-icon">❌</div><div><div class="scenario-title before">Today — Without MCP</div></div></div>
+        <div class="scenario-body">Schroders analyst wants to know how their Income Maximiser fund performed on Trustnet last month — views, IFA engagement, peer comparison. They email their FE fundinfo account manager. The account manager manually pulls data from Nexus, formats a report and sends it back. Takes 2–3 days. By the time it arrives the market has moved.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-hdr after"><div class="scenario-icon">✅</div><div><div class="scenario-title after">Tomorrow — With MCP</div></div></div>
+        <div class="scenario-body">Schroders analyst asks their AI assistant: <em>"How did our Income Maximiser fund perform on Trustnet last month? How does it compare to peers in the IA Mixed Investment 40-85% Shares sector?"</em> The AI connects to the FE fundinfo MCP server, pulls live Nexus MI data filtered to Schroders' funds only, and returns the answer in seconds.</div>
+      </div>
+    </div>
+
+    <!-- Scenario 2 -->
+    <div style="margin-bottom:24px;">
+      <div style="font-size:14px;font-weight:700;color:#253746;margin-bottom:10px;">Scenario 2 — Document Distribution</div>
+      <div class="scenario">
+        <div class="scenario-hdr before"><div class="scenario-icon">❌</div><div><div class="scenario-title before">Today — Without MCP</div></div></div>
+        <div class="scenario-body">An Austrian compliance officer needs the latest PRIIP KID for a fund before a client meeting. They log into fundinfo.com, navigate to the fund, find the document, download it. Multiple steps. Time consuming. If the document has been updated they may not know.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-hdr after"><div class="scenario-icon">✅</div><div><div class="scenario-title after">Tomorrow — With MCP</div></div></div>
+        <div class="scenario-body">The compliance officer asks their AI assistant: <em>"Get me the latest PRIIP KID for ISIN LU0690374029 for the Austrian market."</em> The AI connects to the fundinfo MCP server, retrieves the latest document, confirms it is current and returns a direct download link. Seconds, not minutes.</div>
+      </div>
+    </div>
+
+    <!-- Scenario 3 -->
+    <div>
+      <div style="font-size:14px;font-weight:700;color:#253746;margin-bottom:10px;">Scenario 3 — Share of Research Alert</div>
+      <div class="scenario">
+        <div class="scenario-hdr before"><div class="scenario-icon">❌</div><div><div class="scenario-title before">Today — Without MCP</div></div></div>
+        <div class="scenario-body">Fidelity's distribution team wants to know which of their funds is losing IFA research share vs last quarter. Nobody knows without a manual Nexus report. By the time the report is produced the quarter has ended and it is too late to act.</div>
+      </div>
+      <div class="scenario">
+        <div class="scenario-hdr after"><div class="scenario-icon">✅</div><div><div class="scenario-title after">Tomorrow — With MCP</div></div></div>
+        <div class="scenario-body">Fidelity's AI agent monitors their share of research weekly. When a fund drops below a threshold it automatically flags it to the distribution team with context — which competitor funds are gaining share and what content gap exists on Trustnet. Proactive intelligence, not reactive reporting.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MCP TOOLS -->
+<div class="sec grey" id="tools">
+  <div class="sec-inner">
+    <h2 class="sec-title">MCP Tools — Phase 1 (Public) and Phase 2 (Token)</h2>
+    <p class="sec-sub">Phase 1 tools use public data — no token needed. Phase 2 tools use sensitive MI data — token required, filtered to client's own funds only.</p>
+
+    <div style="font-size:12px;font-weight:700;color:#0A6B35;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">🔓 Phase 1 — Open Access — No Token Required</div>
+    <div class="g3" style="margin-bottom:20px;">
+      <div class="tool-card" style="border-color:#0A6B35;"><div class="tool-name">get_fund_details</div><div class="tool-desc">Returns fund name, ISIN, AUM, currency, domicile, launch date, fund group and legal structure. Public data — already on fundinfo.com.</div></div>
+      <div class="tool-card" style="border-color:#0A6B35;"><div class="tool-name">get_fund_documents</div><div class="tool-desc">Returns available documents — factsheets, KIDs, prospectus, annual reports — with download links filtered by market and language. Public data.</div></div>
+      <div class="tool-card" style="border-color:#0A6B35;"><div class="tool-name">get_fund_performance</div><div class="tool-desc">Returns NAV history and performance data for a given fund and date range. Public data — already on fundinfo.com.</div></div>
+      <div class="tool-card" style="border-color:#0A6B35;"><div class="tool-name">get_fundswire_articles</div><div class="tool-desc">Returns Fundswire articles related to a fund or fund group — titles, summaries and publication dates. Public content.</div></div>
+    </div>
+
+    <div style="font-size:12px;font-weight:700;color:#1D4ED8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">🔐 Phase 2 — Token Required — Sensitive MI Data</div>
+    <div class="g3" style="margin-bottom:16px;">
+      <div class="tool-card" style="border-color:#1D4ED8;"><div class="tool-name">get_nexus_mi</div><div class="tool-desc">Returns Trustnet factsheet view counts and IFA engagement data. Token required. Filtered to client's own funds only. No cross-client data.</div></div>
+      <div class="tool-card" style="border-color:#1D4ED8;"><div class="tool-name">get_share_of_research</div><div class="tool-desc">Returns share of IFA research vs peers by sector. Token required. Client sees their own funds' share only. No competitor detail exposed.</div></div>
+      <div class="tool-card" style="border-color:#1D4ED8;"><div class="tool-name">get_peer_comparison</div><div class="tool-desc">Returns fund performance vs sector peers. Token required. Phase 2 build — post Fabric gold layer connection.</div></div>
+      <div class="tool-card" style="border-color:#C0392B;border-color:#C0392B;">
+        <div class="tool-name" style="color:#C0392B;">✗ Firmographic data — Never Exposed</div>
+        <div class="tool-desc">Which specific firms visited which funds. Hard code-level block. Not in Phase 1. Not in Phase 2. Not ever. Internal to FE fundinfo only.</div>
+      </div>
+    </div>
+    <div class="note orange">Phase 1 tools return public data only — zero leakage risk. Phase 2 tools require a token issued by FE fundinfo and return only the authenticated client's own data. Fabric responses are filtered server-side before any data is returned to the client.</div>
+  </div>
+</div>
+
+<!-- COMMERCIAL BENEFIT -->
+<div class="sec white" id="benefit">
+  <div class="sec-inner">
+    <h2 class="sec-title">Commercial Benefit — Why FE fundinfo Builds This</h2>
+    <p class="sec-sub">Five clear commercial benefits. Each one directly improves FE fundinfo's market position.</p>
+    <div class="g3" style="margin-bottom:20px;">
+      <div class="benefit-card">
+        <div class="benefit-num">01</div>
+        <div class="benefit-title">Client Stickiness</div>
+        <div class="benefit-body">Asset managers who integrate their AI agents with fundinfo data become dependent on it. The integration becomes part of their workflow. Switching to a competitor means rebuilding the connection. Switching cost increases dramatically. Retention improves.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">02</div>
+        <div class="benefit-title">New Revenue Line</div>
+        <div class="benefit-body">MCP access is a new product. Priced per API call, per seat or as a premium tier. Asset managers pay for the speed and convenience. Data that was delivered manually — at high operational cost — is now delivered instantly at near-zero marginal cost.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">03</div>
+        <div class="benefit-title">Competitive Moat</div>
+        <div class="benefit-body">Morningstar launched their MCP server November 2025. Asset managers will consolidate around platforms that offer AI-ready data access. FE fundinfo must match this or risk losing clients to Morningstar over the next 12–18 months.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">04</div>
+        <div class="benefit-title">Reduced Operational Cost</div>
+        <div class="benefit-body">Every MI report delivered via MCP is one less manual report from an account manager. Same intelligence delivered at a fraction of the operational cost. Account managers shift from report production to higher-value relationship work.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">05</div>
+        <div class="benefit-title">Data Becomes a Product</div>
+        <div class="benefit-body">Nexus MI data — currently used internally and shared manually with clients — becomes a self-serve product. Asset managers access it directly, on demand, via their own AI tools. FE fundinfo's data asset is monetised at scale for the first time.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-num">06</div>
+        <div class="benefit-title">AI-Ready Platform</div>
+        <div class="benefit-body">The fund data industry is moving toward AI-native workflows. Asset managers are building AI agents into their distribution, compliance and research processes. FE fundinfo being AI-ready — with an MCP server — positions it as the infrastructure layer for the next generation of fund intelligence.</div>
+      </div>
+    </div>
+    <div class="note teal" style="font-size:13px;">Giles's confirmed commercial use case: <em>"Schroders could connect their AI agent and ask — what did my Income Maximiser fund do last month, how does it compare to peers, what is its share of research."</em> That is exactly what Phase 1 delivers.</div>
+  </div>
+</div>
+
+<!-- COMPETITIVE POSITION -->
+<div class="sec grey" id="competitor">
+  <div class="sec-inner">
+    <h2 class="sec-title">Competitive Position</h2>
+    <p class="sec-sub">Where FE fundinfo sits vs competitors on AI-ready data access.</p>
+    <table class="cmp-tbl" style="margin-bottom:20px;">
+      <thead><tr><th>Capability</th><th>Morningstar</th><th>FE fundinfo (with MCP)</th></tr></thead>
+      <tbody>
+        <tr><td>MCP server live</td><td class="partial">✓ Live — November 2025</td><td class="yes">✓ Phase 1 — 100-day build</td></tr>
+        <tr><td>Fund document retrieval via AI</td><td class="yes">✓ Yes</td><td class="yes">✓ Yes — get_fund_documents</td></tr>
+        <tr><td>Fund performance via AI</td><td class="yes">✓ Yes</td><td class="yes">✓ Yes — get_fund_performance</td></tr>
+        <tr><td>IFA research intelligence (Nexus MI)</td><td class="no">✗ No — Morningstar doesn't have this</td><td class="yes">✓ Yes — unique to FE fundinfo</td></tr>
+        <tr><td>Crown Rating data via AI</td><td class="no">✗ No — Morningstar has star ratings not Crown Ratings</td><td class="yes">✓ Yes — unique to FE fundinfo</td></tr>
+        <tr><td>Fundswire content via AI</td><td class="no">✗ No</td><td class="yes">✓ Yes — get_fundswire_articles</td></tr>
+        <tr><td>Share of research intelligence</td><td class="no">✗ No</td><td class="yes">✓ Phase 2</td></tr>
+      </tbody>
+    </table>
+    <div class="note green">FE fundinfo's unique advantage: Nexus MI data — IFA research behaviour, share of research, firmographic engagement — does not exist anywhere else. Morningstar cannot replicate it. This is the data asset managers will pay to access via AI.</div>
+  </div>
+</div>
+
+<!-- DATA ENTITLEMENTS -->
+<div class="sec white" id="data">
+  <div class="sec-inner">
+    <h2 class="sec-title">Data Entitlements — What Gets Shared and With Whom</h2>
+    <p class="sec-sub">Every MCP response is filtered by authentication. Asset managers only ever see their own data.</p>
+
+    <div class="note red" style="margin-bottom:20px;">Giles's concern is valid and addressed: no asset manager can see another asset manager's data. Firmographic intelligence — which firms visited which funds — stays internal to FE fundinfo only.</div>
+
+    <div class="flow-wrap" style="margin-bottom:20px;">
+      <div class="flow-center"><div class="flow-box dark">Asset Manager AI Agent (e.g. Schroders)</div></div>
+      <div class="flow-arr">↓ API key authentication</div>
+      <div class="flow-center"><div class="flow-box teal">MCP Server — verifies identity and entitlements</div></div>
+      <div class="flow-arr">↓ entitlement filter applied</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0;">
+        <div style="text-align:center;">
+          <div class="flow-box green" style="display:block;margin-bottom:4px;">✓ ALLOWED</div>
+          <div style="font-size:11px;color:#0A6B35;background:#F0FDF4;border-radius:6px;padding:8px;">Schroders' own fund data only<br>Their own Nexus MI only<br>Their own documents only</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="flow-box red" style="display:block;margin-bottom:4px;">✗ BLOCKED</div>
+          <div style="font-size:11px;color:#C0392B;background:#FEF2F2;border-radius:6px;padding:8px;">Any other asset manager's data<br>Firmographic data (who visited)<br>Cross-client intelligence</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ent-tbl">
+      <thead><tr><th>Data Type</th><th>Asset Manager (own funds)</th><th>Asset Manager (other funds)</th><th>FE fundinfo Internal</th></tr></thead>
+      <tbody>
+        <tr><td>Fund details — NAV, AUM, documents</td><td class="allowed">✓ Allowed</td><td class="blocked">✗ Blocked</td><td class="allowed">✓ Full access</td></tr>
+        <tr><td>Nexus MI — view counts for own funds</td><td class="allowed">✓ Allowed</td><td class="blocked">✗ Blocked</td><td class="allowed">✓ Full access</td></tr>
+        <tr><td>Share of research — own funds</td><td class="allowed">✓ Allowed (Phase 2)</td><td class="blocked">✗ Blocked</td><td class="allowed">✓ Full access</td></tr>
+        <tr><td>Firmographic MI — which firms visited</td><td class="blocked">✗ Never exposed</td><td class="blocked">✗ Never exposed</td><td class="internal">✓ Internal only</td></tr>
+        <tr><td>Competitor fund data</td><td class="blocked">✗ Never exposed</td><td class="blocked">✗ Never exposed</td><td class="allowed">✓ Full access</td></tr>
+        <tr><td>Fundswire articles — public content</td><td class="allowed">✓ Allowed</td><td class="allowed">✓ Allowed</td><td class="allowed">✓ Full access</td></tr>
+        <tr><td>Crown Rating data — public ratings</td><td class="allowed">✓ Allowed</td><td class="allowed">✓ Allowed</td><td class="allowed">✓ Full access</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="sec grey" id="how">
+  <div class="sec-inner">
+    <h2 class="sec-title">How It Works — Technical Architecture</h2>
+    <p class="sec-sub">Built on existing FE fundinfo infrastructure. No new data stores. No new APIs. Just a new connection layer.</p>
+
+    <div class="flow-wrap" style="margin-bottom:20px;">
+      <div class="flow-center"><div class="flow-box dark">Asset Manager AI Agent</div></div>
+      <div class="flow-arr">↓ MCP protocol (SSE)</div>
+      <div class="flow-center"><div class="flow-box teal">FE fundinfo MCP Server — Cloudflare Workers (serverless)</div></div>
+      <div class="flow-arr">↓ authentication + entitlement check</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0;">
+        <div class="flow-center"><div class="flow-box grey">Lightning API — fund data, documents, performance</div></div>
+        <div class="flow-center"><div class="flow-box grey">Fabric Gold Layer — Nexus MI, share of research</div></div>
+      </div>
+      <div class="flow-arr">↓ structured JSON response</div>
+      <div class="flow-center"><div class="flow-box dark">AI agent formats answer and presents to user</div></div>
+    </div>
+
+    <div class="g3">
+      <div class="card">
+        <div class="card-title">Cloudflare Workers</div>
+        <div style="font-size:12px;color:#333;line-height:1.8;">Serverless — no servers to maintain. No cost approval needed. Sagi's Feeds MCP server already deployed here. Scales automatically. Global edge network — fast response times for asset managers worldwide.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Lightning API</div>
+        <div style="font-size:12px;color:#333;line-height:1.8;">Already live at lightning.fundinfo.com. Documented via Swagger. Provides fund details, documents and performance data. MCP server queries this API directly — no new data pipeline needed.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Fabric Gold Layer</div>
+        <div style="font-size:12px;color:#333;line-height:1.8;">Microsoft Fabric gold layer — stable, maintained, DR-protected. Confirmed by Giles: "it will forever be available." Contains Nexus MI data — factsheet views, IFA engagement, share of research. MCP server queries via API.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUILD PLAN -->
+<div class="sec white" id="phases">
+  <div class="sec-inner">
+    <h2 class="sec-title">Build Plan — Public First, Then Tokenised</h2>
+    <p class="sec-sub">Phase 1 is open access — public fund data, no token needed. Phase 2 is gated — sensitive MI data requires a token issued by FE fundinfo. Firmographic data is never exposed at any phase.</p>
+
+    <!-- Phase model explanation -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+      <div style="background:#F0FDF4;border:2px solid #0A6B35;border-radius:10px;padding:18px;">
+        <div style="font-size:13px;font-weight:700;color:#0A6B35;margin-bottom:8px;">🔓 Phase 1 — Open Access</div>
+        <div style="font-size:12px;color:#333;line-height:1.8;">
+          No token required. Any asset manager can connect.<br>
+          Public fund data only — already visible on fundinfo.com.<br><br>
+          ✓ Fund details — name, ISIN, AUM, currency<br>
+          ✓ Fund documents — factsheets, KIDs, prospectus<br>
+          ✓ Fund performance — NAV, returns<br>
+          ✓ Fundswire articles — public content<br><br>
+          <strong>No data leakage risk. No sensitive data.</strong>
+        </div>
+      </div>
+      <div style="background:#EFF6FF;border:2px solid #1D4ED8;border-radius:10px;padding:18px;">
+        <div style="font-size:13px;font-weight:700;color:#1D4ED8;margin-bottom:8px;">🔐 Phase 2 — Token Required</div>
+        <div style="font-size:12px;color:#333;line-height:1.8;">
+          API token issued by FE fundinfo. Scoped to one client.<br>
+          Sensitive MI data — filtered to client's own funds only.<br><br>
+          ✓ Nexus MI — factsheet views, IFA engagement (own funds)<br>
+          ✓ Share of research — own funds only<br>
+          ✓ Crown Rating intelligence — premium tier<br>
+          ✗ Firmographic data — NEVER exposed, any phase<br><br>
+          <strong>FE fundinfo controls who gets a token and what they see.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data security note -->
+    <div class="note red" style="margin-bottom:24px;">
+      ⚠️ Giles's concern — data leakage addressed: Firmographic data (which firms visited which funds) is a hard code-level block in the MCP server. It cannot be accessed regardless of token, entitlement level or query. It is internal to FE fundinfo only — permanently. Every Phase 2 query is logged with timestamp, token and data returned for full audit trail.
+    </div>
+
+    <!-- Token flow -->
+    <div class="flow-wrap" style="margin-bottom:24px;">
+      <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:14px;text-align:center;">Phase 2 — How Tokenisation Works</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;align-items:center;">
+        <div style="text-align:center;">
+          <div style="background:#253746;color:white;border-radius:8px;padding:10px;font-size:11px;font-weight:700;">Asset Manager<br>AI Agent</div>
+          <div style="font-size:10px;color:#677384;margin-top:4px;">e.g. Schroders</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:18px;color:#DDE2E8;">→</div>
+          <div style="font-size:10px;color:#677384;">API token<br>sch-xxxx</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="background:#00A499;color:white;border-radius:8px;padding:10px;font-size:11px;font-weight:700;">MCP Server<br>Validates token<br>Filters response</div>
+          <div style="font-size:10px;color:#677384;margin-top:4px;">Schroders funds only</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:18px;color:#DDE2E8;">→</div>
+          <div style="font-size:10px;color:#677384;">Filtered<br>data only</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;background:#FEF2F2;border-radius:8px;padding:12px;text-align:center;font-size:12px;color:#C0392B;font-weight:700;">
+        ✗ Fidelity data &nbsp;|&nbsp; ✗ Firmographic data &nbsp;|&nbsp; ✗ Competitor intelligence &nbsp;— all blocked at server level before response is returned
+      </div>
+    </div>
+
+    <div class="g3">
+      <div class="phase-card">
+        <div class="phase-hdr teal"><div class="phase-ttl">Research</div><div class="phase-sprint">Weeks 1–6</div></div>
+        <div class="phase-sub">Fact-finding and alignment</div>
+        <div class="phase-item"><div class="pdot"></div>Explain MCP to Rebecca — user story writing</div>
+        <div class="phase-item"><div class="pdot"></div>Tarun connects with Sagi — Cloudflare Worker setup</div>
+        <div class="phase-item"><div class="pdot"></div>Map Lightning API endpoints for Phase 1 tools</div>
+        <div class="phase-item"><div class="pdot"></div>Define token and entitlement model for Phase 2</div>
+        <div class="phase-item"><div class="pdot"></div>Microsoft co-create workshop — Paddington</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-hdr dark" style="background:#0A6B35;"><div class="phase-ttl">🔓 Phase 1 — Open Access</div><div class="phase-sprint">Weeks 6–14</div></div>
+        <div class="phase-sub">Public fund data — no token needed</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>Cloudflare Worker deployment</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>Connect to Lightning API</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>get_fund_details — public data only</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>get_fund_documents — public documents</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>get_fund_performance — public NAV data</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>get_fundswire_articles — public content</div>
+        <div class="phase-item"><div class="pdot" style="background:#0A6B35;"></div>Pilot with one asset manager — open access</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-hdr blue"><div class="phase-ttl">🔐 Phase 2 — Token Access</div><div class="phase-sprint">Weeks 14+</div></div>
+        <div class="phase-sub">Sensitive MI data — token required</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Token issuance and management system — FI-MCP-AUTH-001</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Entitlement database — maps token to fund universe</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Connect to Fabric gold layer — filtered by entitlement</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>get_nexus_mi — own funds only, token required</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Share of research — own funds only</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Audit log — every query logged</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Hard block on firmographic data — code level</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COST AND TIMELINE -->
+<div class="sec grey" id="cost">
+  <div class="sec-inner">
+    <h2 class="sec-title">Cost and Timeline</h2>
+    <p class="sec-sub">Honest view — confirmed facts separated from items still to verify with the infrastructure team.</p>
+
+    <!-- Phase 1 cost -->
+    <div style="margin-bottom:24px;">
+      <div style="font-size:14px;font-weight:700;color:#0A6B35;margin-bottom:12px;">🔓 Phase 1 — Open Access — Cost</div>
+      <div class="g3">
+        <div class="card" style="border-top:3px solid #0A6B35;">
+          <div class="card-title">Cloudflare Workers</div>
+          <div style="font-size:12px;color:#333;line-height:1.8;">
+            Confirmed by Gilles de Bruyne — serverless, no plans, no cost approval needed.<br><br>
+            Free tier: 100,000 requests/day — sufficient for Phase 1 pilot with handful of asset managers.<br><br>
+            <strong style="color:#0A6B35;">Cost: £0 for pilot</strong>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid #0A6B35;">
+          <div class="card-title">Lightning API</div>
+          <div style="font-size:12px;color:#333;line-height:1.8;">
+            Already live. Already maintained. MCP server queries it directly.<br><br>
+            ⚠️ Rate limits and per-call costs not yet confirmed.<br><br>
+            <strong style="color:#B45309;">Confirm with Tarun before Phase 1 go-live</strong>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid #0A6B35;">
+          <div class="card-title">Engineering</div>
+          <div style="font-size:12px;color:#333;line-height:1.8;">
+            Build cost only. Tarun and Sagi on existing systems.<br><br>
+            No new platform. No new subscription.<br><br>
+            <strong style="color:#0A6B35;">Cost: engineering time only (~2 sprints)</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 cost -->
+    <div style="margin-bottom:24px;">
+      <div style="font-size:14px;font-weight:700;color:#1D4ED8;margin-bottom:12px;">🔐 Phase 2 — Tokenised Access — Cost</div>
+      <div class="note orange" style="margin-bottom:16px;">The following costs need to be confirmed with Tarun and Gilles de Bruyne before committing. These are the right questions to ask — not confirmed numbers.</div>
+      <div class="g2">
+        <div>
+          <table class="tbl" style="margin-bottom:0;">
+            <thead><tr><th>Cost Component</th><th>Likely Cost</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Cloudflare Workers</strong><br><span style="font-size:11px;color:#677384;">Token validation runs here</span></td><td>Existing plan may already cover this</td><td style="color:#B45309;font-weight:700;">Confirm with Gilles de Bruyne</td></tr>
+              <tr><td><strong>Token + entitlement layer</strong><br><span style="font-size:11px;color:#677384;">Built in-house, no third party</span></td><td>Build cost only — ~2 sprints</td><td style="color:#0A6B35;font-weight:700;">No new platform needed</td></tr>
+              <tr><td><strong>Fabric Gold Layer queries</strong><br><span style="font-size:11px;color:#677384;">Nexus MI data source</span></td><td>Already paid for — no extra cost expected</td><td style="color:#B45309;font-weight:700;">Confirm with Tarun at scale</td></tr>
+              <tr><td><strong>Audit logging</strong><br><span style="font-size:11px;color:#677384;">Every query logged</span></td><td>Uses existing Azure infrastructure — pennies per GB</td><td style="color:#0A6B35;font-weight:700;">Minimal — confirm storage tier</td></tr>
+              <tr><td><strong>Azure API Management</strong><br><span style="font-size:11px;color:#677384;">Enterprise token management option</span></td><td>£35–300/month depending on tier</td><td style="color:#677384;font-weight:700;">Phase 3 decision — not needed now</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title">What to Confirm Before Phase 2 Build</div>
+          <div style="font-size:12px;color:#333;line-height:2;">
+            <strong>1. Gilles de Bruyne</strong><br>
+            What Cloudflare plan is FE fundinfo on? Does it cover Phase 2 token validation volume?<br><br>
+            <strong>2. Tarun</strong><br>
+            Does Lightning API have per-call costs or rate limits that affect Phase 2 volume?<br><br>
+            <strong>3. Tarun</strong><br>
+            Does querying Fabric gold layer at Phase 2 scale incur additional Azure compute cost?<br><br>
+            <strong>4. Infrastructure team</strong><br>
+            Is Azure API Management already licensed within FE fundinfo? If yes — use it. If no — build in-house.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div>
+      <div style="font-size:14px;font-weight:700;color:#253746;margin-bottom:12px;">Timeline — 100-day build window from September 2026</div>
+      <table class="tbl">
+        <thead><tr><th>Phase</th><th>What</th><th>Duration</th><th>Target date</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Research</strong></td><td>MCP model, Lightning API mapping, entitlement design, Microsoft workshop</td><td>6 weeks</td><td>September–October 2026</td></tr>
+          <tr><td><strong>🔓 Phase 1 build</strong></td><td>4 public tools, Cloudflare Worker, Lightning API connection</td><td>8 weeks (~2 sprints)</td><td>October–December 2026</td></tr>
+          <tr><td><strong>Phase 1 pilot</strong></td><td>One asset manager on open access. Validate tools. Gather feedback.</td><td>2 weeks</td><td>December 2026</td></tr>
+          <tr><td><strong>🔐 Phase 2 build</strong></td><td>Token system, entitlement DB, Fabric connection, Nexus MI tools, audit log</td><td>8 weeks (~2 sprints)</td><td>January–February 2027</td></tr>
+          <tr><td><strong>Phase 2 go-live</strong></td><td>Tokenised MI access for first paying client</td><td>—</td><td><strong style="color:#00A499;">March 2027</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="note teal" style="margin-top:16px;">Phase 1 can go live without Phase 2 being ready. Asset managers connect on open access immediately. Phase 2 tokenised access follows. This means FE fundinfo is live and in market by December 2026 — ahead of any competitor building their own solution.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">FE fundinfo &nbsp;·&nbsp; MCP Server Strategy &nbsp;·&nbsp; Audience Growth &nbsp;·&nbsp; August 2026 &nbsp;·&nbsp; Confidential</div>
+
+<script>
+function navTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));event.target.classList.add('active');}
+window.addEventListener('scroll',()=>{
+  const ids=['what','today','tools','benefit','competitor','data','how','phases','cost'];
+  const links=document.querySelectorAll('.nav-link');
+  let cur='';
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});
+  links.forEach((l,i)=>{l.classList.toggle('active',ids[i]===cur);});
+});
+</script>
+</body>
+</html>
