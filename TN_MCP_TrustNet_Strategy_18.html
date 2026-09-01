@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustNet MCP Server — Strategy</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#F2F4F7;color:#253746;font-size:13px;line-height:1.6;}
+  .nav{background:#253746;padding:0 40px;display:flex;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+  .nav-brand{color:#00A499;font-size:15px;font-weight:700;padding:15px 20px 15px 0;border-right:1px solid #374858;margin-right:4px;white-space:nowrap;}
+  .nav-link{color:#9AAFBE;font-size:11px;padding:17px 11px;cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  .nav-link:hover,.nav-link.active{color:white;border-bottom-color:#00A499;}
+  .hero{background:linear-gradient(135deg,#1a2a36,#253746);padding:52px 48px 40px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;background:rgba(0,164,153,0.06);}
+  .hero-tag{display:inline-block;background:rgba(0,164,153,0.15);color:#00A499;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;}
+  .hero h1{font-size:42px;color:white;font-weight:700;line-height:1.1;margin-bottom:10px;}
+  .hero h1 span{color:#00A499;}
+  .hero-sub{font-size:14px;color:#9AAFBE;margin-bottom:28px;max-width:700px;}
+  .hero-stats{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-stat{background:rgba(255,255,255,0.06);border-radius:8px;padding:12px 20px;border:1px solid rgba(255,255,255,0.08);}
+  .hero-stat strong{display:block;font-size:22px;color:#00A499;font-weight:700;}
+  .hero-stat span{font-size:11px;color:#9AAFBE;}
+  .sec{padding:44px 48px;}
+  .sec.grey{background:#F2F4F7;}
+  .sec.white{background:white;}
+  .sec.dark{background:#253746;}
+  .sec-inner{max-width:1100px;margin:0 auto;}
+  h2.sec-title{font-size:22px;font-weight:700;color:#253746;margin-bottom:4px;}
+  .sec-sub{font-size:13px;color:#677384;margin-bottom:22px;margin-top:4px;}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .card{background:white;border-radius:10px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .note{border-radius:8px;padding:12px 16px;font-size:12px;margin-bottom:16px;line-height:1.6;}
+  .note.teal{background:#E0F7F6;color:#007A72;border-left:4px solid #00A499;}
+  .note.orange{background:#FEF3C7;color:#92400E;border-left:4px solid #B45309;}
+  .flow-wrap{background:white;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .flow-center{text-align:center;margin:4px 0;}
+  .flow-box{display:inline-block;padding:9px 28px;border-radius:8px;font-size:12px;font-weight:700;}
+  .flow-box.dark{background:#253746;color:white;}
+  .flow-box.teal{background:#00A499;color:white;}
+  .flow-box.blue{background:#1D4ED8;color:white;}
+  .flow-box.grey{background:#F2F4F7;color:#253746;border:1.5px solid #DDE2E8;font-weight:500;}
+  .flow-arr{text-align:center;color:#CDD5DB;font-size:16px;line-height:1.2;margin:3px 0;}
+  .phase-card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .phase-hdr{padding:12px 18px;display:flex;justify-content:space-between;align-items:center;}
+  .phase-ttl{font-size:14px;font-weight:700;color:white;}
+  .phase-date{font-size:10px;color:rgba(255,255,255,0.75);font-weight:600;}
+  .phase-sub{background:#F2F4F7;padding:8px 18px;font-size:11px;font-weight:700;color:#253746;}
+  .phase-item{padding:9px 18px;border-bottom:1px solid #F2F4F7;font-size:12px;color:#333;display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+  .phase-item:last-child{border-bottom:none;}
+  .pdot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+  .footer{background:#253746;padding:20px 48px;text-align:center;font-size:11px;color:#677384;}
+  @media(max-width:900px){.g2,.g3{grid-template-columns:1fr;}.sec{padding:28px 20px;}.hero{padding:32px 20px;}.nav{overflow-x:auto;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">TrustNet MCP</div>
+  <div class="nav-link active" onclick="navTo('why')">Why Now</div>
+  <div class="nav-link" onclick="navTo('phase1')">Phase 1</div>
+  <div class="nav-link" onclick="navTo('phase2')">Phase 2</div>
+  <div class="nav-link" onclick="navTo('how')">How It Works</div>
+  <div class="nav-link" onclick="navTo('commercial')">Commercial</div>
+  <div class="nav-link" onclick="navTo('timeline')">Timeline</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Strategy — August 2026</div>
+  <h1>TrustNet <span>MCP Server</span></h1>
+  <p class="hero-sub">TrustNet editorial content — independent UK fund research, news and commentary — made AI-queryable. Built internally first. Launched externally as a commercial product.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>Phase 1</strong><span>Build and test — internal</span></div>
+    <div class="hero-stat"><strong>Phase 2</strong><span>Commercial launch — external</span></div>
+    <div class="hero-stat"><strong>Oct 2026</strong><span>Phase 1 build starts</span></div>
+    <div class="hero-stat"><strong>2027</strong><span>Phase 2 external launch</span></div>
+    <div class="hero-stat"><strong>2</strong><span>Paying clients already — Allfunds, Lloyds</span></div>
+  </div>
+</div>
+
+<!-- WHY NOW -->
+<div class="sec white" id="why">
+  <div class="sec-inner">
+    <h2 class="sec-title">Why Now</h2>
+    <p class="sec-sub">The investment management industry is restructuring around AI. The data below is from published research in 2026.</p>
+
+    <div class="g3" style="margin-bottom:24px;">
+      <div class="card" style="border-left:4px solid #C0392B;">
+        <div style="font-size:11px;font-weight:700;color:#C0392B;margin-bottom:6px;">Wealth platforms cannot write fund research themselves</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Banks and wealth platforms serve millions of investors who ask which funds to consider. They do not have research teams to answer that question. They either leave it unanswered — or they buy independent content. TrustNet is that content.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #B45309;">
+        <div style="font-size:11px;font-weight:700;color:#B45309;margin-bottom:6px;">The way content is consumed is changing</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Platforms are embedding AI chatbots. Analysts are querying AI tools for research. A static news feed on a web page is no longer sufficient. Clients need content that is AI-queryable — not just readable.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #1D4ED8;">
+        <div style="font-size:11px;font-weight:700;color:#1D4ED8;margin-bottom:6px;">FE fundinfo is not in the AI content ecosystem yet</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Claude already connects to FactSet, LSEG, Morningstar and others for financial data. No source for independent UK fund editorial exists in that ecosystem. TrustNet can be the first — and it is harder to displace a source once analysts build workflows around it.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #00A499;">
+        <div style="font-size:11px;font-weight:700;color:#00A499;margin-bottom:6px;">30 years of content — no competitor can replicate this overnight</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">TrustNet has been writing independent UK fund research since 1996. That archive — 30 years of fund analysis, manager commentary, sector views — is a unique data asset. Citywire is a competitor. Morningstar does not write this content. Nobody else does.</div>
+      </div>
+      <div class="card" style="border-left:4px solid #0A6B35;">
+        <div style="font-size:11px;font-weight:700;color:#0A6B35;margin-bottom:6px;">Revenue is already proven — this is not a new market</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Allfunds and Lloyds Bank are already paying for TrustNet editorial content today. They resell it to Barclays Private Wealth and Lloyds portal customers. The commercial model exists. MCP is a better version of what is already working.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 1 -->
+<div class="sec grey" id="phase1">
+  <div class="sec-inner">
+    <h2 class="sec-title">Phase 1 — Build and Test</h2>
+    <p class="sec-sub">The commercial risk of going external before the server is proven is too high. Phase 1 builds and validates everything internally — so when Allfunds or Lloyds connects in Phase 2, the product works from day one. Authentication and security infrastructure built in Phase 1 carries forward directly into Phase 2 with no rebuild.</p>
+
+    <div class="g2" style="margin-bottom:20px;">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:12px;">What Phase 1 Delivers</div>
+        <div style="background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="background:#00A499;padding:11px 16px;">
+            <div style="font-size:13px;font-weight:700;color:white;">TrustNet Editorial MCP Server</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.8);">Internal build — editorial content — authentication built for Phase 2</div>
+          </div>
+          <div style="padding:16px;">
+            <div style="font-size:12px;color:#333;line-height:2;">
+              ✓ TrustNet editorial content — fund research, news and commentary<br>
+              ✓ Cloudflare Worker deployment<br>
+              ✓ Authentication layer — built ready for Phase 2 external clients<br>
+              ✓ Rate limiting and audit logging from day one<br>
+              ✓ Internal validation — queries, performance, accuracy
+            </div>
+          </div>
+          <div style="background:#F0FDF4;padding:10px 16px;font-size:11px;color:#0A6B35;font-weight:600;">Authentication and logging built in Phase 1. No rebuild needed when Phase 2 goes external.</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:12px;">Example Queries — Internal Testing</div>
+        <div style="background:white;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="font-size:12px;color:#333;line-height:2.2;">
+            <span style="color:#00A499;font-weight:700;">"</span>Show me all TrustNet articles on Fundsmith in 2026<span style="color:#00A499;font-weight:700;">"</span><br>
+            <span style="color:#00A499;font-weight:700;">"</span>Get me the latest TrustNet editorial on investment trusts<span style="color:#00A499;font-weight:700;">"</span><br>
+            <span style="color:#00A499;font-weight:700;">"</span>What has TrustNet written about Scottish Mortgage this year?<span style="color:#00A499;font-weight:700;">"</span><br>
+            <span style="color:#00A499;font-weight:700;">"</span>Summarise TrustNet's view on the IA Flexible Investment sector<span style="color:#00A499;font-weight:700;">"</span>
+          </div>
+          <div style="background:#F2F4F7;border-radius:6px;padding:10px;margin-top:12px;font-size:11px;color:#677384;">Phase 1 validates that the server returns accurate, well-structured responses before any external client connects.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="sec white" id="phase2">
+  <div class="sec-inner">
+    <h2 class="sec-title">Phase 2 — External Launch</h2>
+    <p class="sec-sub">Once Phase 1 testing is complete, the same server opens to external clients under a B2B subscription model. TrustNet editorial content is the product — unique, already in demand, no direct competitor.</p>
+
+    <div style="background:#253746;border-radius:10px;padding:18px 20px;margin-bottom:24px;">
+      <div style="font-size:12px;font-weight:700;color:#00A499;margin-bottom:10px;">What success looks like</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#9AAFBE;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Year 1 — 2027</div>
+          <div style="font-size:12px;color:#9AAFBE;line-height:1.8;">Allfunds and Lloyds upgraded from static feed to MCP. Both contracts renewed at higher value. MCP delivers content into their AI tools and chatbots directly.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#9AAFBE;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Year 2 — 2028</div>
+          <div style="font-size:12px;color:#9AAFBE;line-height:1.8;">2–3 new wealth platform clients added. TrustNet editorial becomes the recognised source for UK fund research in AI-powered investment tools. New revenue line established.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:20px;">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:12px;">The Product</div>
+        <div style="background:#F2F4F7;border-radius:10px;padding:18px;margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:6px;">TrustNet News MCP</div>
+          <div style="font-size:12px;color:#677384;line-height:1.8;">A licensed subscription giving external organisations direct AI-queryable access to TrustNet's editorial content — independent UK fund research, analysis and commentary. Clients connect via their own AI tools. FE fundinfo controls access and charges a B2B subscription fee.</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:10px;">Why this content is commercially valuable</div>
+        <div style="background:white;border-radius:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);font-size:12px;color:#333;line-height:1.9;">
+          ✓ Wealth platforms and banks need independent fund research for their clients — but don't have a research team to write it<br>
+          ✓ 30 years of independent UK fund research — depth no competitor can replicate overnight<br>
+          ✓ 120,000 IFAs read and act on TrustNet editorial — content that already influences fund selection at scale<br>
+          ✓ No direct competitor for UK fund editorial via AI
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:12px;">Who Buys It</div>
+        <div style="background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);margin-bottom:12px;">
+          <div style="background:#1D4ED8;padding:10px 16px;">
+            <div style="font-size:11px;font-weight:700;color:white;">Confirmed — Existing Paying Clients</div>
+          </div>
+          <div style="padding:14px 16px;font-size:12px;color:#333;line-height:1.8;">
+            <strong>Allfunds</strong> — resells TrustNet editorial to Barclays Private Wealth portal<br>
+            <strong>Lloyds Bank</strong> — TrustNet editorial content in Lloyds portal
+          </div>
+          <div style="background:#EFF6FF;padding:8px 16px;font-size:11px;color:#1D4ED8;font-weight:600;">Revenue already validated. MCP upgrades delivery — same content, better channel.</div>
+        </div>
+        <div style="background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+          <div style="background:#253746;padding:10px 16px;">
+            <div style="font-size:11px;font-weight:700;color:white;">Next Tier — To Be Confirmed by Commercial Team</div>
+          </div>
+          <div style="padding:14px 16px;font-size:12px;color:#677384;line-height:1.8;">
+            Any UK wealth platform or bank serving retail or HNW investors without their own fund research team. They need credible, independent fund analysis for their clients. TrustNet already provides this to Allfunds and Lloyds. Commercial team to identify and approach next tier.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="sec grey" id="how">
+  <div class="sec-inner">
+    <h2 class="sec-title">How It Works — Technical Architecture</h2>
+    <p class="sec-sub">Built on Cloudflare Workers. Leverages existing FE fundinfo infrastructure. Same server in both phases — access controls determine who can connect.</p>
+
+    <div class="g2" style="margin-bottom:20px;">
+      <div class="flow-wrap">
+        <div style="font-size:11px;font-weight:700;color:#0A6B35;text-align:center;margin-bottom:16px;">Phase 1 — Internal</div>
+        <div class="flow-center"><div class="flow-box dark">Internal Team</div></div>
+        <div class="flow-arr">↓ MCP protocol — whitelisted internal access</div>
+        <div class="flow-center"><div class="flow-box teal">TrustNet MCP Server (Cloudflare Workers)</div></div>
+        <div class="flow-arr">↓ queries editorial content APIs</div>
+        <div class="flow-center"><div class="flow-box grey">TrustNet editorial — fund research, news, commentary</div></div>
+        <div class="flow-arr">↓ structured response</div>
+        <div class="flow-center"><div class="flow-box grey">Instant answer returned</div></div>
+      </div>
+      <div class="flow-wrap">
+        <div style="font-size:11px;font-weight:700;color:#1D4ED8;text-align:center;margin-bottom:16px;">Phase 2 — External</div>
+        <div class="flow-center"><div class="flow-box dark">External Client AI Agent (Allfunds / Lloyds)</div></div>
+        <div class="flow-arr">↓ MCP protocol + subscription credentials</div>
+        <div class="flow-center"><div class="flow-box blue">Same TrustNet MCP Server — subscription layer added</div></div>
+        <div class="flow-arr">↓ subscription validates access</div>
+        <div class="flow-center"><div class="flow-box grey">TrustNet editorial content — licensed to client</div></div>
+        <div class="flow-arr">↓ licensed content returned</div>
+        <div class="flow-center"><div class="flow-box grey">Client AI uses content in their platform or chatbot</div></div>
+      </div>
+    </div>
+
+    <div class="g3">
+      <div class="card">
+        <div style="font-size:11px;font-weight:700;color:#677384;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Cloudflare Workers</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Serverless — no servers to manage. FE fundinfo engineering team already built the Feeds MCP here. No cost approval needed. Scales automatically.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;font-weight:700;color:#677384;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Authentication</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Built in Phase 1. Internal team uses whitelisted access. Phase 2 external clients use subscription credentials. Same infrastructure — different access controls. No rebuild between phases.</div>
+      </div>
+      <div class="card">
+        <div style="font-size:11px;font-weight:700;color:#677384;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Security</div>
+        <div style="font-size:12px;color:#333;line-height:1.7;">Rate limiting and audit logging from day one. Subscription service validates every external request. Pen test before Phase 2 goes live.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMMERCIAL -->
+<div class="sec white" id="commercial">
+  <div class="sec-inner">
+    <h2 class="sec-title">Commercial Model</h2>
+    <p class="sec-sub">Phase 2 is a paid B2B product. Pricing to be confirmed by Giles and Fletcher.</p>
+
+    <div class="g2">
+      <div style="background:#F2F4F7;border-radius:10px;padding:20px;">
+        <div style="font-size:13px;font-weight:700;color:#253746;margin-bottom:8px;">The position</div>
+        <div style="font-size:12px;color:#333;line-height:1.9;">
+          Allfunds and Lloyds Bank already pay for TrustNet editorial content via the existing static News and Research Feed.<br><br>
+          MCP replaces that static feed with a better product — live, AI-queryable, directly into their platforms and chatbots.<br><br>
+          When Phase 2 launches, the commercial conversation is straightforward: existing clients migrate from the static feed to MCP delivery at a revised contract value. No new sales process. Existing commercial relationships.
+        </div>
+      </div>
+      <div style="background:#253746;border-radius:10px;padding:20px;">
+        <div style="font-size:13px;font-weight:700;color:#00A499;margin-bottom:8px;">To be confirmed with Fletcher</div>
+        <div style="font-size:12px;color:#9AAFBE;line-height:1.9;">
+          → What do Allfunds and Lloyds currently pay for the static feed?<br><br>
+          → What is the right price uplift for MCP delivery — better product, higher value?<br><br>
+          → Which other wealth platforms or banks should be approached once the product is proven?
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="sec grey" id="timeline">
+  <div class="sec-inner">
+    <h2 class="sec-title">Timeline</h2>
+    <p class="sec-sub">Research phase September. Phase 1 build October to December. Phase 2 commercial from January 2027. Subject to resource confirmation.</p>
+
+    <div class="note orange" style="margin-bottom:20px;">⚠️ Resource risk — Finscape next-gen MI tool may require engineering team reallocation. Capacity to be confirmed with Gilles de Bruyne before Phase 1 begins.</div>
+
+    <div class="g3">
+      <div class="phase-card">
+        <div class="phase-hdr" style="background:#00A499;">
+          <div class="phase-ttl">Research Phase</div>
+          <div class="phase-date">Sep 2026 · 6 weeks</div>
+        </div>
+        <div class="phase-sub">Alignment and planning</div>
+        <div class="phase-item"><div class="pdot" style="background:#00A499;"></div>Giles confirms central FE fundinfo MCP direction with Richard Thorpe</div>
+        <div class="phase-item"><div class="pdot" style="background:#00A499;"></div>Engineering capacity confirmed with Gilles de Bruyne</div>
+        <div class="phase-item"><div class="pdot" style="background:#00A499;"></div>Rebecca creates DevOps epics — "Preparing for AI"</div>
+        <div class="phase-item"><div class="pdot" style="background:#00A499;"></div>Development team aligns on Cloudflare Worker setup</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-hdr" style="background:#253746;">
+          <div class="phase-ttl">Phase 1 — Build and Test</div>
+          <div class="phase-date">Oct–Dec 2026</div>
+        </div>
+        <div class="phase-sub">Editorial MCP server — internal only</div>
+        <div class="phase-item"><div class="pdot" style="background:#9AAFBE;"></div>Cloudflare Worker deployment</div>
+        <div class="phase-item"><div class="pdot" style="background:#9AAFBE;"></div>Connect TrustNet editorial content APIs</div>
+        <div class="phase-item"><div class="pdot" style="background:#9AAFBE;"></div>Authentication and subscription layer built</div>
+        <div class="phase-item"><div class="pdot" style="background:#9AAFBE;"></div>Rate limiting and audit logging configured</div>
+        <div class="phase-item"><div class="pdot" style="background:#9AAFBE;"></div>Internal validation — queries, performance, accuracy</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-hdr" style="background:#1D4ED8;">
+          <div class="phase-ttl">Phase 2 — External Launch</div>
+          <div class="phase-date">Jan 2027 onwards</div>
+        </div>
+        <div class="phase-sub">Commercial launch — subscription model</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Commercial plan confirmed — Giles + Fletcher</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Pricing model defined</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Pilot with Allfunds or Lloyds Bank</div>
+        <div class="phase-item"><div class="pdot" style="background:#1D4ED8;"></div>Next tier client conversations begin</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">FE fundinfo TrustNet &nbsp;·&nbsp; MCP Strategy &nbsp;·&nbsp; August 2026 &nbsp;·&nbsp; Confidential</div>
+
+<script>
+function navTo(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  event.target.classList.add('active');
+}
+window.addEventListener('scroll',()=>{
+  const ids=['why','phase1','phase2','how','commercial','timeline'];
+  const links=document.querySelectorAll('.nav-link');
+  let cur='';
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&window.scrollY>=el.offsetTop-80)cur=id;});
+  links.forEach((l,i)=>{l.classList.toggle('active',ids[i]===cur);});
+});
+</script>
+</body>
+</html>
