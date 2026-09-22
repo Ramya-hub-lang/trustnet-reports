@@ -1,0 +1,648 @@
+f<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustNet MCP Strategy</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#F4F6F8;color:#253746;font-size:14px;}
+:root{--teal:#00A499;--dark:#253746;--mid:#677384;--light:#9AAFBE;--bg:#F4F6F8;--white:#fff;--border:#DDE2E8;--up:#0A7A48;--dn:#C0392B;}
+
+.hdr{background:var(--dark);padding:20px 40px;display:flex;justify-content:space-between;align-items:center;}
+.hdr-left{}
+.logo{color:var(--teal);font-size:22px;font-weight:700;}
+.hdr-title{color:white;font-size:18px;font-weight:600;margin-top:4px;}
+.hdr-sub{color:var(--light);font-size:12px;margin-top:3px;}
+.hdr-right{text-align:right;}
+.version{background:var(--teal);color:white;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:700;}
+.updated{color:var(--light);font-size:11px;margin-top:6px;}
+
+.urgent-bar{background:#B45309;padding:10px 40px;color:white;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;}
+
+.nav{background:white;padding:0 40px;display:flex;gap:0;border-bottom:2px solid var(--bg);overflow-x:auto;}
+.nav-item{padding:12px 18px;font-size:13px;font-weight:600;color:var(--light);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;}
+.nav-item:hover{color:var(--dark);}
+.nav-item.on{color:var(--teal);border-bottom-color:var(--teal);}
+
+.page{max-width:1100px;margin:0 auto;padding:24px 40px;}
+
+.panel{display:none;}
+.panel.on{display:block;}
+
+.sec{background:white;border-radius:6px;padding:24px;margin-bottom:16px;border:1px solid var(--border);}
+.sec-title{font-size:18px;font-weight:700;color:var(--dark);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--teal);}
+.sec-sub{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:10px;margin-top:18px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+
+.card{background:var(--bg);border-radius:6px;padding:16px;border:1px solid var(--border);}
+.card-title{font-size:13px;font-weight:700;color:var(--teal);margin-bottom:8px;}
+.card p{font-size:13px;color:var(--mid);line-height:1.7;}
+
+.phase-card{background:white;border:2px solid var(--border);border-radius:6px;padding:18px;position:relative;}
+.phase-card.active{border-color:var(--teal);}
+.phase-badge{position:absolute;top:-10px;left:16px;background:var(--teal);color:white;font-size:10px;font-weight:700;padding:2px 10px;border-radius:10px;}
+.phase-badge.future{background:var(--mid);}
+.phase-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px;margin-top:4px;}
+.phase-period{font-size:11px;color:var(--light);margin-bottom:10px;}
+.phase-items{list-style:none;padding:0;}
+.phase-items li{font-size:13px;color:var(--mid);padding:4px 0;border-bottom:1px solid var(--bg);display:flex;gap:8px;align-items:flex-start;}
+.phase-items li:last-child{border-bottom:none;}
+.phase-items li::before{content:'â';color:var(--teal);font-weight:700;flex-shrink:0;}
+
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.tbl th{background:var(--dark);color:white;padding:10px 12px;text-align:left;font-weight:600;}
+.tbl td{padding:10px 12px;border-bottom:1px solid var(--bg);vertical-align:top;}
+.tbl tr:hover td{background:#FAFBFC;}
+.tbl tr:last-child td{border-bottom:none;}
+.tag-allow{background:#D4EDDA;color:#0A7A48;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700;}
+.tag-block{background:#FFDCE0;color:#C0392B;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700;}
+.tag-review{background:#FFF3CD;color:#B45309;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:700;}
+
+.arch-box{background:var(--dark);border-radius:8px;padding:20px;margin-bottom:16px;color:white;}
+.arch-row{display:flex;align-items:center;gap:0;margin-bottom:12px;flex-wrap:wrap;}
+.arch-node{background:#374858;border-radius:6px;padding:10px 14px;font-size:12px;font-weight:700;color:white;text-align:center;min-width:120px;}
+.arch-node.teal{background:var(--teal);}
+.arch-node.green{background:#0A7A48;}
+.arch-node.orange{background:#B45309;}
+.arch-arrow{color:var(--light);font-size:18px;padding:0 8px;font-weight:700;}
+.arch-label{font-size:10px;color:var(--light);margin-top:4px;text-align:center;}
+
+.flow-steps{display:flex;gap:0;margin-bottom:16px;flex-wrap:wrap;}
+.flow-step{flex:1;min-width:140px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center;position:relative;}
+.flow-step:not(:last-child)::after{content:'â';position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--teal);font-size:16px;font-weight:700;z-index:1;}
+.flow-num{width:24px;height:24px;background:var(--teal);color:white;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;}
+.flow-title{font-size:12px;font-weight:700;color:var(--dark);margin-bottom:3px;}
+.flow-desc{font-size:11px;color:var(--mid);line-height:1.4;}
+
+.competitor-card{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:10px;}
+.comp-name{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px;display:flex;align-items:center;gap:8px;}
+.comp-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;}
+.comp-live{background:#FFDCE0;color:#C0392B;}
+.comp-none{background:#D4EDDA;color:#0A7A48;}
+.comp-detail{font-size:12px;color:var(--mid);line-height:1.6;}
+
+.highlight-box{background:#E0F7F6;border-left:4px solid var(--teal);border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:12px;}
+.highlight-box.warning{background:#FEF3C7;border-left-color:#B45309;}
+.highlight-box.danger{background:#FFDCE0;border-left-color:#C0392B;}
+.highlight-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;}
+.highlight-text{font-size:13px;color:var(--mid);line-height:1.6;}
+
+.kv-row{display:flex;padding:8px 0;border-bottom:1px solid var(--bg);font-size:13px;gap:12px;}
+.kv-row:last-child{border-bottom:none;}
+.kv-key{color:var(--mid);font-weight:600;width:160px;flex-shrink:0;}
+.kv-val{color:var(--dark);flex:1;}
+
+.action-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:4px;margin-bottom:6px;}
+.action-owner{background:var(--dark);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0;}
+.action-text{font-size:13px;color:var(--dark);flex:1;}
+.action-urgent{background:#B45309;color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0;}
+.action-done{background:var(--up);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;flex-shrink:0;}
+
+.note{font-size:11px;color:var(--light);line-height:1.6;margin-top:8px;}
+.ul{padding-left:0;list-style:none;}
+.ul li{padding:5px 0;font-size:13px;color:var(--mid);border-bottom:1px solid var(--bg);display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
+.ul li:last-child{border-bottom:none;}
+.ul li::before{content:'â¢';color:var(--teal);font-weight:700;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">Trustnet</div>
+    <div class="hdr-title">TrustNet MCP Strategy</div>
+    <div class="hdr-sub">Model Context Protocol â News, Factsheet & Data Distribution</div>
+  </div>
+  <div class="hdr-right">
+    <div class="version">v2.0</div>
+    <div class="updated"><br></div>
+  </div>
+</div>
+
+
+
+<div class="nav">
+  <div class="nav-item on" onclick="switchTab('overview')">Overview</div>
+  <div class="nav-item" onclick="switchTab('why')">Why MCP Now</div>
+  <div class="nav-item" onclick="switchTab('architecture')">Architecture</div>
+  <div class="nav-item" onclick="switchTab('phases')">Phases</div>
+  <div class="nav-item" onclick="switchTab('freemium')">Freemium Model</div>
+  <div class="nav-item" onclick="switchTab('gateway')">Cloudflare AI Gateway</div>
+  <div class="nav-item" onclick="switchTab('bots')">Bot Management</div>
+  <div class="nav-item" onclick="switchTab('competitors')">Competitor Analysis</div>
+  <div class="nav-item" onclick="switchTab('actions')">Actions</div>
+</div>
+
+<div class="page">
+
+<!-- OVERVIEW -->
+<div class="panel on" id="p-overview">
+  <div class="sec">
+    <div class="sec-title">What is TrustNet MCP?</div>
+    <div class="two-col">
+      <div>
+        <p style="font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:16px;">MCP (Model Context Protocol) is an open standard that lets AI agents â Claude, ChatGPT, Perplexity, Copilot â connect directly to TrustNet's data via a dedicated server. When an IFA asks an AI agent about a fund, the agent calls TrustNet's MCP server and returns Crown Rating, performance and editorial data in the answer.</p>
+        <div class="highlight-box">
+          <div class="highlight-title">One server. All agents.</div>
+          <div class="highlight-text">MCP is built once. Claude, ChatGPT, Copilot and every other MCP-compatible agent connects to the same server. No separate integrations per agent.</div>
+        </div>
+        <div class="highlight-box">
+          <div class="highlight-title">TrustNet owns everything.</div>
+          <div class="highlight-text">Agents are connectors only. All data, logging, rate limiting and monetisation stays on TrustNet's own servers. Agents transfer calls â nothing else.</div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-title">What TrustNet has that no competitor has</div>
+          <ul class="ul">
+            <li>FE Crown Rating â proprietary, rebalanced Jan & Jul. Not in any AI system.</li>
+            <li>Alpha Manager Rating â proprietary. Not in any AI system.</li>
+            <li>Crown Rating History â 8 consecutive rebalances. Only TrustNet has this.</li>
+            <li>30 years of UK fund editorial â named authors, unique content.</li>
+            <li>IFA research data â most researched funds by TrustNet page views.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Confirmed approach</div>
+          <ul class="ul">
+            <li>Phase 1: News MCP â editorial content only</li>
+            <li>Phase 2: Factsheet MCP â 5 public fields based on query evidence</li>
+            <li>Logging via Azure Monitor / Log Analytics â same infrastructure TrustNet already uses. Not through Claude analytics.</li>
+            <li>Cloudflare AI Gateway â rate limiting and freemium model</li>
+            <li>Private markets universe launching on TrustNet â MCP gives hundreds of new fund factsheets AI visibility at scale without additional editorial headcount</li>
+            <li>Factsheet redesign: Crown Rating shown as text not image â AI agents can now read and cite it</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Strategic Context</div>
+    <div class="three-col">
+      <div class="card">
+        <div class="card-title">The traffic problem</div>
+        <p>40% of traffic has shifted from organic search to AI agents. IFAs are asking ChatGPT and Claude instead of Google. TrustNet is invisible to AI without MCP.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">The private markets opportunity</div>
+        <p>Private markets universe launching on TrustNet. Hundreds of new fund factsheets. MCP is the only way to give those funds AI visibility at scale without editorial headcount.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">The revenue model</div>
+        <p>News MCP: 4â5 free queries then upgrade. Factsheet MCP: 5 public fields free, more requires login and payment. Subscription-based add-on confirmed by Ramya.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY NOW -->
+<div class="panel" id="p-why">
+  <div class="sec">
+    <div class="sec-title">Why MCP Now â The Evidence</div>
+
+    <div class="highlight-box danger">
+      <div class="highlight-title">Morningstar MCP is live. TrustNet is not.</div>
+      <div class="highlight-text">Morningstar launched a remote MCP server at https://mcp.morningstar.com/mcp covering 200,000+ global securities and 1,300+ data points. Any IFA using Claude or ChatGPT gets Morningstar fund data instantly. Crown Ratings are not available anywhere in any AI system. This is TrustNet's window â and it is closing.</div>
+    </div>
+
+    <div class="sec-sub">What's happening in the market</div>
+    <div class="two-col">
+      <ul class="ul">
+        <li>40% of TrustNet traffic has shifted from organic to AI agents (Ramya, confirmed from data)</li>
+        <li>61% of financial services firms using or assessing generative AI in 2026</li>
+        <li>OpenAI launched ChatGPT for Financial Services on 10 Sep 2026 with LSEG News data built in â direct competitor to TrustNet data</li>
+        <li>IFAs increasingly using AI for fund research â bypassing TrustNet entirely</li>
+        <li>Morningstar MCP live â covers ETFs, open-end funds, closed-end funds, 1,300+ data points</li>
+        <li>Moody's delivering ratings via MCP â validates the approach for financial data providers</li>
+      </ul>
+      <ul class="ul">
+        <li>Private markets trend: institutional investors moving to wealth channels, creating demand for TrustNet distribution</li>
+        <li>TrustNet identified as a key product connecting fund managers to investors</li>
+        <li>Private markets asset managers (Stepstone, Stone Peak, Apollo) already buying the dissemination product</li>
+        <li>TrustNet factsheets are JavaScript-rendered â AI agents cannot read them today without MCP</li>
+        <li>Crown Rating is shown as an image on TrustNet â AI cannot read images. Crown Rating is invisible to all AI systems.</li>
+      </ul>
+    </div>
+
+    <div class="sec-sub">What MCP enables</div>
+    <div class="three-col">
+      <div class="card">
+        <div class="card-title">Editorial at scale</div>
+        <p>Claude generates fund commentary, sector summaries, manager profiles from TrustNet data. 4,000 fund pages â editorial cannot write all of them. MCP enables AI to do it.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">AI citation protection</div>
+        <p>When IFAs ask ChatGPT about Crown Ratings, TrustNet is cited as the authoritative source. Users click through. Traffic from AI answers replaces declining Google traffic.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">New revenue stream</div>
+        <p>Subscription-based query access. Free tier attracts users. Paid tier converts them. Same model as Morningstar and Bloomberg. Data-driven expansion after POC.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<div class="panel" id="p-architecture">
+  <div class="sec">
+    <div class="sec-title">Technical Architecture</div>
+
+    <div class="sec-sub">How it works â end to end</div>
+    <div class="arch-box">
+      <div style="font-size:11px;color:var(--light);margin-bottom:14px;">Data flow when an IFA asks Claude a question about a TrustNet fund</div>
+      <div class="arch-row">
+        <div><div class="arch-node">IFA</div><div class="arch-label">Asks Claude about Fundsmith</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node teal">Claude / ChatGPT</div><div class="arch-label">MCP-compatible AI agent</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node orange">Cloudflare AI Gateway</div><div class="arch-label">Rate limiting Â· Caching Â· Freemium</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node teal">TrustNet MCP Server</div><div class="arch-label">Cloudflare Worker (Sagi)</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node green">TrustNet API / DB</div><div class="arch-label">Editorial Â· Crown Rating Â· Performance</div></div>
+      </div>
+      <div class="arch-row" style="margin-top:16px;">
+        <div><div class="arch-node green">Data returned</div><div class="arch-label">Fund data Â· Crown Rating Â· Articles</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node teal">MCP Server</div><div class="arch-label">Formats response</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node orange">Cloudflare Gateway</div><div class="arch-label">Logs query Â· Checks quota</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node teal">Claude / ChatGPT</div><div class="arch-label">Returns answer with TrustNet citation</div></div>
+        <div class="arch-arrow">â</div>
+        <div><div class="arch-node">IFA</div><div class="arch-label">Sees answer Â· Clicks through to TrustNet</div></div>
+      </div>
+    </div>
+
+    <div class="sec-sub">Key principles (confirmed by Ramya)</div>
+    <div class="two-col">
+      <ul class="ul">
+        <li>Building our own MCP server â not using any third-party hosted MCP</li>
+        <li>Agents are connectors only â they transfer calls, nothing more</li>
+        <li>All data stays on TrustNet's own servers and DB</li>
+        <li>Not giving logging credentials or data access to Claude, ChatGPT or any external agent</li>
+        <li>Full control over what data is passed, how it's structured, and what's returned</li>
+      </ul>
+      <ul class="ul">
+        <li>Cloudflare Worker built by Sagi â configure and name before going live</li>
+        <li>Logging built same way as existing Azure app logging</li>
+        <li>Cloudflare AI Gateway sits between agents and MCP server for rate limiting and analytics</li>
+        <li>MCP is open standard â one server works with all agents (Claude, ChatGPT, Copilot, Perplexity)</li>
+        <li>Pre-rendering no longer needed â agents are sophisticated enough to read content directly</li>
+      </ul>
+    </div>
+
+    <div class="sec-sub">Data ownership model</div>
+    <div class="highlight-box">
+      <div class="highlight-title">TrustNet owns the query data â this is commercially valuable</div>
+      <div class="highlight-text">Every question an IFA asks through the TrustNet MCP connector is logged on TrustNet's own server. This query data tells editorial what content to create, tells sales which fund managers to approach, tells product which data fields to expose next. This is proprietary intelligence that no competitor can access.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASES -->
+<div class="panel" id="p-phases">
+  <div class="sec">
+    <div class="sec-title">Phased Rollout</div>
+
+    <div class="flow-steps" style="margin-bottom:24px;">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-title">News POC</div>
+        <div class="flow-desc">Editorial news content via MCP. Free tier 4â5 queries. Learn what users ask.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-title">Analyse logs</div>
+        <div class="flow-desc">What queries beyond news? Factsheet requests? Performance data? Price? Use evidence to decide Phase 2.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-title">Factsheet MCP</div>
+        <div class="flow-desc">5 public fields only. Name, price, fund manager, Crown Rating, one more. Upgrade for more.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-title">Commercial MCP</div>
+        <div class="flow-desc">Full data access for paying clients. Subscription model. Fund managers pay for distribution.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-title">TrustNet MCP Phase 3</div>
+        <div class="flow-desc">Companion server for Allfunds, Lloyds and institutional clients. 2027 planning cycle.</div>
+      </div>
+    </div>
+
+    <div class="three-col">
+      <div class="phase-card active">
+        <div class="phase-badge">PHASE 1 â NOW</div>
+        <div class="phase-title">News MCP (Internal + External POC)</div>
+        <div class="phase-period">OctâDec 2026</div>
+        <ul class="phase-items">
+          <li>Editorial news content from TrustNet API</li>
+          <li>Fund articles, sector analysis, manager profiles</li>
+          <li>Diana and editorial team using MCP for newsletter HTML</li>
+          <li>Gary Jackson special reports</li>
+          <li>4â5 free queries then freemium upgrade</li>
+          <li>Full query logging at MCP server level</li>
+          <li>Cloudflare AI Gateway rate limiting live</li>
+          <li>Analytics: editorial, sales, product use cases</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <div class="phase-badge future">PHASE 2 â JAN 2027</div>
+        <div class="phase-title">Factsheet MCP (External Commercial)</div>
+        <div class="phase-period">JanâJun 2027 (data-driven decision)</div>
+        <ul class="phase-items">
+          <li>Triggered by evidence from Phase 1 query logs</li>
+          <li>5 public fields: fund name, price, fund manager, Crown Rating + one more</li>
+          <li>Crown Rating text (not image) â AI can read and cite it</li>
+          <li>Crown Rating History â unique TrustNet data, no competitor has this</li>
+          <li>Upgrade required for: performance tables, breakdown, editorial articles</li>
+          <li>Allfunds and Lloyds as Phase 2 commercial targets</li>
+        </ul>
+      </div>
+      <div class="phase-card">
+        <div class="phase-badge future">PHASE 3 â 2027</div>
+        <div class="phase-title">TrustNet MCP Phase 3</div>
+        <div class="phase-period">2027 planning cycle</div>
+        <ul class="phase-items">
+          <li>Dedicated News MCP for Fundswire editorial</li>
+          <li>Private markets fund data via MCP</li>
+          <li>Institutional client access (Allfunds, Lloyds upgrade)</li>
+          <li>Joint session: Ram, Sagi, Karolina, Gilles de Bruyne</li>
+          <li>Richard Thorpe: central TrustNet MCP roadmap</li>
+          <li>TrustNet potentially sold Q4 2026 â ARR at 25x multiple critical</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FREEMIUM -->
+<div class="panel" id="p-freemium">
+  <div class="sec">
+    <div class="sec-title">Freemium Model</div>
+
+    <div class="sec-sub">News MCP tiers</div>
+    <div class="tbl" style="margin-bottom:20px;">
+      <table class="tbl">
+        <thead><tr><th>Tier</th><th>Queries</th><th>Access</th><th>Goal</th></tr></thead>
+        <tbody>
+          <tr><td>Free</td><td>4â5 per session</td><td>TrustNet news articles, fund names, sector summaries</td><td>Attract users â show value before asking for upgrade</td></tr>
+          <tr><td>Registered</td><td>Unlimited news</td><td>Full editorial archive, author profiles, sector analysis</td><td>Convert to registered TrustNet users â builds email list</td></tr>
+          <tr><td>Premium</td><td>Unlimited</td><td>News + factsheet data, Crown Rating details, performance</td><td>Revenue â subscription-based add-on</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-sub">Factsheet MCP tiers (Phase 2)</div>
+    <table class="tbl">
+      <thead><tr><th>Tier</th><th>Fields available</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td>Public (free)</td><td>Fund name Â· NAV price Â· Fund manager name Â· Crown Rating Â· Sector</td><td>None â available to all AI agents</td></tr>
+        <tr><td>Registered</td><td>+ Performance summary Â· Fund objective Â· ISIN Â· OCF</td><td>TrustNet SSO login required</td></tr>
+        <tr><td>Premium / Paid</td><td>+ Full performance tables Â· Breakdown Â· Crown Rating History Â· Editorial articles Â· Alerts</td><td>Subscription payment required</td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box warning" style="margin-top:16px;">
+      <div class="highlight-title">Why 5 public fields only?</div>
+      <div class="highlight-text">Giving too much away free undermines the subscription model. Giving too little means AI agents don't cite TrustNet. The 5 public fields are enough for AI to answer basic fund queries and cite TrustNet as the source. Users who want more click through â which is the point.</div>
+    </div>
+
+    <div class="sec-sub">Analytics use cases from query data</div>
+    <div class="two-col">
+      <ul class="ul">
+        <li><strong>Editorial:</strong> What questions are IFAs asking? What content gaps exist? Which funds need more coverage? What data are users expecting that we don't yet provide?</li>
+        <li><strong>Sales:</strong> Which fund managers are being asked about most? Convert query intelligence into sales pitches. Prove to fund managers that TrustNet MCP drives IFA research.</li>
+      </ul>
+      <ul class="ul">
+        <li><strong>Product:</strong> Beyond news, what are users querying? Price and performance? Charts? Fund manager profiles? Evidence base for Phase 2 build decisions.</li>
+        <li><strong>Internal:</strong> What's working, what's not? Query volume trends, upgrade conversion rates, which agents send most traffic. Business case for Phase 2 investment.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CLOUDFLARE AI GATEWAY -->
+<div class="panel" id="p-gateway">
+  <div class="sec">
+    <div class="sec-title">Cloudflare AI Gateway</div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">What is Cloudflare AI Gateway?</div>
+      <div class="highlight-text">A layer that sits between AI agents and the TrustNet MCP server. Handles rate limiting, query logging, caching and freemium access control. Core features are free. One line of code to set up. Confirmed by Ramya as the approach for TrustNet MCP</div>
+    </div>
+
+    <div class="sec-sub">What it does for TrustNet MCP</div>
+    <div class="two-col">
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-title">Rate limiting â freemium control</div>
+          <p>Set rules: unauthenticated agents get 4â5 queries per session. Registered users get more. Paid agents get unlimited. Cloudflare enforces this automatically without custom code.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-title">Query logging</div>
+          <p>Every agent query is logged. TrustNet sees exactly what IFAs are asking â not through Claude's analytics (which we can't access) but through our own Cloudflare gateway logs. We own this data.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Caching</div>
+          <p>Repeat queries served from cache â faster responses, lower API costs. Up to 90% cost reduction on frequently asked questions. Critical for keeping free tier sustainable.</p>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-title">Analytics dashboard</div>
+          <p>Built-in dashboard shows: number of requests, token counts, query costs, latency, errors. Visualise query patterns, peak times, most popular queries. Free on all plans.</p>
+        </div>
+        <div class="card" style="margin-bottom:12px;">
+          <div class="card-title">Payment gateway integration</div>
+          <p>Cloudflare AI Gateway charges agents per query or per API key. Same model as Bloomberg MCP and Ontra. Free tier enforced automatically â premium agents get API keys.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">DLP scanning</div>
+          <p>Built-in data loss prevention. Scans queries and responses for sensitive information (financial data, personal identifiers). Free on all plans. Protects TrustNet data.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-sub">Pricing</div>
+    <table class="tbl">
+      <thead><tr><th>Feature</th><th>Workers Free</th><th>Workers Paid</th></tr></thead>
+      <tbody>
+        <tr><td>Analytics dashboard</td><td>â Free</td><td>â Free</td></tr>
+        <tr><td>Rate limiting</td><td>â Free</td><td>â Free</td></tr>
+        <tr><td>Caching</td><td>â Free</td><td>â Free</td></tr>
+        <tr><td>Log storage</td><td>100,000 logs total</td><td>10M logs per gateway</td></tr>
+        <tr><td>Logpush (to S3/SIEM)</td><td>â</td><td>$0.05 per million records</td></tr>
+        <tr><td>DLP scanning</td><td>â Free</td><td>â Free</td></tr>
+      </tbody>
+    </table>
+    <p class="note">For the Phase 1 POC â Cloudflare AI Gateway is free. No cost until log volume exceeds 100,000.</p>
+
+    <div class="sec-sub">Key documentation</div>
+    <div class="kv-row"><div class="kv-key">Overview</div><div class="kv-val">developers.cloudflare.com/ai-gateway</div></div>
+    <div class="kv-row"><div class="kv-key">Rate limiting</div><div class="kv-val">developers.cloudflare.com/ai-gateway/features/rate-limiting</div></div>
+    <div class="kv-row"><div class="kv-key">MCP Portals</div><div class="kv-val">developers.cloudflare.com/cloudflare-one/access-controls/ai-controls/mcp-portals</div></div>
+    <div class="kv-row"><div class="kv-key">Pricing</div><div class="kv-val">developers.cloudflare.com/ai-gateway/pricing</div></div>
+  </div>
+</div>
+
+<!-- BOT MANAGEMENT -->
+<div class="panel" id="p-bots">
+  <div class="sec">
+    <div class="sec-title">Bot Management â Cloudflare Settings</div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">Two types of bots â completely separate. Blocking one does not affect the other.</div>
+      <div class="highlight-text">Search and citation bots fetch pages live to answer real user questions. They drive AI citations and TrustNet traffic. Must be allowed. Training bots crawl for future model training â no effect on today's citations. Optional to block.</div>
+    </div>
+
+    <div class="sec-sub">Training bots â confirmed blocked (Ramya, Sep 2026)</div>
+    <table class="tbl">
+      <thead><tr><th>Bot</th><th>Company</th><th>User Agent</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr><td>GPTBot</td><td>OpenAI</td><td>GPTBot</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>ClaudeBot</td><td>Anthropic</td><td>ClaudeBot</td><td><span class="tag-block">BLOCK</span> â separate from Claude-User (citation bot)</td></tr>
+        <tr><td>Google-Extended</td><td>Google</td><td>Google-Extended</td><td><span class="tag-block">BLOCK</span> â separate from Googlebot (search)</td></tr>
+        <tr><td>CCBot</td><td>Common Crawl</td><td>CCBot</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>Applebot-Extended</td><td>Apple</td><td>Applebot-Extended</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>FacebookBot</td><td>Meta</td><td>FacebookBot</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>Bytespider</td><td>ByteDance</td><td>Bytespider</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>Amazonbot</td><td>Amazon</td><td>Amazonbot</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>Diffbot</td><td>Diffbot</td><td>Diffbot</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>YouBot</td><td>You.com</td><td>YouBot</td><td><span class="tag-block">BLOCK</span></td></tr>
+        <tr><td>PetalBot</td><td>Huawei</td><td>PetalBot</td><td><span class="tag-block">BLOCK</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="sec-sub">Search, citation and live agent bots â must allow</div>
+    <table class="tbl">
+      <thead><tr><th>Bot</th><th>Company</th><th>Purpose</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr><td>OAI-SearchBot</td><td>OpenAI</td><td>Powers ChatGPT Search citations â real-time page fetches</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>ChatGPT-User</td><td>OpenAI</td><td>Live fetches when user asks ChatGPT a question</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>Claude-SearchBot</td><td>Anthropic</td><td>Powers Claude Search â builds retrieval index</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>Claude-User</td><td>Anthropic</td><td>Live fetches for Claude answers</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>PerplexityBot</td><td>Perplexity</td><td>Indexes pages for cited Perplexity answers</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>Perplexity-User</td><td>Perplexity</td><td>Live fetches when user asks Perplexity</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>Googlebot</td><td>Google</td><td>Standard Google search â never block</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>Bingbot</td><td>Microsoft</td><td>Feeds Bing, Copilot and ChatGPT Search</td><td><span class="tag-allow">ALLOW</span></td></tr>
+        <tr><td>DuckDuckBot</td><td>DuckDuckGo</td><td>DuckDuckGo search indexing</td><td><span class="tag-allow">ALLOW</span></td></tr>
+      </tbody>
+    </table>
+    <p class="note">Status: Ramya confirmed training bots should be blocked. Tarun was asked to implement before Sep 15 but is on annual leave. Chase on return to confirm done.</p>
+  </div>
+</div>
+
+<!-- COMPETITORS -->
+<div class="panel" id="p-competitors">
+  <div class="sec">
+    <div class="sec-title">Competitor MCP Analysis</div>
+
+    <div class="competitor-card">
+      <div class="comp-name">Morningstar <span class="comp-status comp-live">LIVE â URGENT</span></div>
+      <div class="comp-detail">
+        <strong>MCP endpoint:</strong> https://mcp.morningstar.com/mcp<br>
+        <strong>Coverage:</strong> 200,000+ global securities â ETFs, open-end funds, closed-end funds, stocks<br>
+        <strong>Data points:</strong> 1,300+ as of July 2026 â NAV, ratings, fair value, performance, sector, domicile<br>
+        <strong>Editorial:</strong> Morningstar research articles and methodology<br>
+        <strong>Authentication:</strong> OAuth â requires Morningstar Direct or Data account<br>
+        <strong>TrustNet gap:</strong> Crown Rating, Alpha Manager Rating and UK-specific editorial are not on Morningstar MCP. This is TrustNet's differentiator.
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="comp-name">Bloomberg <span class="comp-status comp-live">LIVE</span></div>
+      <div class="comp-detail">
+        <strong>Model:</strong> Subscription-based. Charging per query documented publicly.<br>
+        <strong>Coverage:</strong> Full Bloomberg financial data<br>
+        <strong>TrustNet gap:</strong> No UK fund Crown Rating data. No IFA research intelligence.
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="comp-name">Moody's <span class="comp-status comp-live">LIVE</span></div>
+      <div class="comp-detail">
+        <strong>Model:</strong> Delivers ratings data via MCP. Direct validation of financial ratings data via MCP.<br>
+        <strong>Relevance:</strong> Moody's delivering ratings via MCP directly validates TrustNet delivering Crown Ratings via MCP.
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="comp-name">Ontra <span class="comp-status comp-live">LIVE</span></div>
+      <div class="comp-detail">
+        <strong>Model:</strong> Free tier available. Same freemium approach Ramya confirmed for TrustNet.<br>
+        <strong>Relevance:</strong> Freemium MCP model already validated in financial services.
+      </div>
+    </div>
+
+    <div class="competitor-card">
+      <div class="comp-name">Citywire <span class="comp-status comp-none">NO MCP</span></div>
+      <div class="comp-detail">No MCP server found. TrustNet can be ahead of Citywire on this.</div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px;">
+      <div class="highlight-title">TrustNet's unique position</div>
+      <div class="highlight-text">Morningstar has volume â 200,000 funds, 1,300 data points. TrustNet has proprietary signals Morningstar doesn't have: Crown Rating (rebalanced Jan & Jul), Alpha Manager Rating, Crown Rating History (consecutive rebalances), UK editorial with named authors, IFA research intelligence. These are the fields AI agents will cite TrustNet for â not generic performance data that everyone has.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIONS -->
+<div class="panel" id="p-actions">
+  <div class="sec">
+    <div class="sec-title">Actions & Next Steps</div>
+
+    <div class="sec-sub">Overdue</div>
+    <div class="action-row"><div class="action-owner">TARUN</div><div class="action-text">Block training bots in Cloudflare â confirmed by Ramya before annual leave. Confirm done on return.</div><div class="action-urgent">OVERDUE â WAS SEP 15</div></div>
+
+
+    <div class="sec-sub" style="margin-top:16px;">Ram â immediate</div>
+    <div class="action-row"><div class="action-owner">RAM</div><div class="action-text">Share this updated MCP strategy document with Ramya â her plan and this document are aligned. Avoid duplicating work.</div><div class="action-urgent">THIS WEEK</div></div>
+    <div class="action-row"><div class="action-owner">RAM</div><div class="action-text">Share updated strategy with Giles. He asked Ramya for end-to-end mapping â this document provides it.</div><div class="action-urgent">THIS WEEK</div></div>
+    <div class="action-row"><div class="action-owner">RAM</div><div class="action-text">Contribute AI referral traffic data to Ramya's Looker Studio dashboard â Claude, ChatGPT, Perplexity referrals already tracked in GA4.</div><div class="action-urgent">THIS WEEK</div></div>
+    <div class="action-row"><div class="action-owner">RAM</div><div class="action-text">Upload new TN_Factsheet_Redesign.html to GitHub. Share with Giles and Ramya before Ramya finalises her version.</div><div class="action-urgent">TODAY</div></div>
+
+    <div class="sec-sub" style="margin-top:16px;">Rebecca â DevOps PBIs</div>
+    <div class="action-row"><div class="action-owner">REBECCA</div><div class="action-text">PBI-MCP-001: Set up TrustNet MCP Server â Cloudflare Worker, editorial news APIs, auth layer, rate limiting, audit logging.</div><div class="action-urgent">SPRINT</div></div>
+    <div class="action-row"><div class="action-owner">REBECCA</div><div class="action-text">PBI-MCP-002: Internal testing and sign-off â test queries, no data leakage, accuracy confirmed, sign-off documented.</div><div class="action-urgent">SPRINT</div></div>
+
+    <div class="sec-sub" style="margin-top:16px;">Giles â strategic</div>
+    <div class="action-row"><div class="action-owner">GILES</div><div class="action-text">Richard Thorpe â central TrustNet MCP roadmap. TrustNet MCP should feed into the wider TrustNet MCP direction.</div><div class="action-urgent">Q4 2026</div></div>
+    <div class="action-row"><div class="action-owner">GILES</div><div class="action-text">Joint session: Ram, Sagi, Karolina, Gilles de Bruyne â align all four workstreams on MCP direction.</div><div class="action-urgent">Q4 2026</div></div>
+    <div class="action-row"><div class="action-owner">GILES</div><div class="action-text">Confirm Babu: who owns SendGrid reporting â open item from email programme.</div><div class="action-urgent">OPEN</div></div>
+
+    <div class="sec-sub" style="margin-top:16px;">Key constants</div>
+    <div class="kv-row"><div class="kv-key">GA4</div><div class="kv-val">G-PEH5FHMSZQ</div></div>
+    <div class="kv-row"><div class="kv-key">GTM</div><div class="kv-val">GTM-P2VJLH</div></div>
+    <div class="kv-row"><div class="kv-key">GitHub repo</div><div class="kv-val">https://github.com/Ramya-hub-lang/trustnet-reports</div></div>
+    <div class="kv-row"><div class="kv-key">GitHub Pages base</div><div class="kv-val">https://ramya-hub-lang.github.io/trustnet-reports/</div></div>
+    <div class="kv-row"><div class="kv-key">Morningstar MCP</div><div class="kv-val">https://mcp.morningstar.com/mcp (live â competitor)</div></div>
+    <div class="kv-row"><div class="kv-key">Crown Rating rebalance</div><div class="kv-val">January 2027 â Crown Rating alert must be live before then</div></div>
+    <div class="kv-row"><div class="kv-key">Phase 1 scope</div><div class="kv-val">Internal editorial + Fundswire, OctâDec 2026</div></div>
+    <div class="kv-row"><div class="kv-key">Phase 2 scope</div><div class="kv-val">External commercial, Jan 2027+, Allfunds / Lloyds</div></div>
+    <div class="kv-row"><div class="kv-key">Phase 3 scope</div><div class="kv-val">TrustNet MCP Phase 3, 2027 planning cycle</div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function switchTab(t){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('on'));
+  const p=document.getElementById('p-'+t);if(p)p.classList.add('on');
+  const m={overview:0,why:1,architecture:2,phases:3,freemium:4,gateway:5,bots:6,competitors:7,actions:8};
+  const tabs=document.querySelectorAll('.nav-item');
+  if(tabs[m[t]])tabs[m[t]].classList.add('on');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
