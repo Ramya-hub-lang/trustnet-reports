@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustNet Traffic Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;background:#F4F6F8;color:#253746;font-size:14px;}
+.hdr{background:#253746;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;}
+.brand{color:#00A499;font-size:18px;font-weight:700;}
+.title{color:white;font-size:15px;font-weight:600;margin-top:2px;}
+.hdr-right{text-align:right;}
+.date-range{background:#00A499;color:white;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;}
+.source{color:#9AAFBE;font-size:11px;margin-top:5px;}
+.page{max-width:1200px;margin:0 auto;padding:24px 32px;}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.kpi{background:white;border-radius:6px;padding:18px 20px;border:1px solid #DDE2E8;border-top:3px solid #DDE2E8;}
+.kpi.teal{border-top-color:#00A499;}.kpi.red{border-top-color:#C0392B;}.kpi.green{border-top-color:#0A7A48;}.kpi.blue{border-top-color:#2980B9;}
+.kpi-label{font-size:11px;color:#677384;font-weight:600;letter-spacing:0.5px;margin-bottom:8px;}
+.kpi-value{font-size:28px;font-weight:700;color:#253746;line-height:1;}
+.kpi-sub{font-size:12px;margin-top:6px;color:#677384;}
+.up{color:#0A7A48;font-weight:600;}.dn{color:#C0392B;font-weight:600;}
+.chart-row{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:20px;}
+.chart-box{background:white;border-radius:6px;padding:20px;border:1px solid #DDE2E8;}
+.chart-title{font-size:14px;font-weight:700;color:#253746;margin-bottom:4px;}
+.chart-sub{font-size:12px;color:#677384;margin-bottom:16px;}
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th{background:#253746;color:white;padding:9px 12px;text-align:left;font-size:11px;font-weight:600;}
+.tbl td{padding:9px 12px;border-bottom:1px solid #F4F6F8;vertical-align:middle;}
+.tbl tr:hover td{background:#FAFBFC;}.tbl tr:last-child td{border-bottom:none;}
+.tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;}
+.tag-ai{background:#E0F7F6;color:#00A499;}.tag-search{background:#FFF3CD;color:#B45309;}
+.tag-social{background:#F0F4FF;color:#2980B9;}.tag-direct{background:#F4F6F8;color:#677384;}
+.insight-box{background:#E0F7F6;border-left:3px solid #00A499;border-radius:0 6px 6px 0;padding:14px 16px;}
+.insight-title{font-size:13px;font-weight:700;color:#253746;margin-bottom:10px;}
+.insight-item{font-size:12px;color:#677384;padding:5px 0;border-bottom:1px solid #C8EFED;display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.insight-item:last-child{border-bottom:none;}
+.insight-item::before{content:'→';color:#00A499;font-weight:700;flex-shrink:0;}
+.real-bar{background:#D4EDDA;border-radius:4px;padding:8px 14px;font-size:11px;color:#0A7A48;margin-bottom:20px;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="brand">Trustnet</div><div class="title">Traffic Intelligence — Organic vs AI Agent</div></div>
+  <div class="hdr-right">
+    <div class="date-range">Sep 23, 2025 — Sep 23, 2026</div>
+    <div class="source">Source: GA4 · Live Site (trustnet.com) · Real data</div>
+  </div>
+</div>
+<div class="page">
+  <div class="real-bar">✓ Real GA4 data — Live Site (trustnet.com) · Last 12 months · 9,388,750 total sessions</div>
+  <div class="kpi-row">
+    <div class="kpi teal"><div class="kpi-label">TOTAL SESSIONS</div><div class="kpi-value">9.39M</div><div class="kpi-sub">Sep 2025 — Sep 2026</div></div>
+    <div class="kpi red"><div class="kpi-label">ORGANIC SEARCH</div><div class="kpi-value">4.91M</div><div class="kpi-sub"><span class="dn">52.34%</span> of total</div></div>
+    <div class="kpi green"><div class="kpi-label">AI REFERRAL CHANNEL</div><div class="kpi-value">9,044</div><div class="kpi-sub"><span class="up">0.1%</span> tagged · more in Referral/Unassigned</div></div>
+    <div class="kpi blue"><div class="kpi-label">AVG ENGAGEMENT TIME</div><div class="kpi-value">1m 33s</div><div class="kpi-sub">72.68% engagement rate</div></div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-box">
+      <div class="chart-title">Sessions by Channel</div>
+      <div class="chart-sub">Real GA4 data · Sep 2025 – Sep 2026</div>
+      <canvas id="barChart" style="max-height:280px;"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Channel Share</div>
+      <div class="chart-sub">9.39M total sessions</div>
+      <canvas id="donutChart" style="max-height:280px;"></canvas>
+    </div>
+  </div>
+  <div class="bottom-row">
+    <div class="chart-box">
+      <div class="chart-title">All Channels — Real Data</div>
+      <div class="chart-sub">GA4 Traffic Acquisition · Last 12 months</div>
+      <table class="tbl">
+        <thead><tr><th>Channel</th><th>Type</th><th>Sessions</th><th>Share</th><th>Engagement</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Organic Search</strong></td><td><span class="tag tag-search">Search</span></td><td>4,913,728</td><td class="dn">52.34%</td><td>77.67%</td></tr>
+          <tr><td><strong>Direct</strong></td><td><span class="tag tag-direct">Direct</span></td><td>3,031,147</td><td>32.28%</td><td>71.19%</td></tr>
+          <tr><td><strong>Referral</strong></td><td><span class="tag tag-social">Referral</span></td><td>705,619</td><td>7.52%</td><td>78.54%</td></tr>
+          <tr><td><strong>Unassigned</strong></td><td><span class="tag tag-direct">Other</span></td><td>650,008</td><td>6.92%</td><td>23.29%</td></tr>
+          <tr><td><strong>Email</strong></td><td><span class="tag tag-direct">Email</span></td><td>61,896</td><td>0.66%</td><td>81.43%</td></tr>
+          <tr><td><strong>Organic Social</strong></td><td><span class="tag tag-social">Social</span></td><td>14,234</td><td>0.15%</td><td>71.52%</td></tr>
+          <tr><td><strong>Display</strong></td><td><span class="tag tag-direct">Display</span></td><td>12,132</td><td>0.13%</td><td>78.47%</td></tr>
+          <tr><td><strong>AI Referral ✓</strong></td><td><span class="tag tag-ai">AI</span></td><td>9,044</td><td class="up">0.10%</td><td>71.35%</td></tr>
+          <tr><td><strong>Paid Search</strong></td><td><span class="tag tag-search">Paid</span></td><td>5,351</td><td>0.06%</td><td>80.51%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Key Findings for Giles</div>
+      <div class="chart-sub">What this data means for TrustNet</div><br>
+      <div class="insight-box">
+        <div class="insight-title">Why MCP is essential</div>
+        <div class="insight-item">AI Referral custom channel shows 9,044 tagged sessions. But the real AI traffic (chatgpt.com, claude.ai, perplexity.ai) is embedded in the 705K Referral and 650K Unassigned buckets — not yet broken out separately.</div>
+        <div class="insight-item">Referral and Unassigned together are 1.36M sessions — 14.4% of all traffic. Properly tagging AI sources within this is the immediate next action for Ramya.</div>
+        <div class="insight-item">Email has the highest engagement rate (81.43%) and longest session time (2m 18s) — TrustNet's most loyal users come via email alerts, not organic search.</div>
+        <div class="insight-item">MCP Phase 1 (News) will capture AI agent queries in structured logs for the first time — we'll know exactly what IFAs ask AI about TrustNet funds.</div>
+        <div class="insight-item">Next action: filter Referral traffic in GA4 by source to isolate chatgpt.com, claude.ai, perplexity.ai and add them to the AI Referral channel group.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const channels = ['Organic Search','Direct','Referral','Unassigned','Email','Org Social','Display','AI Referral','Paid Search'];
+const sessions = [4913728,3031147,705619,650008,61896,14234,12132,9044,5351];
+const colors = ['#2980B9','#677384','#8E44AD','#95A5A6','#E67E22','#27AE60','#F39C12','#00A499','#C0392B'];
+const ctx1 = document.getElementById('barChart').getContext('2d');
+new Chart(ctx1,{type:'bar',data:{labels:channels,datasets:[{label:'Sessions',data:sessions,backgroundColor:colors,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+c.raw.toLocaleString()+' sessions'}}},scales:{x:{grid:{color:'#F4F6F8'},ticks:{font:{size:10},maxRotation:35}},y:{grid:{color:'#F4F6F8'},ticks:{font:{size:10},callback:v=>v>=1000000?(v/1000000).toFixed(1)+'M':v>=1000?(v/1000).toFixed(0)+'K':v}}}}});
+const ctx2 = document.getElementById('donutChart').getContext('2d');
+new Chart(ctx2,{type:'doughnut',data:{labels:['Organic Search','Direct','Referral','Unassigned','Email+Other','AI Referral'],datasets:[{data:[4913728,3031147,705619,650008,93613,9044],backgroundColor:['#2980B9','#677384','#8E44AD','#95A5A6','#E67E22','#00A499'],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11},padding:8}},tooltip:{callbacks:{label:c=>' '+c.label+': '+(c.raw/1000).toFixed(0)+'K ('+(c.raw/9388750*100).toFixed(1)+'%)'}}}  ,cutout:'60%'}});
+</script>
+</body>
+</html>
