@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scottish Mortgage Investment Trust — Factsheet | Trustnet</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#253746;--teal:#00A499;--teal-l:#E0F7F6;--gold:#C9A227;--bg:#F0F2F5;--white:#fff;--text:#1a1a1a;--muted:#677384;--border:#DDE2E8;--green:#0A7A48;--red:#C0392B;--amber:#E67E22}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;color:var(--text);background:var(--bg)}
+
+/* HEADER */
+.header{background:var(--dark);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-box{width:32px;height:32px;background:var(--teal);border-radius:4px;display:flex;align-items:center;justify-content:center}
+.logo-box svg{width:20px;height:20px;fill:#fff}
+.logo-text{font-size:20px;font-weight:700;color:#fff}
+.logo-text span{color:var(--teal)}
+.header-nav{display:flex;gap:24px}
+.header-nav a{color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;text-decoration:none}
+.header-nav a:hover{color:#fff}
+.header-btns{display:flex;gap:8px}
+.btn-outline{background:none;border:1.5px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);padding:6px 14px;border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit}
+.btn-primary{background:var(--teal);border:none;color:#fff;padding:6px 14px;border-radius:5px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:600}
+
+/* BREADCRUMB */
+.bc{background:#fff;border-bottom:1px solid var(--border);padding:8px 24px;font-size:12px;color:var(--muted)}
+.bc a{color:var(--teal);text-decoration:none}
+.bc a:hover{text-decoration:underline}
+.bc span{margin:0 6px}
+
+/* 1. CROWN RATING ALERT BANNER — NEW */
+.alert-banner{background:linear-gradient(135deg,#253746 0%,#1a2a38 100%);border-left:4px solid var(--gold);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.alert-banner-left{display:flex;align-items:center;gap:12px}
+.alert-icon{width:36px;height:36px;background:rgba(201,162,39,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.alert-text{color:#fff;font-size:13px;font-weight:600}
+.alert-sub{color:rgba(255,255,255,0.6);font-size:12px;margin-top:2px}
+.alert-btn{background:var(--gold);color:#fff;border:none;padding:8px 16px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0}
+
+/* FUND HERO */
+.fund-hero{background:var(--dark);padding:28px 24px 0}
+.fund-hero-inner{max-width:1200px;margin:0 auto}
+.fund-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,164,153,0.15);border:1px solid rgba(0,164,153,0.3);color:var(--teal);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.5px;margin-bottom:12px}
+.fund-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px}
+.fund-sub{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:20px}
+.fund-meta{display:flex;align-items:center;gap:24px;padding-bottom:20px;flex-wrap:wrap}
+.fund-price{font-size:32px;font-weight:700;color:#fff}
+.fund-chg{font-size:14px;font-weight:600;color:#4ade80;background:rgba(74,222,128,0.1);padding:4px 10px;border-radius:4px}
+.fund-chg.dn{color:#f87171;background:rgba(248,113,113,0.1)}
+.fund-stats{display:flex;gap:24px;flex-wrap:wrap}
+.fund-stat{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.6)}
+.fund-stat strong{color:#fff}
+.crown-stars{display:flex;gap:2px}
+.star{color:var(--gold);font-size:16px}
+
+/* TABS */
+.tabs{background:var(--dark);border-bottom:none}
+.tabs-inner{max-width:1200px;margin:0 auto;display:flex;gap:0}
+.tab{padding:12px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s}
+.tab:hover{color:#fff}
+.tab.active{color:#fff;border-bottom-color:var(--teal)}
+
+/* PAGE BODY */
+.page{max-width:1200px;margin:0 auto;padding:24px}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* 2. AI SUMMARY PANEL — NEW */
+.ai-panel{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:20px;display:flex;gap:16px;align-items:flex-start}
+.ai-icon{width:40px;height:40px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.ai-content{}
+.ai-label{font-size:11px;font-weight:700;color:#667eea;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.ai-text{font-size:13px;color:var(--text);line-height:1.6}
+.ai-footer{display:flex;align-items:center;gap:16px;margin-top:10px}
+.ai-tag{font-size:11px;color:var(--muted);background:var(--bg);padding:2px 8px;border-radius:10px}
+.ask-btn{font-size:12px;font-weight:600;color:#667eea;background:rgba(102,126,234,0.1);border:1px solid rgba(102,126,234,0.3);padding:4px 12px;border-radius:5px;cursor:pointer;font-family:inherit}
+
+/* PERFORMANCE CARDS */
+.perf-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.perf-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.perf-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.perf-value{font-size:26px;font-weight:700;color:var(--green)}
+.perf-value.dn{color:var(--red)}
+.perf-vs{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* MAIN GRID */
+.main-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-bottom:20px}
+.chart-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px}
+.chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.chart-title{font-size:14px;font-weight:700}
+.chart-periods{display:flex;gap:4px}
+.period{padding:4px 10px;font-size:12px;border-radius:4px;cursor:pointer;font-family:inherit;border:1px solid var(--border);background:#fff;color:var(--muted)}
+.period.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.chart-area{height:200px;position:relative;overflow:hidden}
+.chart-area svg{width:100%;height:100%}
+.key-info{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px}
+.ki-title{font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.ki-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:13px}
+.ki-row:last-child{border-bottom:none}
+.ki-label{color:var(--muted)}
+.ki-value{font-weight:600}
+
+/* 3. CROWN RATING HISTORY — NEW */
+.crown-history{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
+.section-title{font-size:14px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px}
+.section-badge{font-size:10px;font-weight:700;background:var(--teal-l);color:var(--teal);padding:2px 8px;border-radius:10px}
+.crown-timeline{display:flex;align-items:flex-end;gap:12px;padding:10px 0}
+.crown-year{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1}
+.crown-bar{width:100%;background:var(--bg);border-radius:6px 6px 0 0;display:flex;align-items:flex-end;justify-content:center;min-height:20px;position:relative}
+.crown-fill{width:100%;border-radius:6px 6px 0 0;background:linear-gradient(to top,var(--teal),rgba(0,164,153,0.6));display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px}
+.crown-num{font-size:14px;font-weight:700;color:#fff}
+.crown-yr{font-size:11px;color:var(--muted);font-weight:600}
+.crown-stars-sm{display:flex;gap:1px;font-size:11px}
+.crown-change{font-size:11px;color:var(--green);font-weight:600;margin-top:4px}
+.crown-change.dn{color:var(--red)}
+.crown-legend{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+
+/* 4. SIMILAR FUNDS CAROUSEL — NEW */
+.similar-funds{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
+.sf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:4px}
+.sf-card{border:1px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;transition:all 0.2s;position:relative}
+.sf-card:hover{border-color:var(--teal);box-shadow:0 2px 8px rgba(0,164,153,0.1)}
+.sf-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;line-height:1.3}
+.sf-stars{display:flex;gap:2px;margin-bottom:6px}
+.sf-star{color:var(--gold);font-size:13px}
+.sf-star.empty{color:#ddd}
+.sf-return{font-size:20px;font-weight:700;color:var(--green)}
+.sf-return.dn{color:var(--red)}
+.sf-label{font-size:11px;color:var(--muted)}
+.sf-compare{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;color:var(--teal);background:var(--teal-l);padding:2px 7px;border-radius:10px;cursor:pointer}
+
+/* 5. IFA RESEARCH TAB CONTENT — NEW */
+.research-panel{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px}
+.research-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.research-avatar{width:40px;height:40px;background:var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.research-meta{}
+.research-author{font-size:13px;font-weight:700}
+.research-role{font-size:12px;color:var(--muted)}
+.research-rating{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.rating-item{text-align:center;background:var(--bg);border-radius:8px;padding:10px 16px}
+.rating-label{font-size:11px;color:var(--muted);margin-bottom:4px}
+.rating-value{font-size:20px;font-weight:700;color:var(--teal)}
+.research-text{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:14px}
+.research-verdict{background:var(--teal-l);border-left:3px solid var(--teal);border-radius:0 6px 6px 0;padding:12px 14px;font-size:13px;font-weight:600;color:var(--dark)}
+
+/* FOOTER */
+.footer{background:var(--dark);color:rgba(255,255,255,0.5);text-align:center;padding:20px;font-size:12px;margin-top:40px}
+
+/* ===== RESPONSIVE MOBILE ===== */
+@media (max-width: 768px) {
+
+  /* Header */
+  .header{padding:10px 14px;flex-wrap:wrap;gap:8px}
+  .header-nav{display:none}
+  .header-btns{gap:6px}
+
+  /* Alert banner */
+  .alert-banner{flex-direction:column;align-items:flex-start;gap:10px;padding:10px 14px}
+  .alert-btn{width:100%}
+
+  /* Fund hero */
+  .fund-hero{padding:16px 14px 0}
+  .fund-title{font-size:20px}
+  .fund-sub{font-size:12px}
+  .fund-meta{flex-direction:column;gap:12px;align-items:flex-start}
+  .fund-price{font-size:26px}
+  .fund-stats{flex-direction:column;gap:8px}
+  .fund-stat{font-size:11px}
+
+  /* Action buttons */
+  .hero-actions-row{flex-wrap:wrap;gap:6px}
+  .hero-actions-row button{font-size:11px;padding:7px 10px}
+
+  /* Tabs */
+  .tabs-inner{gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tab{padding:10px 12px;font-size:12px}
+
+  /* Page padding */
+  .page{padding:12px 14px}
+
+  /* Performance cards — 2 per row on mobile */
+  .perf-row{grid-template-columns:repeat(2,1fr);gap:8px}
+  .perf-value{font-size:20px}
+
+  /* Main grid — stack on mobile */
+  .main-grid{grid-template-columns:1fr;gap:12px}
+
+  /* Chart */
+  .chart-area{height:160px}
+  .chart-periods{flex-wrap:wrap;gap:3px}
+
+  /* Crown timeline — scroll horizontally */
+  .crown-timeline{overflow-x:auto;padding-bottom:8px;gap:8px}
+  .crown-year{min-width:40px}
+
+  /* Similar funds — 2 per row */
+  .sf-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+  .sf-card{padding:10px}
+  .sf-name{font-size:11px}
+  .sf-return{font-size:16px}
+
+  /* Key info */
+  .key-info{padding:14px}
+  .ki-title{font-size:13px}
+  .ki-row{font-size:12px}
+
+  /* Research panel */
+  .research-rating{flex-wrap:wrap;gap:8px}
+  .rating-item{padding:8px 12px}
+
+  /* Ratio + Risk grid */
+  .ratio-risk-grid{grid-template-columns:1fr !important}
+
+  /* Breakdown grid */
+  .breakdown-grid{grid-template-columns:1fr !important}
+
+  /* Performance grid */
+  .perf-tab-grid{grid-template-columns:1fr !important}
+
+  /* Documents */
+  .docs-row-mobile{flex-direction:column}
+  .docs-row-mobile button{width:100%;justify-content:flex-start}
+
+  /* Comparable funds table — scroll */
+  .comparable-table{overflow-x:auto;display:block}
+
+  /* Footer */
+  .footer{padding:14px;font-size:10px}
+}
+
+@media (max-width: 480px) {
+  .fund-title{font-size:18px}
+  .perf-row{grid-template-columns:repeat(2,1fr)}
+  .perf-value{font-size:18px}
+  .sf-grid{grid-template-columns:1fr}
+  .tab{padding:8px 10px;font-size:11px}
+  .alert-banner{padding:8px 12px}
+  .fund-hero{padding:12px 12px 0}
+  .page{padding:10px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <a class="logo" href="#">
+    <div class="logo-box">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="logo-text">Trust<span>net</span></span>
+  </a>
+  <nav class="header-nav">
+    <a href="#">News & Research</a>
+    <a href="#">Funds</a>
+    <a href="#">Find a Fund</a>
+    <a href="#">My Portfolio</a>
+  </nav>
+  <div class="header-btns">
+    <button class="btn-outline">Sign in</button>
+    <button class="btn-primary">Register</button>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bc">
+  <a href="#">Trustnet</a><span>/</span>
+  <a href="#">Investment Trusts</a><span>/</span>
+  <a href="#">IT Global</a><span>/</span>
+  Scottish Mortgage Investment Trust
+</div>
+
+<!-- 1. CROWN RATING ALERT BANNER -->
+<div class="alert-banner">
+  <div class="alert-banner-left">
+    <div class="alert-icon">⭐</div>
+    <div>
+      <div class="alert-text">Crown Rating rebalance — January 2027</div>
+      <div class="alert-sub">Scottish Mortgage is currently rated 5 Crown. Get notified if its rating changes in the January rebalance.</div>
+    </div>
+  </div>
+  <button class="alert-btn">🔔 Set Crown Rating Alert</button>
+</div>
+
+<!-- FUND HERO -->
+<div class="fund-hero">
+  <div class="fund-hero-inner">
+    <div class="fund-badge">Investment Trust · IT Global</div>
+    <div class="fund-title">Scottish Mortgage Investment Trust</div>
+    <div class="fund-sub">Managed by Baillie Gifford · Launch date: March 1909 · LSE: SMT</div>
+    <div class="fund-meta">
+      <div>
+        <div class="fund-price">892.40p</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px">NAV: 1,024.80p · Discount: -12.9%</div>
+      </div>
+      <div class="fund-chg">+2.4% today</div>
+      <div class="fund-stats">
+        <div class="fund-stat">
+          <div class="crown-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <strong>FE Crown Rating</strong>
+        </div>
+        <div class="fund-stat">OCF: <strong>0.35%</strong></div>
+        <div class="fund-stat">AUM: <strong>£12.4bn</strong></div>
+        <div class="fund-stat">SRRI: <strong>6/7</strong></div>
+        <div class="fund-stat">ISIN: <strong>GB00BLDYK618</strong></div>
+      </div>
+    </div>
+    <!-- ACTION BUTTONS -->
+    <div class="hero-actions-row" style="display:flex;gap:8px;padding-bottom:18px;flex-wrap:wrap">
+      <button style="background:var(--teal);color:#fff;border:none;padding:9px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">🛒 Add to Basket</button>
+      <button style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);padding:9px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">📋 View Factsheets</button>
+      <button style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);padding:9px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">🔖 Watchlist</button>
+      <button style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);padding:9px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">⇌ Compare</button>
+      <button style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);padding:9px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">📤 Share</button>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tabs-inner">
+    <div class="tab active" onclick="showTab('overview',this)">Overview</div>
+    <div class="tab" onclick="showTab('performance',this)">Performance</div>
+    <div class="tab" onclick="showTab('allunits',this)">All Units</div>
+    <div class="tab" onclick="showTab('breakdown',this)">Breakdown</div>
+    <div class="tab" onclick="showTab('dividends',this)">Dividends</div>
+    <div class="tab" onclick="showTab('documents',this)">Documents</div>
+  </div>
+</div>
+
+<div id="tab-overview" class="tab-pane active">
+<div class="page">
+
+  <!-- 2. AI SUMMARY PANEL -->
+  <div class="ai-panel">
+    <div class="ai-icon">🤖</div>
+    <div class="ai-content">
+      <div class="ai-label">TrustNet AI Summary</div>
+      <div class="ai-text">Scottish Mortgage is a high-conviction global growth trust managed by Tom Slater and Lawrence Burns at Baillie Gifford. It holds concentrated positions in disruptive technology and innovation companies, including private holdings that represent approximately 30% of the portfolio. The trust trades at a 12.9% discount to NAV — historically wide — which may represent an opportunity for long-term investors comfortable with higher volatility. Its 5 Crown Rating reflects strong risk-adjusted returns over a full market cycle, though recent years have been challenging due to the growth-to-value rotation. Best suited to IFAs seeking long-term capital growth for clients with a 10+ year horizon and high risk tolerance.</div>
+      <div class="ai-footer">
+        <span class="ai-tag">Updated daily</span>
+        <span class="ai-tag">Based on TrustNet data</span>
+        <button class="ask-btn">💬 Ask AI about this fund</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFORMANCE CARDS -->
+  <div class="perf-row">
+    <div class="perf-card">
+      <div class="perf-label">1 Year Return</div>
+      <div class="perf-value">+8.9%</div>
+      <div class="perf-vs">vs +6.2% sector avg</div>
+    </div>
+    <div class="perf-card">
+      <div class="perf-label">3 Year Return</div>
+      <div class="perf-value">+18.0%</div>
+      <div class="perf-vs">vs +12.1% sector avg</div>
+    </div>
+    <div class="perf-card">
+      <div class="perf-label">5 Year Return</div>
+      <div class="perf-value">+32.4%</div>
+      <div class="perf-vs">vs +24.8% sector avg</div>
+    </div>
+    <div class="perf-card">
+      <div class="perf-label">Discount to NAV</div>
+      <div class="perf-value dn">-12.9%</div>
+      <div class="perf-vs">5yr avg: -8.2%</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: CHART + KEY INFO -->
+  <div class="main-grid">
+    <div class="chart-box">
+      <div class="chart-header">
+        <div class="chart-title">Price Chart — 5 Years</div>
+        <div class="chart-periods">
+          <button class="period">1M</button>
+          <button class="period">6M</button>
+          <button class="period">1Y</button>
+          <button class="period">3Y</button>
+          <button class="period active">5Y</button>
+        </div>
+      </div>
+      <div class="chart-area">
+        <svg viewBox="0 0 600 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#00A499" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#00A499" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <!-- Sector average dashed line -->
+          <line x1="0" y1="130" x2="600" y2="120" stroke="#ddd" stroke-width="1.5" stroke-dasharray="5,4"/>
+          <text x="510" y="115" font-size="10" fill="#aaa" font-family="sans-serif">Sector avg</text>
+          <!-- Fund performance area -->
+          <path d="M0,160 C50,155 80,140 120,120 C160,100 180,105 220,90 C260,75 280,60 320,55 C360,50 380,65 420,70 C460,75 480,60 520,45 C550,35 575,30 600,25 L600,200 L0,200 Z" fill="url(#chartGrad)"/>
+          <path d="M0,160 C50,155 80,140 120,120 C160,100 180,105 220,90 C260,75 280,60 320,55 C360,50 380,65 420,70 C460,75 480,60 520,45 C550,35 575,30 600,25" fill="none" stroke="#00A499" stroke-width="2.5"/>
+        </svg>
+      </div>
+    </div>
+    <div class="key-info">
+      <div class="ki-title">Key Information</div>
+      <div class="ki-row"><span class="ki-label">Fund Manager</span><span class="ki-value">Tom Slater</span></div>
+      <div class="ki-row"><span class="ki-label">Launch Date</span><span class="ki-value">Mar 1909</span></div>
+      <div class="ki-row"><span class="ki-label">Domicile</span><span class="ki-value">United Kingdom</span></div>
+      <div class="ki-row"><span class="ki-label">Structure</span><span class="ki-value">Investment Trust</span></div>
+      <div class="ki-row"><span class="ki-label">Currency</span><span class="ki-value">GBP</span></div>
+      <div class="ki-row"><span class="ki-label">Dividend Yield</span><span class="ki-value">0.52%</span></div>
+      <div class="ki-row"><span class="ki-label">Gearing</span><span class="ki-value">11.2%</span></div>
+      <div class="ki-row"><span class="ki-label">Ongoing Charge</span><span class="ki-value">0.35%</span></div>
+    </div>
+  </div>
+
+  <!-- RATIO + RISK ROW -->
+  <div class="ratio-risk-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div class="ki-title">Ratio Information</div>
+      <div class="ki-row"><span class="ki-label">Sharpe Ratio (3y)</span><span class="ki-value" style="color:var(--teal)">0.68</span></div>
+      <div class="ki-row"><span class="ki-label">Volatility (3y)</span><span class="ki-value">22.4%</span></div>
+      <div class="ki-row"><span class="ki-label">Max Drawdown (3y)</span><span class="ki-value" style="color:var(--red)">-46.5%</span></div>
+      <div class="ki-row"><span class="ki-label">Beta vs Sector</span><span class="ki-value">1.24</span></div>
+      <div class="ki-row"><span class="ki-label">Alpha (3y)</span><span class="ki-value" style="color:var(--green)">+5.9%</span></div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div class="ki-title">Risk &amp; Style</div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px">SRRI Risk Level</div>
+        <div style="display:flex;gap:3px;margin-bottom:4px">
+          <div style="flex:1;height:9px;border-radius:2px;background:#22c55e"></div>
+          <div style="flex:1;height:9px;border-radius:2px;background:#22c55e"></div>
+          <div style="flex:1;height:9px;border-radius:2px;background:#f59e0b"></div>
+          <div style="flex:1;height:9px;border-radius:2px;background:#f59e0b"></div>
+          <div style="flex:1;height:9px;border-radius:2px;background:#f59e0b"></div>
+          <div style="flex:1;height:9px;border-radius:2px;background:var(--border)"></div>
+          <div style="flex:1;height:9px;border-radius:2px;background:var(--border)"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>Lower risk</span><span>Higher risk</span></div>
+        <div style="font-size:12px;color:var(--amber);font-weight:600;margin-top:5px">5/7 — Moderate to High Risk</div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Fund Positioning</div>
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:3px"><span>Value</span><span>Growth</span></div>
+        <div style="background:var(--bg);border-radius:20px;height:7px;position:relative"><div style="position:absolute;left:65%;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;background:var(--teal);border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--teal)"></div></div>
+      </div>
+      <div style="margin-bottom:6px">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-bottom:3px"><span>Small Cap</span><span>Large Cap</span></div>
+        <div style="background:var(--bg);border-radius:20px;height:7px;position:relative"><div style="position:absolute;left:80%;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;background:var(--teal);border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px var(--teal)"></div></div>
+      </div>
+      <div style="font-size:11px;color:var(--teal);font-weight:600;margin-top:4px">Growth · Large Cap</div>
+    </div>
+  </div>
+
+  <!-- 3. CROWN RATING HISTORY -->
+  <div class="crown-history">
+    <div class="section-title">
+      Crown Rating History
+      <span class="section-badge">TrustNet Exclusive</span>
+    </div>
+    <div class="crown-timeline">
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px">
+          <div class="crown-fill" style="height:36px"><span class="crown-num">3</span></div>
+        </div>
+        <div class="crown-stars-sm">★★★☆☆</div>
+        <div class="crown-yr">2020</div>
+      </div>
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px">
+          <div class="crown-fill" style="height:36px"><span class="crown-num">3</span></div>
+        </div>
+        <div class="crown-stars-sm">★★★☆☆</div>
+        <div class="crown-yr">2021</div>
+      </div>
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px">
+          <div class="crown-fill" style="height:24px"><span class="crown-num">2</span></div>
+        </div>
+        <div class="crown-stars-sm">★★☆☆☆</div>
+        <div class="crown-yr">2022</div>
+        <div class="crown-change dn">↓ Downgraded</div>
+      </div>
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px">
+          <div class="crown-fill" style="height:36px"><span class="crown-num">3</span></div>
+        </div>
+        <div class="crown-stars-sm">★★★☆☆</div>
+        <div class="crown-yr">2023</div>
+        <div class="crown-change">↑ Upgraded</div>
+      </div>
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px">
+          <div class="crown-fill" style="height:48px"><span class="crown-num">4</span></div>
+        </div>
+        <div class="crown-stars-sm">★★★★☆</div>
+        <div class="crown-yr">2024</div>
+        <div class="crown-change">↑ Upgraded</div>
+      </div>
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px">
+          <div class="crown-fill" style="height:60px"><span class="crown-num">5</span></div>
+        </div>
+        <div class="crown-stars-sm">★★★★★</div>
+        <div class="crown-yr">2025</div>
+        <div class="crown-change">↑ Upgraded</div>
+      </div>
+      <div class="crown-year">
+        <div class="crown-bar" style="height:60px;border:2px dashed var(--gold);border-radius:6px;background:rgba(201,162,39,0.05)">
+          <div style="font-size:11px;color:var(--gold);font-weight:700;padding:8px;text-align:center">Jan 2027<br>Rebalance</div>
+        </div>
+        <div class="crown-stars-sm" style="color:var(--gold)">? ? ? ? ?</div>
+        <div class="crown-yr">2026</div>
+        <button style="font-size:10px;background:var(--gold);color:#fff;border:none;padding:2px 8px;border-radius:10px;cursor:pointer;margin-top:2px">Alert me</button>
+      </div>
+    </div>
+    <div class="crown-legend">
+      <span>★ Crown Rating based on risk-adjusted performance vs sector peers</span>
+      <span>· Data: FE fundinfo · Exclusive to TrustNet</span>
+    </div>
+  </div>
+
+  <!-- 4. SIMILAR FUNDS CAROUSEL -->
+  <div class="similar-funds">
+    <div class="section-title">
+      Similar Funds — IFAs Also Viewed
+      <span class="section-badge">Crown Rated</span>
+    </div>
+    <div class="sf-grid">
+      <div class="sf-card">
+        <div class="sf-compare">+ Compare</div>
+        <div class="sf-name">Monks Investment Trust</div>
+        <div class="sf-stars"><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span></div>
+        <div class="sf-return">+11.2%</div>
+        <div class="sf-label">5 Year Return</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-compare">+ Compare</div>
+        <div class="sf-name">Allianz Technology Trust</div>
+        <div class="sf-stars"><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star empty">★</span></div>
+        <div class="sf-return">+28.4%</div>
+        <div class="sf-label">5 Year Return</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-compare">+ Compare</div>
+        <div class="sf-name">Polar Capital Technology Trust</div>
+        <div class="sf-stars"><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star empty">★</span></div>
+        <div class="sf-return">+24.1%</div>
+        <div class="sf-label">5 Year Return</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-compare">+ Compare</div>
+        <div class="sf-name">Midwynd International IT</div>
+        <div class="sf-stars"><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span><span class="sf-star">★</span></div>
+        <div class="sf-return">+19.8%</div>
+        <div class="sf-label">5 Year Return</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- FUND MANAGER INSIGHTS - TRUSTNET EDITORIAL -->
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+    <div class="section-title">Fund Manager</div>
+    <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:16px">
+      <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--dark),var(--teal));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0;border:2px solid var(--teal-l)">TS</div>
+      <div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:2px">Tom Slater</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Fund Manager · Baillie Gifford · Managing since 2015</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.65">Tom Slater has managed Scottish Mortgage since 2015, alongside James Anderson until 2022. He joined Baillie Gifford in 2000 and has been integral to shaping the trust's philosophy of identifying transformational growth companies early. His focus spans listed and private companies globally, with particular expertise in technology, healthcare and emerging markets.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPONSORED CONTENT - BAILLIE GIFFORD -->
+  <div style="background:#fff;border:1px solid rgba(201,162,39,0.3);border-radius:10px;padding:20px;margin-bottom:20px">
+    <div class="section-title">Baillie Gifford — Outlook <span style="font-size:10px;font-weight:700;background:rgba(201,162,39,0.1);color:var(--gold);padding:2px 8px;border-radius:10px;border:1px solid rgba(201,162,39,0.2)">Sponsored</span></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)">
+      <div style="width:36px;height:36px;background:var(--dark);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:8px;font-weight:700;text-align:center;line-height:1.3">Baillie<br>Gifford</div>
+      <div><div style="font-size:13px;font-weight:700">Baillie Gifford</div><div style="font-size:11px;color:var(--muted)">Published October 2026 · Paid content</div></div>
+    </div>
+    <div style="font-size:13px;line-height:1.65;color:var(--text);margin-bottom:12px">Scottish Mortgage aims to identify and invest in exceptional growth companies globally, both public and private. We believe in patient, long-term ownership and look for businesses that can grow substantially over 5-10 years. Our differentiated research process focuses on companies transforming industries through technology, healthcare innovation and emerging market consumption.</div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button style="background:var(--dark);color:#fff;border:none;padding:7px 14px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">Read Full Outlook →</button>
+      <span style="font-size:12px;color:var(--teal);cursor:pointer;text-decoration:underline">View all Baillie Gifford content on TrustNet</span>
+    </div>
+  </div>
+
+  <!-- IFA RESEARCH -->
+<div class="research-panel">
+    <div class="section-title">
+      TrustNet IFA Research
+      <span class="section-badge">TrustNet Exclusive</span>
+    </div>
+    <div class="research-header">
+      <div class="research-avatar">MA</div>
+      <div class="research-meta">
+        <div class="research-author">Matteo Anelli</div>
+        <div class="research-role">Senior Investment Research Analyst · FE Trustnet · Updated Oct 2026</div>
+      </div>
+    </div>
+    <div class="research-rating">
+      <div class="rating-item"><div class="rating-label">Crown Rating</div><div class="rating-value">★★★★★</div></div>
+      <div class="rating-item"><div class="rating-label">Manager Score</div><div class="rating-value">A+</div></div>
+      <div class="rating-item"><div class="rating-label">Value Score</div><div class="rating-value">7/10</div></div>
+      <div class="rating-item"><div class="rating-label">Risk Rating</div><div class="rating-value">High</div></div>
+    </div>
+    <div class="research-text">
+      Scottish Mortgage remains one of the most distinctive investment trusts available to UK IFAs. Under Tom Slater's stewardship, the portfolio maintains its long-term orientation toward transformational companies — both listed and private. The current 12.9% discount to NAV is wider than the 5-year average, partly reflecting persistent uncertainty around private company valuations which represent approximately 30% of assets.
+
+      The trust's 5 Crown Rating reflects genuinely superior risk-adjusted returns over the full market cycle, including the painful 2022 drawdown from which it has substantially recovered. For IFAs, the key consideration remains whether clients have the temperament to hold through periods of significant underperformance relative to index.
+    </div>
+    <div class="research-verdict">
+      TrustNet View: Suitable for long-term growth portfolios with a 10+ year horizon. The wide discount presents a tactical opportunity for patient IFAs. Not appropriate for income-focused mandates or clients with low volatility tolerance.
+    </div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+    <div class="section-title">Comparable Funds</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid var(--border)">
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Fund</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Crown</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">1yr</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">5yr</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">OCF</th>
+      </tr></thead>
+      <tbody>
+        <tr style="background:var(--teal-l)"><td style="padding:8px 10px;font-weight:600;color:var(--teal)">Scottish Mortgage IT</td><td style="padding:8px 10px">★★★★★</td><td style="padding:8px 10px;color:var(--green)">+8.9%</td><td style="padding:8px 10px;color:var(--green)">+32.4%</td><td style="padding:8px 10px">0.35%</td></tr>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">Monks IT</td><td style="padding:8px 10px">★★★★★</td><td style="padding:8px 10px;color:var(--green)">+9.4%</td><td style="padding:8px 10px;color:var(--green)">+21.8%</td><td style="padding:8px 10px">0.45%</td></tr>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">Allianz Technology Trust</td><td style="padding:8px 10px">★★★★☆</td><td style="padding:8px 10px;color:var(--green)">+18.2%</td><td style="padding:8px 10px;color:var(--green)">+28.4%</td><td style="padding:8px 10px">0.79%</td></tr>
+        <tr><td style="padding:8px 10px">Polar Capital Technology</td><td style="padding:8px 10px">★★★★☆</td><td style="padding:8px 10px;color:var(--green)">+16.1%</td><td style="padding:8px 10px;color:var(--green)">+24.1%</td><td style="padding:8px 10px">0.83%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DOCUMENTS -->
+  <div class="docs-row-mobile" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+    <button style="display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:inherit" onmouseover="this.style.borderColor='#00A499';this.style.color='#00A499'" onmouseout="this.style.borderColor='';this.style.color=''">📄 Key Investor Document</button>
+    <button style="display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:inherit" onmouseover="this.style.borderColor='#00A499';this.style.color='#00A499'" onmouseout="this.style.borderColor='';this.style.color=''">📊 Annual Report PDF</button>
+    <button style="display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:inherit" onmouseover="this.style.borderColor='#00A499';this.style.color='#00A499'" onmouseout="this.style.borderColor='';this.style.color=''">📋 MiFID II Cost Disclosure</button>
+    <button style="display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--border);border-radius:7px;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:inherit" onmouseover="this.style.borderColor='#00A499';this.style.color='#00A499'" onmouseout="this.style.borderColor='';this.style.color=''">📈 Export Performance (Excel)</button>
+  </div>
+
+</div></div><!-- end page -->
+</div><!-- end overview tab -->
+
+<!-- PERFORMANCE TAB -->
+<div id="tab-performance" class="tab-pane">
+<div class="page">
+  <div class="perf-tab-grid main-grid">
+    <div class="chart-box">
+      <div class="chart-header">
+        <div class="chart-title">Cumulative Performance</div>
+        <div class="chart-periods">
+          <button class="period">3m</button><button class="period">6m</button><button class="period">1y</button><button class="period active">3y</button><button class="period">5y</button>
+        </div>
+      </div>
+      <div class="chart-area">
+        <svg viewBox="0 0 600 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="pg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00A499" stop-opacity="0.25"/><stop offset="100%" stop-color="#00A499" stop-opacity="0.02"/></linearGradient>
+            <linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80" stop-opacity="0.12"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0.01"/></linearGradient>
+          </defs>
+          <line x1="0" y1="155" x2="600" y2="155" stroke="#eee" stroke-width="1"/>
+          <path d="M0,155 C80,143 160,124 240,102 C320,80 400,60 480,42 C535,28 568,20 600,14 L600,200 L0,200 Z" fill="url(#pg2)"/>
+          <path d="M0,155 C80,143 160,124 240,102 C320,80 400,60 480,42 C535,28 568,20 600,14" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="5,4"/>
+          <path d="M0,155 C60,152 120,148 180,144 C240,140 300,136 360,132 C420,128 480,124 600,118 L600,200 L0,200 Z" fill="url(#pg1)"/>
+          <path d="M0,155 C60,152 120,148 180,144 C240,140 300,136 360,132 C420,128 480,124 600,118" fill="none" stroke="#00A499" stroke-width="2.5"/>
+          <text x="8" y="196" font-size="9" fill="#ccc" font-family="sans-serif">Jan 2024</text>
+          <text x="270" y="196" font-size="9" fill="#ccc" font-family="sans-serif">Jan 2025</text>
+          <text x="500" y="196" font-size="9" fill="#ccc" font-family="sans-serif">Oct 2026</text>
+        </svg>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:10px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)"><div style="width:20px;height:3px;background:#00A499;border-radius:2px"></div>Scottish Mortgage IT</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)"><div style="width:20px;height:3px;background:#4ade80;border-radius:2px"></div>IT Global sector</div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="border-bottom:2px solid var(--border)">
+          <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Fund</th>
+          <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">3m</th>
+          <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">6m</th>
+          <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">1y</th>
+          <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">3y</th>
+          <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">5y</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px;font-weight:600">Scottish Mortgage IT</td><td style="padding:8px 10px;color:var(--green)">+7.2%</td><td style="padding:8px 10px;color:var(--green)">+11.4%</td><td style="padding:8px 10px;color:var(--green)">+8.9%</td><td style="padding:8px 10px;color:var(--green)">+18.0%</td><td style="padding:8px 10px;color:var(--green)">+32.4%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px;color:var(--muted)">IT Global</td><td style="padding:8px 10px">+3.1%</td><td style="padding:8px 10px">+6.2%</td><td style="padding:8px 10px">+6.2%</td><td style="padding:8px 10px">+12.1%</td><td style="padding:8px 10px">+24.8%</td></tr>
+          <tr><td style="padding:8px 10px;font-weight:600;color:var(--muted)">Quartile</td>
+            <td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td>
+            <td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td>
+            <td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td>
+            <td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td>
+            <td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="key-info">
+      <div class="ki-title">Risk Information</div>
+      <div class="ki-row"><span class="ki-label">Sharpe Ratio (3y)</span><span class="ki-value" style="color:var(--teal)">0.68</span></div>
+      <div class="ki-row"><span class="ki-label">Volatility (3y)</span><span class="ki-value">22.4%</span></div>
+      <div class="ki-row"><span class="ki-label">Max Drawdown (3y)</span><span class="ki-value" style="color:var(--red)">-46.5%</span></div>
+      <div class="ki-row"><span class="ki-label">Beta vs Sector</span><span class="ki-value">1.24</span></div>
+      <div class="ki-row"><span class="ki-label">Alpha (3y)</span><span class="ki-value" style="color:var(--green)">+5.9%</span></div>
+      <div class="ki-row"><span class="ki-label">Tracking Error</span><span class="ki-value">14.2%</span></div>
+      <div class="ki-row"><span class="ki-label">R-Squared</span><span class="ki-value">0.78</span></div>
+    </div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+    <div class="section-title">Discrete Annual Performance</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid var(--border)">
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Period</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Scottish Mortgage</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">IT Global</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Quartile</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">0–12m (Oct 25–Oct 26)</td><td style="padding:8px 10px;color:var(--green);font-weight:600">+8.9%</td><td style="padding:8px 10px">+6.2%</td><td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td></tr>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">12–24m (Oct 24–Oct 25)</td><td style="padding:8px 10px;color:var(--green);font-weight:600">+12.4%</td><td style="padding:8px 10px">+8.1%</td><td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td></tr>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">24–36m (Oct 23–Oct 24)</td><td style="padding:8px 10px;color:var(--green);font-weight:600">+18.2%</td><td style="padding:8px 10px">+11.4%</td><td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--green);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">1</span></td></tr>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">36–48m (Oct 22–Oct 23)</td><td style="padding:8px 10px;color:var(--red);font-weight:600">-22.4%</td><td style="padding:8px 10px">-12.1%</td><td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--red);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">4</span></td></tr>
+        <tr><td style="padding:8px 10px">48–60m (Oct 21–Oct 22)</td><td style="padding:8px 10px;color:var(--red);font-weight:600">-46.5%</td><td style="padding:8px 10px">-18.3%</td><td style="padding:8px 10px"><span style="display:inline-flex;width:22px;height:22px;border-radius:4px;background:var(--red);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center">4</span></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:11px;color:var(--muted);margin-top:10px">Total return, bid to bid, UK sterling. Data from FE fundinfo.</div>
+  </div>
+</div>
+</div>
+
+<!-- ALL UNITS TAB -->
+<div id="tab-allunits" class="tab-pane">
+<div class="page">
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+    <div class="section-title">All Share Classes — Scottish Mortgage Investment Trust</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid var(--border)">
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Share Class</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">ISIN</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Citicode</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Price</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Change</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">OCF</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">ISA</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">SIPP</th>
+      </tr></thead>
+      <tbody>
+        <tr style="background:var(--teal-l)"><td style="padding:8px 10px;font-weight:600;color:var(--teal)">Ord Shares ← Current</td><td style="padding:8px 10px;font-family:monospace;font-size:11px">GB00BLDYK618</td><td style="padding:8px 10px;font-family:monospace">SMT</td><td style="padding:8px 10px;font-weight:700">892.40p</td><td style="padding:8px 10px;color:var(--green)">+2.4%</td><td style="padding:8px 10px">0.35%</td><td style="padding:8px 10px;color:var(--green)">✓ Yes</td><td style="padding:8px 10px;color:var(--green)">✓ Yes</td></tr>
+        <tr><td style="padding:8px 10px">USD Shares</td><td style="padding:8px 10px;font-family:monospace;font-size:11px">GB00B06M9F35</td><td style="padding:8px 10px;font-family:monospace">SMTU</td><td style="padding:8px 10px;font-weight:700">$11.24</td><td style="padding:8px 10px;color:var(--green)">+2.1%</td><td style="padding:8px 10px">0.35%</td><td style="padding:8px 10px;color:var(--green)">✓ Yes</td><td style="padding:8px 10px;color:var(--green)">✓ Yes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="key-info">
+      <div class="ki-title">Fund Details</div>
+      <div class="ki-row"><span class="ki-label">Fund Type</span><span class="ki-value">Investment Trust (Closed-Ended)</span></div>
+      <div class="ki-row"><span class="ki-label">Domicile</span><span class="ki-value">United Kingdom</span></div>
+      <div class="ki-row"><span class="ki-label">Exchange</span><span class="ki-value">London Stock Exchange</span></div>
+      <div class="ki-row"><span class="ki-label">Dealing</span><span class="ki-value">Continuous (LSE hours)</span></div>
+      <div class="ki-row"><span class="ki-label">Benchmark</span><span class="ki-value">None — unconstrained</span></div>
+    </div>
+    <div class="key-info">
+      <div class="ki-title">Eligibility</div>
+      <div class="ki-row"><span class="ki-label">ISA Eligible</span><span class="ki-value" style="color:var(--green)">✓ Yes</span></div>
+      <div class="ki-row"><span class="ki-label">SIPP Eligible</span><span class="ki-value" style="color:var(--green)">✓ Yes</span></div>
+      <div class="ki-row"><span class="ki-label">FCA Authorised</span><span class="ki-value" style="color:var(--green)">✓ Yes</span></div>
+      <div class="ki-row"><span class="ki-label">UCITS Compliant</span><span class="ki-value" style="color:var(--green)">✓ Yes</span></div>
+      <div class="ki-row"><span class="ki-label">Distribution</span><span class="ki-value">Accumulation</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BREAKDOWN TAB -->
+<div id="tab-breakdown" class="tab-pane">
+<div class="page">
+  <div class="breakdown-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div class="section-title">Geographic Breakdown</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><span style="font-size:13px;flex:1">United States</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:58%;height:100%;border-radius:3px;background:var(--teal)"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">58.2%</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:#0ea5e9;flex-shrink:0"></div><span style="font-size:13px;flex:1">United Kingdom</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:14%;height:100%;border-radius:3px;background:#0ea5e9"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">14.1%</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:#8b5cf6;flex-shrink:0"></div><span style="font-size:13px;flex:1">China</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:10%;height:100%;border-radius:3px;background:#8b5cf6"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">10.4%</span></div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:var(--gold);flex-shrink:0"></div><span style="font-size:13px;flex:1">Netherlands</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:8%;height:100%;border-radius:3px;background:var(--gold)"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">8.3%</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:12px;border-radius:50%;background:var(--muted);flex-shrink:0"></div><span style="font-size:13px;flex:1">Other</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:9%;height:100%;border-radius:3px;background:var(--muted)"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">9.0%</span></div>
+    </div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+      <div class="section-title">Top 10 Holdings</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="border-bottom:2px solid var(--border)"><th style="padding:6px 8px;font-size:11px;font-weight:700;color:var(--muted);text-align:left">Company</th><th style="padding:6px 8px;font-size:11px;font-weight:700;color:var(--muted);text-align:right">Weight</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">NVIDIA Corp</td><td style="padding:6px 8px;font-weight:600;text-align:right">8.4%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">Moderna Inc</td><td style="padding:6px 8px;font-weight:600;text-align:right">6.2%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">Tesla Inc</td><td style="padding:6px 8px;font-weight:600;text-align:right">5.8%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">ASML Holding</td><td style="padding:6px 8px;font-weight:600;text-align:right">5.4%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">SpaceX (Private)</td><td style="padding:6px 8px;font-weight:600;text-align:right">4.9%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">Illumina Inc</td><td style="padding:6px 8px;font-weight:600;text-align:right">4.6%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">MercadoLibre</td><td style="padding:6px 8px;font-weight:600;text-align:right">4.2%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">Delivery Hero SE</td><td style="padding:6px 8px;font-weight:600;text-align:right">3.8%</td></tr>
+          <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:6px 8px">Ant Group (Private)</td><td style="padding:6px 8px;font-weight:600;text-align:right">3.4%</td></tr>
+          <tr><td style="padding:6px 8px">Airbnb Inc</td><td style="padding:6px 8px;font-weight:600;text-align:right">3.1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px">
+    <div class="section-title">Sector Breakdown</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:var(--teal);flex-shrink:0"></div><span style="font-size:13px;flex:1">Technology</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:40%;height:100%;border-radius:3px;background:var(--teal)"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">40.2%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:#0ea5e9;flex-shrink:0"></div><span style="font-size:13px;flex:1">Healthcare / Biotech</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:22%;height:100%;border-radius:3px;background:#0ea5e9"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">22.1%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:#8b5cf6;flex-shrink:0"></div><span style="font-size:13px;flex:1">Consumer / E-Commerce</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:18%;height:100%;border-radius:3px;background:#8b5cf6"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">18.4%</span></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><div style="width:12px;height:12px;border-radius:50%;background:var(--gold);flex-shrink:0"></div><span style="font-size:13px;flex:1">Private Companies</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:30%;height:100%;border-radius:3px;background:var(--gold)"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">30.1%</span></div>
+    <div style="display:flex;align-items:center;gap:10px"><div style="width:12px;height:12px;border-radius:50%;background:var(--muted);flex-shrink:0"></div><span style="font-size:13px;flex:1">Other</span><div style="flex:2;background:var(--bg);border-radius:3px;height:6px;overflow:hidden"><div style="width:9%;height:100%;border-radius:3px;background:var(--muted)"></div></div><span style="font-size:13px;font-weight:600;width:40px;text-align:right">9.2%</span></div>
+  </div>
+</div>
+</div>
+
+<!-- DIVIDENDS TAB -->
+<div id="tab-dividends" class="tab-pane">
+<div class="page">
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;max-width:640px">
+    <div class="section-title">Dividend Information</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">
+      <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Distribution Type</div><div style="font-size:16px;font-weight:700">Accumulation</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Dividend Yield</div><div style="font-size:16px;font-weight:700">0.52%</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:14px;text-align:center"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Payment Frequency</div><div style="font-size:16px;font-weight:700">Annual</div></div>
+    </div>
+    <div style="background:rgba(201,162,39,0.08);border:1px solid rgba(201,162,39,0.2);border-radius:8px;padding:12px;font-size:13px;color:#92400e;margin-bottom:16px">Scottish Mortgage pays a small annual dividend. Income is largely reinvested to support long-term capital growth.</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="border-bottom:2px solid var(--border)">
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Ex-Date</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Payment Date</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Amount (p)</th>
+        <th style="padding:8px 10px;font-size:11px;font-weight:700;color:var(--muted);text-align:left;text-transform:uppercase">Type</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">12 Jun 2026</td><td style="padding:8px 10px">10 Jul 2026</td><td style="padding:8px 10px;font-weight:600">4.50p</td><td style="padding:8px 10px">Final</td></tr>
+        <tr style="border-bottom:1px solid #f5f5f5"><td style="padding:8px 10px">13 Jun 2025</td><td style="padding:8px 10px">11 Jul 2025</td><td style="padding:8px 10px;font-weight:600">4.20p</td><td style="padding:8px 10px">Final</td></tr>
+        <tr><td style="padding:8px 10px">14 Jun 2024</td><td style="padding:8px 10px">12 Jul 2024</td><td style="padding:8px 10px;font-weight:600">3.90p</td><td style="padding:8px 10px">Final</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+
