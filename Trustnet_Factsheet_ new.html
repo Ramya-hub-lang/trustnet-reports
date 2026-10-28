@@ -246,6 +246,12 @@ body{font-family:'Source Sans 3',sans-serif;color:var(--text);background:var(--b
 .ad-slot-mpu{width:300px;height:250px;flex-shrink:0}           /* 300x250 MPU */
 .ad-slot-halfpage{width:300px;height:300px;flex-shrink:0}      /* 300x600 scaled */
 .ad-slot-native{width:100%;height:80px;margin-bottom:12px}     /* Native sponsor slot */
+
+/* IFA FLOATING BADGE */
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.85)}}
+@keyframes slide-in{from{transform:translateY(-50%) translateX(100%)}to{transform:translateY(-50%) translateX(0)}}
+.ifa-float{position:fixed;right:0;top:50%;transform:translateY(-50%);background:#fff;border:2px solid #00A499;border-right:none;border-radius:12px 0 0 12px;padding:16px 14px;box-shadow:-6px 0 24px rgba(0,164,153,0.2);z-index:999;width:120px;text-align:center;animation:slide-in 0.5s ease}
+.ifa-float-dot{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse-dot 1.5s infinite;display:inline-block;margin-right:4px}
 </style>
 </head>
 <body>
@@ -372,6 +378,7 @@ body{font-family:'Source Sans 3',sans-serif;color:var(--text);background:var(--b
   </div>
 </div>
 
+
 <!-- TABS -->
 <div class="tabs">
   <div class="tabs-inner">
@@ -387,19 +394,14 @@ body{font-family:'Source Sans 3',sans-serif;color:var(--text);background:var(--b
 <div id="tab-overview" class="tab-pane active">
 <div class="page">
 
-  <!-- 2. AI SUMMARY PANEL -->
-  <div class="ai-panel hide-for-unsub">
-    <div class="ai-icon">🤖</div>
-    <div class="ai-content">
-      <div class="ai-label">TrustNet AI Summary</div>
-      <div class="ai-text">Scottish Mortgage is a high-conviction global growth trust managed by Tom Slater and Lawrence Burns at Baillie Gifford. It holds concentrated positions in disruptive technology and innovation companies, including private holdings that represent approximately 30% of the portfolio. The trust trades at a 12.9% discount to NAV — historically wide — which may represent an opportunity for long-term investors comfortable with higher volatility. Its 5 Crown Rating reflects strong risk-adjusted returns over a full market cycle, though recent years have been challenging due to the growth-to-value rotation. Best suited to IFAs seeking long-term capital growth for clients with a 10+ year horizon and high risk tolerance.</div>
-      <div class="ai-footer">
-        <span class="ai-tag">Updated daily</span>
-        <span class="ai-tag">Based on TrustNet data</span>
-        <button class="ask-btn">💬 Ask AI about this fund</button>
-      </div>
-    </div>
+  <!-- FUND OBJECTIVE — visible for all funds -->
+  <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px">
+    <div class="section-title">Fund Objective</div>
+    <p style="font-size:13px;color:var(--text);line-height:1.75">The trust aims to produce a greater return than the S&amp;P 500 Index over a five-year rolling period, after deducting charges. The trust invests primarily in equities of companies listed in the United States. The trust may also invest in other transferable securities, money market instruments, warrants, cash and near cash and deposits. The trust is actively managed with no reference to a benchmark.</p>
+
   </div>
+
+
 
   <!-- PERFORMANCE CARDS -->
   <div class="perf-row">
@@ -896,6 +898,29 @@ body{font-family:'Source Sans 3',sans-serif;color:var(--text);background:var(--b
 </div>
 </div>
 
+<!-- IFA FLOATING BADGE — subscribed only -->
+<div class="hide-for-unsub ifa-float" id="ifa-float-badge">
+  <div style="display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+    <span class="ifa-float-dot"></span>
+    <span style="font-size:9px;font-weight:700;color:#00A499;text-transform:uppercase;letter-spacing:0.4px">Live</span>
+  </div>
+  <div style="font-size:9px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px">IFA Activity</div>
+  <div style="font-size:28px;font-weight:700;color:#1a2535;line-height:1">847</div>
+  <div style="font-size:9px;color:#6b7280;margin-top:3px;margin-bottom:10px">IFAs this week</div>
+  <div style="border-top:1px solid #e5e7eb;padding-top:8px;margin-bottom:8px">
+    <div style="font-size:13px;font-weight:700;color:#15803d">↑ +23%</div>
+    <div style="font-size:9px;color:#9ca3af;margin-top:1px">vs last week</div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb;padding-top:8px;margin-bottom:8px">
+    <div style="font-size:20px;font-weight:700;color:#00A499">312</div>
+    <div style="font-size:9px;color:#6b7280;margin-top:1px">In basket</div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb;padding-top:8px">
+    <div style="font-size:20px;font-weight:700;color:#7c3aed">#4</div>
+    <div style="font-size:9px;color:#6b7280;margin-top:1px">IT Global</div>
+  </div>
+</div>
+
 <footer class="footer">
   <div>© 2026 FE Trustnet · Powered by FE fundinfo · Past performance is not a reliable indicator of future results.</div>
   <div style="margin-top:6px">Crown Ratings calculated by FE fundinfo and exclusive to TrustNet · Schema: FinancialProduct · BreadcrumbList · Person</div>
@@ -912,29 +937,29 @@ function showTab(id, el) {
 function setView(view) {
   const isSub = view === 'sub';
 
-  // Toggle hero views
-  const viewSub = document.getElementById('view-sub');
-  const viewUnsub = document.getElementById('view-unsub');
-  const actionsSub = document.getElementById('actions-sub');
-  const actionsUnsub = document.getElementById('actions-unsub');
-  if (viewSub) viewSub.style.display = isSub ? 'block' : 'none';
-  if (viewUnsub) viewUnsub.style.display = isSub ? 'none' : 'block';
-  if (actionsSub) actionsSub.style.display = isSub ? 'flex' : 'none';
-  if (actionsUnsub) actionsUnsub.style.display = isSub ? 'none' : 'flex';
-
   // Toggle button styles
-  document.getElementById('btn-sub').style.background = isSub ? '#fff' : 'none';
-  document.getElementById('btn-sub').style.color = isSub ? '#1a2535' : 'rgba(255,255,255,0.5)';
-  document.getElementById('btn-unsub').style.background = isSub ? 'none' : '#fff';
-  document.getElementById('btn-unsub').style.color = isSub ? 'rgba(255,255,255,0.5)' : '#1a2535';
+  var btnSub = document.getElementById('btn-sub');
+  var btnUnsub = document.getElementById('btn-unsub');
+  if(btnSub) { btnSub.style.background = isSub ? '#fff' : 'none'; btnSub.style.color = isSub ? '#1a2535' : 'rgba(255,255,255,0.5)'; }
+  if(btnUnsub) { btnUnsub.style.background = isSub ? 'none' : '#fff'; btnUnsub.style.color = isSub ? 'rgba(255,255,255,0.5)' : '#1a2535'; }
 
-  // Toggle subscribed-only tabs
-  document.querySelectorAll('.tab.subscribed-only').forEach(t => {
+  // Toggle hero data views
+  var vSub = document.getElementById('view-sub');
+  var vUnsub = document.getElementById('view-unsub');
+  var aSub = document.getElementById('actions-sub');
+  var aUnsub = document.getElementById('actions-unsub');
+  if(vSub) vSub.style.display = isSub ? 'block' : 'none';
+  if(vUnsub) vUnsub.style.display = isSub ? 'none' : 'block';
+  if(aSub) aSub.style.display = isSub ? 'flex' : 'none';
+  if(aUnsub) aUnsub.style.display = isSub ? 'none' : 'flex';
+
+  // Hide/show subscribed-only tabs (Breakdown, Dividends, Documents)
+  document.querySelectorAll('.tab.subscribed-only').forEach(function(t) {
     t.style.display = isSub ? '' : 'none';
   });
 
-  // Toggle all hide-for-unsub elements using their natural display type
-  document.querySelectorAll('.hide-for-unsub').forEach(el => {
+  // Hide/show all content marked hide-for-unsub
+  document.querySelectorAll('.hide-for-unsub').forEach(function(el) {
     if (isSub) {
       el.style.removeProperty('display');
     } else {
@@ -942,15 +967,15 @@ function setView(view) {
     }
   });
 
-  // Toggle show-for-unsub elements (basic info shown only for non-subscribed)
-  document.querySelectorAll('.show-for-unsub').forEach(el => {
+  // Show/hide non-subscribed only content
+  document.querySelectorAll('.show-for-unsub').forEach(function(el) {
     el.style.display = isSub ? 'none' : 'block';
   });
+}
 
-  // Toggle Crown Rating and Alpha Manager badges
-  const badges = document.getElementById('hero-badges');
-  if (badges) badges.style.display = isSub ? 'flex' : 'none';
-}</script>
-<script>setView("sub");</script>
+// Initialise as subscribed on load
+window.addEventListener('load', function() { setView('sub'); });
+</script>
+
 </body>
 </html>
